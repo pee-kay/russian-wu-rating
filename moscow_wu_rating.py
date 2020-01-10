@@ -64,6 +64,12 @@ class Tournament:
 
             ratings[p1], ratings[p2] = system.rate_1vs1(ratings[p1], ratings[p2], drawn)
 
+class Tournaments(list):
+    def create(self, *args, **kwargs):
+        tourney = Tournament(*args, **kwargs)
+        self.append(tourney)
+        return tourney
+
 def rate_players(players, tournaments, player_check = None, tourney_check = None, system = elo):
     ratings = {}
 
@@ -90,21 +96,43 @@ def create_players_dict(*args):
             player = Player(*arg)
         else:
             player = Player(arg)
-
         players[player.name] = player
 
     return players
 
 players = create_players_dict(
-    'Петр Федин', 'Дмитрий Точенов', 'Алексей Смышляев', 'Павел Кузнецов',    'Константин Кручинин', 'Владимир Владимирович', 'Никита Чикулаев',    'Анна Мельникова', 'Денис Кубиков', 'Сергей Шевелев', 'Максим Федоров',    'Евгений Сафронов', 'Александр Алексеев', 'Роман Евсеев',    'Дмитрий Матвеев', 'Александр Петрив', 'Анатолий Коновалов',    'Михаил Ковальков', 'Иван Марков', 'Максим Оргиец', 'Александр Оводков',    'Святослав Соколов', 'Евгений Овчинников', ('Artur Diodand', 'Spb'),    'Антон Чичеткин', 'Данила Антонов', 'Ден Волк', 'Антон Коняхин',    'Федор Федоренко', ('Arsanar', 'Spb'), 'Виктор Нелипович',    ('Soel', 'Spb'), 'Александр Каревский', 'Денис Ульмаев', 'Марк Карк',    'Максим Каревский', 'Мирон Андреев', 'Павел Аленчев', 'Виталий Тютюриков',    'Михаил Соколов', 'Илья Кордонец', 'Алексей Купляков', 'Юлия Овчинникова',    'Глеб Гусев', 'Давид Нариманидзе', 'Евгений Тюляев', 'Денис Никишин',    'Александр Кутлин', 'YNot', 'Артем Анпилогов', 'Дмитрий Бондаренко',    'Леонид Овчинников', 'Андрей Оводков', 'Александр Лебедев', 'Свежеватель',    'Виталий Кривошеев', 'Алексей Меликянц', 'Максим Халилулин',    'Антон Корнаков', 'Евгений Крамеров', 'Андрей Морозов', 'Стас Водолазский',    'Дарион', 'Faraicool', 'Владимир Осокин', ('Nevar', 'Spb'), 'Максим Яцык',    'Максим Чередников', 'Алексей Павлов', 'Кронос', 'Кирилл Бадягин',    'Ася Шестова', 'Василий Гущин', 'Степан Степанов', 'Григорий Архипов',    'Полина Морозова', 'Давид Афинский', 'Кирилл Москаленко', 'Владимир Барсегов',    'Максим Шамцян', 'Александр Старовойтов', 'Григорий Фисаков', 'Егор Долженко',    ('Сергей Сапожков', 'Voronezh', 'Sap'))
+    'Петр Федин', 'Дмитрий Точенов', 'Алексей Смышляев', 'Павел Кузнецов', 'Константин Кручинин',
+    'Владимир Владимирович', 'Никита Чикулаев', 'Анна Мельникова', 'Денис Кубиков',
+    'Сергей Шевелев', 'Максим Федоров', 'Евгений Сафронов', 'Александр Алексеев', 'Роман Евсеев',
+    'Дмитрий Матвеев', 'Александр Петрив', 'Анатолий Коновалов', 'Михаил Ковальков', 'Иван Марков',
+    'Максим Оргиец', 'Александр Оводков', 'Святослав Соколов', 'Евгений Овчинников',
+    ('Artur Diodand', 'Spb'), 'Антон Чичеткин', 'Данила Антонов', 'Ден Волк', 'Антон Коняхин',
+    'Федор Федоренко', ('Arsanar', 'Spb'), 'Виктор Нелипович', ('Soel', 'Spb'),
+    'Александр Каревский', 'Денис Ульмаев', 'Марк Карк', 'Максим Каревский', 'Мирон Андреев',
+    'Павел Аленчев', 'Виталий Тютюриков', 'Михаил Соколов', 'Илья Кордонец', 'Алексей Купляков',
+    'Юлия Овчинникова', 'Глеб Гусев', 'Давид Нариманидзе', 'Евгений Тюляев', 'Денис Никишин',
+    'Александр Кутлин', 'YNot', 'Артем Анпилогов', 'Дмитрий Бондаренко', 'Леонид Овчинников',
+    'Андрей Оводков', 'Александр Лебедев', 'Свежеватель', 'Виталий Кривошеев', 'Алексей Меликянц',
+    'Максим Халилулин', 'Антон Корнаков', 'Евгений Крамеров', 'Андрей Морозов', 'Стас Водолазский',
+    'Дарион', 'Faraicool', 'Владимир Осокин', ('Nevar', 'Spb'), 'Максим Яцык', 'Максим Чередников',
+    'Алексей Павлов', 'Кронос', 'Кирилл Бадягин', 'Ася Шестова', 'Василий Гущин', 'Степан Степанов',
+    'Григорий Архипов', 'Полина Морозова', 'Давид Афинский', 'Кирилл Москаленко',
+    'Владимир Барсегов', 'Максим Шамцян', 'Александр Старовойтов', 'Григорий Фисаков',
+    'Егор Долженко', ('Сергей Сапожков', 'Voronezh', 'Sap'), ('Ilya', 'Spb'), ('Lordik', 'Spb'),
+    ('Dimka', 'Spb'), ('Brin', 'Spb'), ('Kefir', 'Spb'), ('Dok', 'Spb'), ('Just', 'Spb'),
+    ('Kamahl', 'Spb'), ('Oleg', 'Spb'), ('Exselsior', 'Spb'), ('Voron', 'Spb'), ('Pawlove', 'Spb'),
+    ('Verger', 'Spb'), ('Anguis', 'Spb'), ('Rodion', 'Spb'), ('Oksana', 'Spb'), ('Grib', 'Spb'),
+    ('Smog', 'Spb'), ('Hity', 'Spb'), ('Kozulkis', 'Spb'), ('SashaPskov', 'Pskov'),
+    ('Sasha', 'Spb'), ('Solnysko', 'Spb'), ('Boris', 'Spb'), ('Lover', 'Spb'), ('Coach', 'Spb'),
+    ('Tema', 'Spb'), ('Andriy', 'Spb'), ('Ivan', 'Spb'), ('Barb', 'Spb'), ('Tupocowboy', 'Spb'))
 
-tournaments = []
+tournaments = Tournaments()
 
 # TODO: The Mirror Showdown - II 15.10.2018 https://docs.google.com/spreadsheets/d/1IgwytourneyzhfNlwKL7UMcBOYCVdzcAhp5Cfzkb_ueWN0gU/edit#gid=1317522882
 
 # TODO: The Hunting Party - IX 24.12.2018 https://docs.google.com/spreadsheets/d/1xE529VWVc1zY3Sl1ck0f9jBFR2EqzpLWUSDOswMOX3Q/edit#gid=1317522882
 
-tourney = Tournament(
+tourney = tournaments.create(
     'The Mirror Showdown - III', (2019, 1, 20), 'Святослав Соколов', True, {
         'НЧ': 'Никита Чикулаев',
         'РЕ': 'Роман Евсеев',
@@ -165,9 +193,7 @@ tourney.add_match('РЕ', 'СБ', -1)
 tourney.add_match('ДН', 'СШ', -1)
 tourney.add_match('ЮА', 'АМ', 0)
 
-tournaments.append(tourney)
-
-tourney = Tournament(
+tourney = tournaments.create(
     'Yermack\'s birthday cup', (2019, 1, 27), 'Роман Евсеев', True, {
         'КК': 'Константин Кручинин',
         'ДТ': 'Дмитрий Точенов',
@@ -237,11 +263,9 @@ tourney.add_match('СБ', 'КМ', 1)
 tourney.add_match('ЕД', 'ЕК', -1)
 tourney.add_match('ГФ', 'МШ', 1)
 
-tournaments.append(tourney)
-
 # TODO: попробовать добавить командник 'Shadeglass Crusade': https://docs.google.com/spreadsheets/d/1rdY1WNSRE1moKqVWZMxHGJlBaxPiC02wa-Ko5BeRo5M/edit#gid=0
 
-tourney = Tournament(
+tourney = tournaments.create(
     'The Hunting Party - X', (2019, 3, 31), 'Святослав Соколов', False, {
         'Ф': 'Константин Кручинин',
         'Н': 'Nevar',
@@ -284,9 +308,7 @@ tourney.add_match('ВВ', 'МО', 1)
 tourney.add_match('АлО', 'МК', 1)
 tourney.add_match('МА', 'Н', -1)
 
-tournaments.append(tourney)
-
-tourney = Tournament(
+tourney = tournaments.create(
     'The Hunting Party - XI', (2019, 4, 15), 'Святослав Соколов', False, {
         'КК': 'Константин Кручинин',
         'МК': 'Марк Карк',
@@ -314,9 +336,7 @@ tourney.add_match('АО', 'КК', -1)
 tourney.add_match('КБ', 'ВТ', -1)
 tourney.add_match('ПМ', 'ВО', -1)
 
-tournaments.append(tourney)
-
-tourney = Tournament(
+tourney = tournaments.create(
     'The Hunting Party - XII', (2019, 5, 6), 'Святослав Соколов', False, {
         'ДТ': 'Дмитрий Точенов',
         'ВВ': 'Владимир Владимирович',
@@ -354,9 +374,7 @@ tourney.add_match('ДМ', 'Ф', 1)
 tourney.add_match('Кр', 'Св', -1)
 tourney.add_match('АО', 'Й', 1)
 
-tournaments.append(tourney)
-
-tourney = Tournament(
+tourney = tournaments.create(
     'The Mirror Showdown - IV', (2019, 5, 27), 'Святослав Соколов', True, {
         'РЕ': 'Роман Евсеев',
         'АО': 'Александр Оводков',
@@ -424,9 +442,7 @@ tourney.add_match('ИМ', 'ПА', 1)
 tourney.add_match('МА', 'АКу', 1)
 tourney.add_match('ИК', 'ДУ', 1)
 
-tournaments.append(tourney)
-
-tourney = Tournament(
+tourney = tournaments.create(
     'The Heroes Of The Vault', (2019, 6, 9), 'Святослав Соколов', False, {
         'АС': 'Алексей Смышляев',
         'КК': 'Константин Кручинин',
@@ -454,9 +470,7 @@ tourney.add_match('СС', 'ПФ', -1)
 tourney.add_match('ДТ', 'АО', 1)
 tourney.add_match('ВГ', 'ЕК', -1)
 
-tournaments.append(tourney)
-
-tourney = Tournament(
+tourney = tournaments.create(
     'The Hunting Party - XIII', (2019, 6, 24), 'Святослав Соколов', False, {
         'СШ': 'Сергей Шевелев',
         'ВВ': 'Владимир Владимирович',
@@ -489,9 +503,7 @@ tourney.add_match('ДМ', 'АС', -1)
 tourney.add_match('ПА', 'АЛ', 1)
 tourney.add_match('ДА', 'ПФ', -1)
 
-tournaments.append(tourney)
-
-tourney = Tournament(
+tourney = tournaments.create(
     'The Storming of The Mirrored City', (2019, 7, 15), 'Святослав Соколов', True, {
         'РЕ': 'Роман Евсеев',
         'ПФ': 'Петр Федин',
@@ -528,9 +540,7 @@ tourney.add_match('ДК', 'РЕ', -1)
 tourney.add_match('МО', 'АМ', -1)
 tourney.add_match('ДН', 'ИМ', 0)
 
-tournaments.append(tourney)
-
-tourney = Tournament(
+tourney = tournaments.create(
     'The Hunting Party - XIV', (2019, 7, 28), 'Святослав Соколов', False, {
         'ПФ': 'Петр Федин',
         'АК': 'Антон Коняхин',
@@ -563,9 +573,7 @@ tourney.add_match('МК', 'ДК', 1)
 tourney.add_match('АА', 'ВВ', -1)
 tourney.add_match('ДУ', 'АЧ', 1)
 
-tournaments.append(tourney)
-
-tourney = Tournament(
+tourney = tournaments.create(
     'The Hunting Party - XV', (2019, 8, 1), 'Святослав Соколов', False, {
         'ДА': 'Давид Афинский',
         'АО': 'Александр Оводков',
@@ -588,9 +596,7 @@ tourney.add_match('АМ', 'АО', 1)
 tourney.add_match('СС', 'АА', -1)
 tourney.add_match('ДА', 'ДВ', -1)
 
-tournaments.append(tourney)
-
-tourney = Tournament(
+tourney = tournaments.create(
     'The Mirror Showdown - V', (2019, 8, 25), 'Святослав Соколов', True, {
         'ДК': 'Денис Кубиков',
         'АС': 'Алексей Смышляев',
@@ -645,9 +651,7 @@ tourney.add_match('ДК', 'АЧ', -1)
 tourney.add_match('АК', 'МО', 0)
 tourney.add_match('ДУ', 'ДБ', 0)
 
-tournaments.append(tourney)
-
-tourney = Tournament(
+tourney = tournaments.create(
     'The Hunting Party - XVI', (2019, 9, 8), 'Святослав Соколов', False, {
         'ВВ': 'Владимир Владимирович',
         'МаК': 'Марк Карк',
@@ -679,9 +683,7 @@ tourney.add_match('МиК', 'СС', -1)
 tourney.add_match('ВВ', 'ДМ', -1)
 tourney.add_match('МаК', 'ДК', 1)
 
-tournaments.append(tourney)
-
-tourney = Tournament(
+tourney = tournaments.create(
     'The Hunting Party - XVII', (2019, 9, 22), 'Святослав Соколов', False, {
         'АС': 'Алексей Смышляев',
         'АА': 'Александр Алексеев',
@@ -736,9 +738,7 @@ tourney.add_match('АКо', 'МФ', -1)
 tourney.add_match('АМ', 'Д', 1)
 tourney.add_match('АС', 'ПФ', -1)
 
-tournaments.append(tourney)
-
-tourney = Tournament(
+tourney = tournaments.create(
     'The Mirror Showdown - VI', (2019, 10, 20), 'Святослав Соколов', True, {
         'ПФ': 'Петр Федин',
         'СС': 'Степан Степанов',
@@ -771,9 +771,7 @@ tourney.add_match('ААн', 'ВВ', -1)
 tourney.add_match('ДА', 'МФ', -1)
 tourney.add_match('СС', 'ААл', -1)
 
-tournaments.append(tourney)
-
-tourney = Tournament(
+tourney = tournaments.create(
     'MGT B-Day Party 2019', (2019, 12, 7), 'Святослав Соколов', True, {
         'ЕС': 'Евгений Сафронов',
         'МЯ': 'Максим Яцык',
@@ -821,9 +819,7 @@ tourney.add_match('ДА', 'АА', 0)
 tourney.add_match('ЛО', 'АШ', 1)
 tourney.add_match('МЯ', 'МО', 0)
 
-tournaments.append(tourney)
-
-tourney = Tournament(
+tourney = tournaments.create(
     'The Hunting Party - XVIII', (2019, 12, 22), 'Святослав Соколов', False, {
         'МФ': 'Максим Федоров',
         'ЕС': 'Евгений Сафронов',
@@ -850,8 +846,6 @@ tourney.add_match('КК', 'ПК', 1)
 tourney.add_match('НЧ', 'Д', 1)
 tourney.add_match('МФ', 'СС', 1)
 tourney.add_match('ЕС', 'МХ', 1)
-
-tournaments.append(tourney)
 
 print('Топ15 игроков России (по турнирам со стеклом)')
 print('=============================================')
