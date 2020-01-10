@@ -1,27 +1,50 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import trueskill as ts
-import datetime as dt
+import trueskill
+import winrate
+import elo
+import datetime
 
+class Player:
+    def __init__(self, name, city='Msk', display=None):
+        self.name = name
+        self.city = city
+        if display is None:
+            self.display = name
+        else:
+            self.display = display
 
-class Ratings(dict):
-    def __init__(self, players=[]):
-        self.add_players(players)
+    def __str__(self):
+        return self.display
 
-    def add_players(self, players):
-        for p in players:
-            if p not in self:
-                self[p] = ts.Rating()
+    def __repr__(self):
+        return 'Player({}, {}, {})'.format(repr(self.name), repr(self.city), repr(self.display))
 
-
-class Tournament(object):
-    def __init__(self, name, date, org, players):
+class Tournament:
+    def __init__(self, name, date, org, with_glass, players):
         self._name = name
-        self._date = date
+        self._date = datetime.date(*date)
         self._org = org
+        self._with_glass = with_glass
         self._players = players
         self._matches = []
+
+    @property
+    def name(self):
+        return str(self._name)
+
+    @property
+    def date(self):
+        return datetime.date(self._date)
+
+    @property
+    def org(self):
+        return str(self._org)
+
+    @property
+    def with_glass(self):
+        return self._with_glass
 
     def add_match(self, p1, p2, res=1):
         if res < 0:
@@ -31,59 +54,49 @@ class Tournament(object):
         else:
             self._matches.append((self._players[p1], self._players[p2], False))
 
-    def update_ratings(self, ratings):
+    def update_ratings(self, ratings, system = trueskill):
         for (p1, p2, drawn) in self._matches:
-            r1, r2 = ratings[p1], ratings[p2]
-            r1, r2 = ts.rate_1vs1(r1, r2, drawn)
-            ratings[p1], ratings[p2] = r1, r2
+            if p1 not in ratings:
+                ratings[p1] = system.Rating()
 
-msk_players = ['Петр Федин', 'Дмитрий Точенов', 'Алексей Смышляев', 'Павел Кузнецов',
-    'Константин Кручинин', 'Владимир Владимирович', 'Никита Чикулаев',
-    'Анна Мельникова', 'Денис Кубиков', 'Сергей Шевелев', 'Максим Федоров',
-    'Евгений Сафронов', 'Александр Алексеев', 'Роман Евсеев',
-    'Дмитрий Матвеев', 'Александр Петрив', 'Анатолий Коновалов',
-    'Михаил Ковальков', 'Иван Марков', 'Максим Оргиец', 'Александр Оводков',
-    'Святослав Соколов', 'Евгений Овчинников',
-    'Антон Чичеткин', 'Данила Антонов', 'Ден Волк', 'Антон Коняхин',
-    'Федор Федоренко', 'Виктор Нелипович', 'Александр Каревский', 'Денис Ульмаев', 'Марк Карк',
-    'Максим Каревский', 'Мирон Андреев', 'Павел Аленчев', 'Виталий Тютюриков',
-    'Михаил Соколов', 'Илья Кордонец', 'Алексей Купляков', 'Юлия Овчинникова',
-    'Глеб Гусев', 'Давид Нариманидзе', 'Евгений Тюляев', 'Денис Никишин',
-    'Александр Кутлин', 'YNot', 'Артем Анпилогов', 'Дмитрий Бондаренко',
-    'Леонид Овчинников', 'Андрей Оводков', 'Александр Лебедев', 'Свежеватель',
-    'Виталий Кривошеев', 'Алексей Меликянц', 'Максим Халилулин',
-    'Антон Корнаков', 'Евгений Крамеров', 'Андрей Морозов', 'Стас Водолазский',
-    'Дарион', 'Faraicool', 'Владимир Осокин', 'Максим Яцык',
-    'Максим Чередников', 'Алексей Павлов', 'Кронос', 'Кирилл Бадягин',
-    'Ася Шестова', 'Василий Гущин', 'Степан Степанов', 'Григорий Архипов',
-    'Полина Морозова', 'Давид Афинский', 'Кирилл Москаленко', 'Владимир Барсегов',
-    'Максим Шамцян', 'Александр Старовойтов', 'Григорий Фисаков', 'Егор Долженко']
+            if p2 not in ratings:
+                ratings[p2] = system.Rating()
 
-ratings = Ratings([
-    'Петр Федин', 'Дмитрий Точенов', 'Алексей Смышляев', 'Павел Кузнецов',
-    'Константин Кручинин', 'Владимир Владимирович', 'Никита Чикулаев',
-    'Анна Мельникова', 'Денис Кубиков', 'Сергей Шевелев', 'Максим Федоров',
-    'Евгений Сафронов', 'Александр Алексеев', 'Роман Евсеев',
-    'Дмитрий Матвеев', 'Александр Петрив', 'Анатолий Коновалов',
-    'Михаил Ковальков', 'Иван Марков', 'Максим Оргиец', 'Александр Оводков',
-    'Святослав Соколов', 'Евгений Овчинников', 'Artur Diodand',
-    'Антон Чичеткин', 'Данила Антонов', 'Ден Волк', 'Антон Коняхин',
-    'Федор Федоренко', 'Евгений Климов', 'Виктор Нелипович',
-    'Соёл Бадмацыренов', 'Александр Каревский', 'Денис Ульмаев', 'Марк Карк',
-    'Максим Каревский', 'Мирон Андреев', 'Павел Аленчев', 'Виталий Тютюриков',
-    'Михаил Соколов', 'Илья Кордонец', 'Алексей Купляков', 'Юлия Овчинникова',
-    'Глеб Гусев', 'Давид Нариманидзе', 'Евгений Тюляев', 'Денис Никишин',
-    'Александр Кутлин', 'YNot', 'Артем Анпилогов', 'Дмитрий Бондаренко',
-    'Леонид Овчинников', 'Андрей Оводков', 'Александр Лебедев', 'Свежеватель',
-    'Виталий Кривошеев', 'Алексей Меликянц', 'Максим Халилулин',
-    'Антон Корнаков', 'Евгений Крамеров', 'Андрей Морозов', 'Стас Водолазский',
-    'Дарион', 'Faraicool', 'Владимир Осокин', 'Nevar', 'Максим Яцык',
-    'Максим Чередников', 'Алексей Павлов', 'Кронос', 'Кирилл Бадягин',
-    'Ася Шестова', 'Василий Гущин', 'Степан Степанов', 'Григорий Архипов',
-    'Полина Морозова', 'Давид Афинский', 'Кирилл Москаленко', 'Владимир Барсегов',
-    'Максим Шамцян', 'Александр Старовойтов', 'Григорий Фисаков', 'Егор Долженко',
-    'Сергей Сапожков'
-])
+            ratings[p1], ratings[p2] = system.rate_1vs1(ratings[p1], ratings[p2], drawn)
+
+def rate_players(players, tournaments, player_check = None, tourney_check = None, system = elo):
+    ratings = {}
+
+    for tourney in tournaments:
+        if tourney_check is not None and not tourney_check(tourney):
+            continue
+
+        tourney.update_ratings(ratings, system)
+
+    result = []
+    for p, r in sorted(ratings.items(), key=lambda pr: pr[1].mu, reverse=True):
+        player = players[p]
+        if player_check is not None and not player_check(player):
+            continue
+
+        result.append((player, r.mu))
+
+    return result
+
+def create_players_dict(*args):
+    players = {}
+    for arg in args:
+        if isinstance(arg, tuple):
+            player = Player(*arg)
+        else:
+            player = Player(arg)
+
+        players[player.name] = player
+
+    return players
+
+players = create_players_dict(
+    'Петр Федин', 'Дмитрий Точенов', 'Алексей Смышляев', 'Павел Кузнецов',    'Константин Кручинин', 'Владимир Владимирович', 'Никита Чикулаев',    'Анна Мельникова', 'Денис Кубиков', 'Сергей Шевелев', 'Максим Федоров',    'Евгений Сафронов', 'Александр Алексеев', 'Роман Евсеев',    'Дмитрий Матвеев', 'Александр Петрив', 'Анатолий Коновалов',    'Михаил Ковальков', 'Иван Марков', 'Максим Оргиец', 'Александр Оводков',    'Святослав Соколов', 'Евгений Овчинников', ('Artur Diodand', 'Spb'),    'Антон Чичеткин', 'Данила Антонов', 'Ден Волк', 'Антон Коняхин',    'Федор Федоренко', ('Arsanar', 'Spb'), 'Виктор Нелипович',    ('Soel', 'Spb'), 'Александр Каревский', 'Денис Ульмаев', 'Марк Карк',    'Максим Каревский', 'Мирон Андреев', 'Павел Аленчев', 'Виталий Тютюриков',    'Михаил Соколов', 'Илья Кордонец', 'Алексей Купляков', 'Юлия Овчинникова',    'Глеб Гусев', 'Давид Нариманидзе', 'Евгений Тюляев', 'Денис Никишин',    'Александр Кутлин', 'YNot', 'Артем Анпилогов', 'Дмитрий Бондаренко',    'Леонид Овчинников', 'Андрей Оводков', 'Александр Лебедев', 'Свежеватель',    'Виталий Кривошеев', 'Алексей Меликянц', 'Максим Халилулин',    'Антон Корнаков', 'Евгений Крамеров', 'Андрей Морозов', 'Стас Водолазский',    'Дарион', 'Faraicool', 'Владимир Осокин', ('Nevar', 'Spb'), 'Максим Яцык',    'Максим Чередников', 'Алексей Павлов', 'Кронос', 'Кирилл Бадягин',    'Ася Шестова', 'Василий Гущин', 'Степан Степанов', 'Григорий Архипов',    'Полина Морозова', 'Давид Афинский', 'Кирилл Москаленко', 'Владимир Барсегов',    'Максим Шамцян', 'Александр Старовойтов', 'Григорий Фисаков', 'Егор Долженко',    ('Сергей Сапожков', 'Voronezh', 'Sap'))
 
 tournaments = []
 
@@ -92,7 +105,7 @@ tournaments = []
 # TODO: The Hunting Party - IX 24.12.2018 https://docs.google.com/spreadsheets/d/1xE529VWVc1zY3Sl1ck0f9jBFR2EqzpLWUSDOswMOX3Q/edit#gid=1317522882
 
 tourney = Tournament(
-    'The Mirror Showdown - III', dt.date(2019, 1, 20), 'Святослав Соколов', {
+    'The Mirror Showdown - III', (2019, 1, 20), 'Святослав Соколов', True, {
         'НЧ': 'Никита Чикулаев',
         'РЕ': 'Роман Евсеев',
         'ЕС': 'Евгений Сафронов',
@@ -102,7 +115,7 @@ tourney = Tournament(
         'СШ': 'Сергей Шевелев',
         'ПК': 'Павел Кузнецов',
         'АП': 'Алексей Павлов',
-        'СБ': 'Соёл Бадмацыренов',
+        'СБ': 'Soel',
         'АК': 'Анатолий Коновалов',
         'КК': 'Константин Кручинин',
         'ДТ': 'Дмитрий Точенов',
@@ -151,12 +164,11 @@ tourney.add_match('ЕС', 'АС', 1)
 tourney.add_match('РЕ', 'СБ', -1)
 tourney.add_match('ДН', 'СШ', -1)
 tourney.add_match('ЮА', 'АМ', 0)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 tourney = Tournament(
-    'Yermack\'s birthday cup', dt.date(2019, 1, 27), 'Роман Евсеев', {
+    'Yermack\'s birthday cup', (2019, 1, 27), 'Роман Евсеев', True, {
         'КК': 'Константин Кручинин',
         'ДТ': 'Дмитрий Точенов',
         'ПФ': 'Петр Федин',
@@ -164,14 +176,14 @@ tourney = Tournament(
         'АС': 'Александр Старовойтов',
         'ПК': 'Павел Кузнецов',
         'ВБ': 'Владимир Барсегов',
-        'ЕК': 'Евгений Климов',
+        'ЕК': 'Arsanar',
         'МК': 'Марк Карк',
         'СС': 'Святослав Соколов',
         'АК': 'Анатолий Коновалов',
         'ПА': 'Павел Аленчев',
         'СШ': 'Сергей Шевелев',
         'ГФ': 'Григорий Фисаков',
-        'СБ': 'Соёл Бадмацыренов',
+        'СБ': 'Soel',
         'ЕД': 'Егор Долженко',
         'ДН': 'Денис Никишин',
         'КМ': 'Кирилл Москаленко',
@@ -224,14 +236,13 @@ tourney.add_match('СШ', 'АП', 1)
 tourney.add_match('СБ', 'КМ', 1)
 tourney.add_match('ЕД', 'ЕК', -1)
 tourney.add_match('ГФ', 'МШ', 1)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 # TODO: попробовать добавить командник 'Shadeglass Crusade': https://docs.google.com/spreadsheets/d/1rdY1WNSRE1moKqVWZMxHGJlBaxPiC02wa-Ko5BeRo5M/edit#gid=0
 
 tourney = Tournament(
-    'The Hunting Party - X', dt.date(2019, 3, 31), 'Святослав Соколов', {
+    'The Hunting Party - X', (2019, 3, 31), 'Святослав Соколов', False, {
         'Ф': 'Константин Кручинин',
         'Н': 'Nevar',
         'ВВ': 'Владимир Владимирович',
@@ -272,12 +283,11 @@ tourney.add_match('АМ', 'ИМ', 0)
 tourney.add_match('ВВ', 'МО', 1)
 tourney.add_match('АлО', 'МК', 1)
 tourney.add_match('МА', 'Н', -1)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 tourney = Tournament(
-    'The Hunting Party - XI', dt.date(2019, 4, 15), 'Святослав Соколов', {
+    'The Hunting Party - XI', (2019, 4, 15), 'Святослав Соколов', False, {
         'КК': 'Константин Кручинин',
         'МК': 'Марк Карк',
         'ПМ': 'Полина Морозова',
@@ -303,12 +313,11 @@ tourney.add_match('ИМ', 'МК', -1)
 tourney.add_match('АО', 'КК', -1)
 tourney.add_match('КБ', 'ВТ', -1)
 tourney.add_match('ПМ', 'ВО', -1)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 tourney = Tournament(
-    'The Hunting Party - XII', dt.date(2019, 5, 6), 'Святослав Соколов', {
+    'The Hunting Party - XII', (2019, 5, 6), 'Святослав Соколов', False, {
         'ДТ': 'Дмитрий Точенов',
         'ВВ': 'Владимир Владимирович',
         'Ф': 'Faraicool',
@@ -344,12 +353,11 @@ tourney.add_match('МХ', 'АП', -1)
 tourney.add_match('ДМ', 'Ф', 1)
 tourney.add_match('Кр', 'Св', -1)
 tourney.add_match('АО', 'Й', 1)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 tourney = Tournament(
-    'The Mirror Showdown - IV', dt.date(2019, 5, 27), 'Святослав Соколов', {
+    'The Mirror Showdown - IV', (2019, 5, 27), 'Святослав Соколов', True, {
         'РЕ': 'Роман Евсеев',
         'АО': 'Александр Оводков',
         'СШ': 'Сергей Шевелев',
@@ -357,7 +365,7 @@ tourney = Tournament(
         'ДА': 'Данила Антонов',
         'ВВ': 'Владимир Владимирович',
         'ИМ': 'Иван Марков',
-        'ЕК': 'Евгений Климов',
+        'ЕК': 'Arsanar',
         'ДТ': 'Дмитрий Точенов',
         'ДУ': 'Денис Ульмаев',
         'МКа': 'Максим Каревский',
@@ -415,12 +423,11 @@ tourney.add_match('ЕК', 'ДА', 1)
 tourney.add_match('ИМ', 'ПА', 1)
 tourney.add_match('МА', 'АКу', 1)
 tourney.add_match('ИК', 'ДУ', 1)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 tourney = Tournament(
-    'The Heroes Of The Vault', dt.date(2019, 6, 9), 'Святослав Соколов', {
+    'The Heroes Of The Vault', (2019, 6, 9), 'Святослав Соколов', False, {
         'АС': 'Алексей Смышляев',
         'КК': 'Константин Кручинин',
         'ПФ': 'Петр Федин',
@@ -446,12 +453,11 @@ tourney.add_match('КК', 'АС', -1)
 tourney.add_match('СС', 'ПФ', -1)
 tourney.add_match('ДТ', 'АО', 1)
 tourney.add_match('ВГ', 'ЕК', -1)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 tourney = Tournament(
-    'The Hunting Party - XIII', dt.date(2019, 6, 24), 'Святослав Соколов', {
+    'The Hunting Party - XIII', (2019, 6, 24), 'Святослав Соколов', False, {
         'СШ': 'Сергей Шевелев',
         'ВВ': 'Владимир Владимирович',
         'АС': 'Алексей Смышляев',
@@ -482,12 +488,11 @@ tourney.add_match('ВВ', 'ДУ', 1)
 tourney.add_match('ДМ', 'АС', -1)
 tourney.add_match('ПА', 'АЛ', 1)
 tourney.add_match('ДА', 'ПФ', -1)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 tourney = Tournament(
-    'The Storming of The Mirrored City', dt.date(2019, 7, 15), 'Святослав Соколов', {
+    'The Storming of The Mirrored City', (2019, 7, 15), 'Святослав Соколов', True, {
         'РЕ': 'Роман Евсеев',
         'ПФ': 'Петр Федин',
         'ПК': 'Павел Кузнецов',
@@ -522,12 +527,11 @@ tourney.add_match('ПК', 'ДТ', 1)
 tourney.add_match('ДК', 'РЕ', -1)
 tourney.add_match('МО', 'АМ', -1)
 tourney.add_match('ДН', 'ИМ', 0)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 tourney = Tournament(
-    'The Hunting Party - XIV', dt.date(2019, 7, 28), 'Святослав Соколов', {
+    'The Hunting Party - XIV', (2019, 7, 28), 'Святослав Соколов', False, {
         'ПФ': 'Петр Федин',
         'АК': 'Антон Коняхин',
         'ВВ': 'Владимир Владимирович',
@@ -558,12 +562,11 @@ tourney.add_match('АК', 'ДМ', -1)
 tourney.add_match('МК', 'ДК', 1)
 tourney.add_match('АА', 'ВВ', -1)
 tourney.add_match('ДУ', 'АЧ', 1)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 tourney = Tournament(
-    'The Hunting Party - XV', dt.date(2019, 8, 1), 'Святослав Соколов', {
+    'The Hunting Party - XV', (2019, 8, 1), 'Святослав Соколов', False, {
         'ДА': 'Давид Афинский',
         'АО': 'Александр Оводков',
         'ДВ': 'Ден Волк',
@@ -584,12 +587,11 @@ tourney.add_match('СС', 'ДА', 1)
 tourney.add_match('АМ', 'АО', 1)
 tourney.add_match('СС', 'АА', -1)
 tourney.add_match('ДА', 'ДВ', -1)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 tourney = Tournament(
-    'The Mirror Showdown - V', dt.date(2019, 8, 25), 'Святослав Соколов', {
+    'The Mirror Showdown - V', (2019, 8, 25), 'Святослав Соколов', True, {
         'ДК': 'Денис Кубиков',
         'АС': 'Алексей Смышляев',
         'ПФ': 'Петр Федин',
@@ -642,12 +644,11 @@ tourney.add_match('ПК', 'МФ', 1)
 tourney.add_match('ДК', 'АЧ', -1)
 tourney.add_match('АК', 'МО', 0)
 tourney.add_match('ДУ', 'ДБ', 0)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 tourney = Tournament(
-    'The Hunting Party - XVI', dt.date(2019, 9, 8), 'Святослав Соколов', {
+    'The Hunting Party - XVI', (2019, 9, 8), 'Святослав Соколов', False, {
         'ВВ': 'Владимир Владимирович',
         'МаК': 'Марк Карк',
         'ЕС': 'Евгений Сафронов',
@@ -677,12 +678,11 @@ tourney.add_match('ЕС', 'ВН', 1)
 tourney.add_match('МиК', 'СС', -1)
 tourney.add_match('ВВ', 'ДМ', -1)
 tourney.add_match('МаК', 'ДК', 1)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 tourney = Tournament(
-    'The Hunting Party - XVII', dt.date(2019, 9, 22), 'Святослав Соколов', {
+    'The Hunting Party - XVII', (2019, 9, 22), 'Святослав Соколов', False, {
         'АС': 'Алексей Смышляев',
         'АА': 'Александр Алексеев',
         'ДК': 'Денис Кубиков',
@@ -735,12 +735,11 @@ tourney.add_match('НЧ', 'АКу', 1)
 tourney.add_match('АКо', 'МФ', -1)
 tourney.add_match('АМ', 'Д', 1)
 tourney.add_match('АС', 'ПФ', -1)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 tourney = Tournament(
-    'The Mirror Showdown - VI', dt.date(2019, 10, 20), 'Святослав Соколов', {
+    'The Mirror Showdown - VI', (2019, 10, 20), 'Святослав Соколов', True, {
         'ПФ': 'Петр Федин',
         'СС': 'Степан Степанов',
         'ДК': 'Денис Кубиков',
@@ -771,12 +770,11 @@ tourney.add_match('ПФ', 'НЧ', 1)
 tourney.add_match('ААн', 'ВВ', -1)
 tourney.add_match('ДА', 'МФ', -1)
 tourney.add_match('СС', 'ААл', -1)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 tourney = Tournament(
-    'MGT B-Day Party 2019', dt.date(2019, 12, 7), 'Святослав Соколов', {
+    'MGT B-Day Party 2019', (2019, 12, 7), 'Святослав Соколов', True, {
         'ЕС': 'Евгений Сафронов',
         'МЯ': 'Максим Яцык',
         'НЧ': 'Никита Чикулаев',
@@ -822,12 +820,11 @@ tourney.add_match('АЧ', 'ПК', -1)
 tourney.add_match('ДА', 'АА', 0)
 tourney.add_match('ЛО', 'АШ', 1)
 tourney.add_match('МЯ', 'МО', 0)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
 tourney = Tournament(
-    'The Hunting Party - XVIII', dt.date(2019, 12, 22), 'Святослав Соколов', {
+    'The Hunting Party - XVIII', (2019, 12, 22), 'Святослав Соколов', False, {
         'МФ': 'Максим Федоров',
         'ЕС': 'Евгений Сафронов',
         'КК': 'Константин Кручинин',
@@ -853,9 +850,35 @@ tourney.add_match('КК', 'ПК', 1)
 tourney.add_match('НЧ', 'Д', 1)
 tourney.add_match('МФ', 'СС', 1)
 tourney.add_match('ЕС', 'МХ', 1)
-# результаты
-tourney.update_ratings(ratings)
+
 tournaments.append(tourney)
 
-for p, r in sorted(ratings.items(), key=lambda pr: -pr[1].mu if pr[0] in msk_players else 0)[:15]:
-    print(p.rjust(25), r.mu)
+print('Топ15 игроков России (по турнирам со стеклом)')
+print('=============================================')
+for i, (p, r) in enumerate(rate_players(players, tournaments, tourney_check = lambda t: t.with_glass)[:15]):
+    print(str(i + 1).rjust(3), p.display.ljust(25), p.city.ljust(10), round(r, 2))
+print()
+
+print('Топ15 игроков Москвы (по турнирам со стеклом)')
+print('=============================================')
+for i, (p, r) in enumerate(rate_players(players, tournaments, lambda p: p.city == 'Msk', lambda t: t.with_glass)[:15]):
+    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
+print()
+
+print('Топ15 игроков Москвы (по всем турнирам и лигам)')
+print('=============================================')
+for i, (p, r) in enumerate(rate_players(players, tournaments, lambda p: p.city == 'Msk')[:15]):
+    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
+print()
+
+print('Топ15 игроков Москвы (по турнирам @vapour_crow)')
+print('===============================================')
+for i, (p, r) in enumerate(rate_players(players, tournaments, lambda p: p.city == 'Msk', lambda t: t.org == 'Святослав Соколов')[:15]):
+    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
+print()
+
+print('Рейтинг игроков Москвы (по всем турнирам и лигам)')
+print('=================================================')
+for i, (p, r) in enumerate(rate_players(players, tournaments, lambda p: p.city == 'Msk')):
+    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
+print()
