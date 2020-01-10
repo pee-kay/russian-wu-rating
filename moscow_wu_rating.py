@@ -1,4 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import trueskill as ts
+import datetime as dt
+
 
 class Ratings(dict):
     def __init__(self, players=[]):
@@ -11,8 +16,10 @@ class Ratings(dict):
 
 
 class Tournament(object):
-    def __init__(self, name, players):
+    def __init__(self, name, date, org, players):
         self._name = name
+        self._date = date
+        self._org = org
         self._players = players
         self._matches = []
 
@@ -30,6 +37,27 @@ class Tournament(object):
             r1, r2 = ts.rate_1vs1(r1, r2, drawn)
             ratings[p1], ratings[p2] = r1, r2
 
+msk_players = ['Петр Федин', 'Дмитрий Точенов', 'Алексей Смышляев', 'Павел Кузнецов',
+    'Константин Кручинин', 'Владимир Владимирович', 'Никита Чикулаев',
+    'Анна Мельникова', 'Денис Кубиков', 'Сергей Шевелев', 'Максим Федоров',
+    'Евгений Сафронов', 'Александр Алексеев', 'Роман Евсеев',
+    'Дмитрий Матвеев', 'Александр Петрив', 'Анатолий Коновалов',
+    'Михаил Ковальков', 'Иван Марков', 'Максим Оргиец', 'Александр Оводков',
+    'Святослав Соколов', 'Евгений Овчинников',
+    'Антон Чичеткин', 'Данила Антонов', 'Ден Волк', 'Антон Коняхин',
+    'Федор Федоренко', 'Виктор Нелипович', 'Александр Каревский', 'Денис Ульмаев', 'Марк Карк',
+    'Максим Каревский', 'Мирон Андреев', 'Павел Аленчев', 'Виталий Тютюриков',
+    'Михаил Соколов', 'Илья Кордонец', 'Алексей Купляков', 'Юлия Овчинникова',
+    'Глеб Гусев', 'Давид Нариманидзе', 'Евгений Тюляев', 'Денис Никишин',
+    'Александр Кутлин', 'YNot', 'Артем Анпилогов', 'Дмитрий Бондаренко',
+    'Леонид Овчинников', 'Андрей Оводков', 'Александр Лебедев', 'Свежеватель',
+    'Виталий Кривошеев', 'Алексей Меликянц', 'Максим Халилулин',
+    'Антон Корнаков', 'Евгений Крамеров', 'Андрей Морозов', 'Стас Водолазский',
+    'Дарион', 'Faraicool', 'Владимир Осокин', 'Максим Яцык',
+    'Максим Чередников', 'Алексей Павлов', 'Кронос', 'Кирилл Бадягин',
+    'Ася Шестова', 'Василий Гущин', 'Степан Степанов', 'Григорий Архипов',
+    'Полина Морозова', 'Давид Афинский', 'Кирилл Москаленко', 'Владимир Барсегов',
+    'Максим Шамцян', 'Александр Старовойтов', 'Григорий Фисаков', 'Егор Долженко']
 
 ratings = Ratings([
     'Петр Федин', 'Дмитрий Точенов', 'Алексей Смышляев', 'Павел Кузнецов',
@@ -52,17 +80,19 @@ ratings = Ratings([
     'Дарион', 'Faraicool', 'Владимир Осокин', 'Nevar', 'Максим Яцык',
     'Максим Чередников', 'Алексей Павлов', 'Кронос', 'Кирилл Бадягин',
     'Ася Шестова', 'Василий Гущин', 'Степан Степанов', 'Григорий Архипов',
-    'Полина Морозова', 'Давид Афинский'
+    'Полина Морозова', 'Давид Афинский', 'Кирилл Москаленко', 'Владимир Барсегов',
+    'Максим Шамцян', 'Александр Старовойтов', 'Григорий Фисаков', 'Егор Долженко',
+    'Сергей Сапожков'
 ])
 
 tournaments = []
 
-# TODO: The Mirror Showdown - II 15.10.2018 https://docs.google.com/spreadsheets/d/1Igwyt_zhfNlwKL7UMcBOYCVdzcAhp5Cfzkb_ueWN0gU/edit#gid=1317522882
+# TODO: The Mirror Showdown - II 15.10.2018 https://docs.google.com/spreadsheets/d/1IgwytourneyzhfNlwKL7UMcBOYCVdzcAhp5Cfzkb_ueWN0gU/edit#gid=1317522882
 
 # TODO: The Hunting Party - IX 24.12.2018 https://docs.google.com/spreadsheets/d/1xE529VWVc1zY3Sl1ck0f9jBFR2EqzpLWUSDOswMOX3Q/edit#gid=1317522882
 
-t_2019_01_21 = Tournament(
-    'The Mirror Showdown - III', {
+tourney = Tournament(
+    'The Mirror Showdown - III', dt.date(2019, 1, 20), 'Святослав Соколов', {
         'НЧ': 'Никита Чикулаев',
         'РЕ': 'Роман Евсеев',
         'ЕС': 'Евгений Сафронов',
@@ -84,51 +114,124 @@ t_2019_01_21 = Tournament(
     })
 
 # 1 тур
-t_2019_01_21.add_match('РЕ', 'КК', -1)
-t_2019_01_21.add_match('АК', 'АД', -1)
-t_2019_01_21.add_match('ДН', 'ЮА', 1)
-t_2019_01_21.add_match('ЕО', 'ЕС', -1)
-t_2019_01_21.add_match('ПК', 'ФФ', 1)
-t_2019_01_21.add_match('ПФ', 'АМ', 0)
-t_2019_01_21.add_match('НЧ', 'АП', 1)
-t_2019_01_21.add_match('АС', 'СБ', 0)
-t_2019_01_21.add_match('ДТ', 'СШ', -1)
+tourney.add_match('РЕ', 'КК', -1)
+tourney.add_match('АК', 'АД', -1)
+tourney.add_match('ДН', 'ЮА', 1)
+tourney.add_match('ЕО', 'ЕС', -1)
+tourney.add_match('ПК', 'ФФ', 1)
+tourney.add_match('ПФ', 'АМ', 0)
+tourney.add_match('НЧ', 'АП', 1)
+tourney.add_match('АС', 'СБ', 0)
+tourney.add_match('ДТ', 'СШ', -1)
 # 2 тур
-t_2019_01_21.add_match('ПК', 'АД', -1)
-t_2019_01_21.add_match('ДН', 'КК', -1)
-t_2019_01_21.add_match('ЕС', 'СШ', 1)
-t_2019_01_21.add_match('НЧ', 'АС', 1)
-t_2019_01_21.add_match('ПФ', 'СБ', 1)
-t_2019_01_21.add_match('АМ', 'ФФ', -1)
-t_2019_01_21.add_match('АК', 'ЮА', 1)
-t_2019_01_21.add_match('РЕ', 'ЕО', 1)
-t_2019_01_21.add_match('ДТ', 'АП', 1)
+tourney.add_match('ПК', 'АД', -1)
+tourney.add_match('ДН', 'КК', -1)
+tourney.add_match('ЕС', 'СШ', 1)
+tourney.add_match('НЧ', 'АС', 1)
+tourney.add_match('ПФ', 'СБ', 1)
+tourney.add_match('АМ', 'ФФ', -1)
+tourney.add_match('АК', 'ЮА', 1)
+tourney.add_match('РЕ', 'ЕО', 1)
+tourney.add_match('ДТ', 'АП', 1)
 # 3 тур
-t_2019_01_21.add_match('КК', 'АД', 0)
-t_2019_01_21.add_match('ЕС', 'НЧ', -1)
-t_2019_01_21.add_match('ПФ', 'АК', 0)
-t_2019_01_21.add_match('РЕ', 'ПК', -1)
-t_2019_01_21.add_match('ДН', 'ДТ', -1)
-t_2019_01_21.add_match('ФФ', 'СШ', 1)
-t_2019_01_21.add_match('АС', 'АМ', 1)
-t_2019_01_21.add_match('СБ', 'ЕО', 1)
+tourney.add_match('КК', 'АД', 0)
+tourney.add_match('ЕС', 'НЧ', -1)
+tourney.add_match('ПФ', 'АК', 0)
+tourney.add_match('РЕ', 'ПК', -1)
+tourney.add_match('ДН', 'ДТ', -1)
+tourney.add_match('ФФ', 'СШ', 1)
+tourney.add_match('АС', 'АМ', 1)
+tourney.add_match('СБ', 'ЕО', 1)
 # 4 тур
-t_2019_01_21.add_match('НЧ', 'КК', -1)
-t_2019_01_21.add_match('АД', 'ПФ', 1)
-t_2019_01_21.add_match('ПК', 'ДТ', 1)
-t_2019_01_21.add_match('ФФ', 'АК', 1)
-t_2019_01_21.add_match('ЕС', 'АС', 1)
-t_2019_01_21.add_match('РЕ', 'СБ', -1)
-t_2019_01_21.add_match('ДН', 'СШ', -1)
-t_2019_01_21.add_match('ЮА', 'АМ', 0)
+tourney.add_match('НЧ', 'КК', -1)
+tourney.add_match('АД', 'ПФ', 1)
+tourney.add_match('ПК', 'ДТ', 1)
+tourney.add_match('ФФ', 'АК', 1)
+tourney.add_match('ЕС', 'АС', 1)
+tourney.add_match('РЕ', 'СБ', -1)
+tourney.add_match('ДН', 'СШ', -1)
+tourney.add_match('ЮА', 'АМ', 0)
 # результаты
-t_2019_01_21.update_ratings(ratings)
-tournaments.append(t_2019_01_21)
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
+
+tourney = Tournament(
+    'Yermack\'s birthday cup', dt.date(2019, 1, 27), 'Роман Евсеев', {
+        'КК': 'Константин Кручинин',
+        'ДТ': 'Дмитрий Точенов',
+        'ПФ': 'Петр Федин',
+        'Сап': 'Сергей Сапожков',
+        'АС': 'Александр Старовойтов',
+        'ПК': 'Павел Кузнецов',
+        'ВБ': 'Владимир Барсегов',
+        'ЕК': 'Евгений Климов',
+        'МК': 'Марк Карк',
+        'СС': 'Святослав Соколов',
+        'АК': 'Анатолий Коновалов',
+        'ПА': 'Павел Аленчев',
+        'СШ': 'Сергей Шевелев',
+        'ГФ': 'Григорий Фисаков',
+        'СБ': 'Соёл Бадмацыренов',
+        'ЕД': 'Егор Долженко',
+        'ДН': 'Денис Никишин',
+        'КМ': 'Кирилл Москаленко',
+        'ВГ': 'Василий Гущин',
+        'АП': 'Алексей Павлов',
+        'МШ': 'Максим Шамцян'
+    })
+
+# 1 тур
+tourney.add_match('КМ', 'АП', 1)
+tourney.add_match('КК', 'ПК', 1)
+tourney.add_match('ВБ', 'МШ', 1)
+tourney.add_match('АС', 'МК', 1)
+tourney.add_match('ЕК', 'ГФ', 1)
+tourney.add_match('ЕД', 'ПА', 1)
+tourney.add_match('ВГ', 'АК', -1)
+tourney.add_match('СБ', 'СС', -1)
+tourney.add_match('СШ', 'Сап', -1)
+tourney.add_match('ДТ', 'ПФ', 1)
+# 2 тур
+tourney.add_match('КК', 'ЕК', 1)
+tourney.add_match('ДТ', 'АК', 1)
+tourney.add_match('Сап', 'ЕД', 1)
+tourney.add_match('АС', 'ВБ', -1)
+tourney.add_match('СС', 'КМ', 1)
+tourney.add_match('ДН', 'СБ', 1)
+tourney.add_match('АП', 'МШ', 1)
+tourney.add_match('МК', 'СШ', 1)
+tourney.add_match('ПА', 'ВГ', 1)
+tourney.add_match('ПФ', 'ГФ', 1)
+# 3 тур
+tourney.add_match('КК', 'Сап', 1)
+tourney.add_match('ДТ', 'СС', 1)
+tourney.add_match('ВБ', 'ПА', 1)
+tourney.add_match('ПФ', 'ДН', 1)
+tourney.add_match('МК', 'АП', 1)
+tourney.add_match('ГФ', 'ВГ', 1)
+tourney.add_match('АС', 'ЕК', 1)
+tourney.add_match('ПК', 'КМ', 1)
+tourney.add_match('СБ', 'ЕД', 1)
+tourney.add_match('СШ', 'МШ', 1)
+# 4 тур
+tourney.add_match('КК', 'ДТ', 1)
+tourney.add_match('ПФ', 'ВБ', 1)
+tourney.add_match('АС', 'МК', 1)
+tourney.add_match('Сап', 'АК', 1)
+tourney.add_match('ПК', 'СС', 1)
+tourney.add_match('ПА', 'ДН', 1)
+tourney.add_match('СШ', 'АП', 1)
+tourney.add_match('СБ', 'КМ', 1)
+tourney.add_match('ЕД', 'ЕК', -1)
+tourney.add_match('ГФ', 'МШ', 1)
+# результаты
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
 
 # TODO: попробовать добавить командник 'Shadeglass Crusade': https://docs.google.com/spreadsheets/d/1rdY1WNSRE1moKqVWZMxHGJlBaxPiC02wa-Ko5BeRo5M/edit#gid=0
 
-t_2019_03_31 = Tournament(
-    'The Hunting Party - X', {
+tourney = Tournament(
+    'The Hunting Party - X', dt.date(2019, 3, 31), 'Святослав Соколов', {
         'Ф': 'Константин Кручинин',
         'Н': 'Nevar',
         'ВВ': 'Владимир Владимирович',
@@ -146,35 +249,35 @@ t_2019_03_31 = Tournament(
     })
 
 # 1 тур
-t_2019_03_31.add_match('Ф', 'МА', 1)
-t_2019_03_31.add_match('Н', 'ПФ', -1)
-t_2019_03_31.add_match('НЧ', 'МК', 1)
-t_2019_03_31.add_match('АМ', 'ВВ', 1)
-t_2019_03_31.add_match('АС', 'ИМ', 1)
-t_2019_03_31.add_match('АлО', 'МО', -1)
-t_2019_03_31.add_match('АнО', 'АК', 0)
+tourney.add_match('Ф', 'МА', 1)
+tourney.add_match('Н', 'ПФ', -1)
+tourney.add_match('НЧ', 'МК', 1)
+tourney.add_match('АМ', 'ВВ', 1)
+tourney.add_match('АС', 'ИМ', 1)
+tourney.add_match('АлО', 'МО', -1)
+tourney.add_match('АнО', 'АК', 0)
 # 2 тур
-t_2019_03_31.add_match('НЧ', 'ПФ', -1)
-t_2019_03_31.add_match('АС', 'АМ', 1)
-t_2019_03_31.add_match('Ф', 'МО', 1)
-t_2019_03_31.add_match('Н', 'ИМ', -1)
-t_2019_03_31.add_match('МК', 'АК', -1)
-t_2019_03_31.add_match('ВВ', 'МА', 1)
-t_2019_03_31.add_match('АнО', 'АлО', 1)
+tourney.add_match('НЧ', 'ПФ', -1)
+tourney.add_match('АС', 'АМ', 1)
+tourney.add_match('Ф', 'МО', 1)
+tourney.add_match('Н', 'ИМ', -1)
+tourney.add_match('МК', 'АК', -1)
+tourney.add_match('ВВ', 'МА', 1)
+tourney.add_match('АнО', 'АлО', 1)
 # 3 тур
-t_2019_03_31.add_match('АС', 'Ф', -1)
-t_2019_03_31.add_match('ПФ', 'АнО', 1)
-t_2019_03_31.add_match('НЧ', 'АК', 1)
-t_2019_03_31.add_match('АМ', 'ИМ', 0)
-t_2019_03_31.add_match('ВВ', 'МО', 1)
-t_2019_03_31.add_match('АлО', 'МК', 1)
-t_2019_03_31.add_match('МА', 'Н', -1)
+tourney.add_match('АС', 'Ф', -1)
+tourney.add_match('ПФ', 'АнО', 1)
+tourney.add_match('НЧ', 'АК', 1)
+tourney.add_match('АМ', 'ИМ', 0)
+tourney.add_match('ВВ', 'МО', 1)
+tourney.add_match('АлО', 'МК', 1)
+tourney.add_match('МА', 'Н', -1)
 # результаты
-t_2019_03_31.update_ratings(ratings)
-tournaments.append(t_2019_03_31)
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
 
-t_2019_04_15 = Tournament(
-    'The Hunting Party - XI', {
+tourney = Tournament(
+    'The Hunting Party - XI', dt.date(2019, 4, 15), 'Святослав Соколов', {
         'КК': 'Константин Кручинин',
         'МК': 'Марк Карк',
         'ПМ': 'Полина Морозова',
@@ -186,26 +289,26 @@ t_2019_04_15 = Tournament(
     })
 
 # 1 тур
-t_2019_04_15.add_match('АО', 'ПМ', 1)
-t_2019_04_15.add_match('ВТ', 'ИМ', -1)
-t_2019_04_15.add_match('ВО', 'КБ', -1)
-t_2019_04_15.add_match('МК', 'КК', 1)
+tourney.add_match('АО', 'ПМ', 1)
+tourney.add_match('ВТ', 'ИМ', -1)
+tourney.add_match('ВО', 'КБ', -1)
+tourney.add_match('МК', 'КК', 1)
 # 2 тур
-t_2019_04_15.add_match('ИМ', 'АО', 1)
-t_2019_04_15.add_match('МК', 'КБ', 1)
-t_2019_04_15.add_match('ВТ', 'ПМ', 1)
-t_2019_04_15.add_match('ВО', 'КК', 1)
+tourney.add_match('ИМ', 'АО', 1)
+tourney.add_match('МК', 'КБ', 1)
+tourney.add_match('ВТ', 'ПМ', 1)
+tourney.add_match('ВО', 'КК', -1)
 # 3 тур
-t_2019_04_15.add_match('ИМ', 'МК', -1)
-t_2019_04_15.add_match('АО', 'КК', -1)
-t_2019_04_15.add_match('КБ', 'ВТ', -1)
-t_2019_04_15.add_match('ПМ', 'ВО', -1)
+tourney.add_match('ИМ', 'МК', -1)
+tourney.add_match('АО', 'КК', -1)
+tourney.add_match('КБ', 'ВТ', -1)
+tourney.add_match('ПМ', 'ВО', -1)
 # результаты
-t_2019_04_15.update_ratings(ratings)
-tournaments.append(t_2019_04_15)
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
 
-t_2019_05_06 = Tournament(
-    'The Hunting Party - XII', {
+tourney = Tournament(
+    'The Hunting Party - XII', dt.date(2019, 5, 6), 'Святослав Соколов', {
         'ДТ': 'Дмитрий Точенов',
         'ВВ': 'Владимир Владимирович',
         'Ф': 'Faraicool',
@@ -221,33 +324,32 @@ t_2019_05_06 = Tournament(
     })
 
 # 1 тур
-t_2019_05_06.add_match('ДТ', 'Й', 1)
-t_2019_05_06.add_match('ВВ', 'Св', 1)
-t_2019_05_06.add_match('Кр', 'Ф', 1)
-t_2019_05_06.add_match('МХ', 'Си', -1)
-t_2019_05_06.add_match('АП', 'ДМ', 1)
-t_2019_05_06.add_match('АО', 'СС', -1)
+tourney.add_match('ДТ', 'Й', 1)
+tourney.add_match('ВВ', 'Св', 1)
+tourney.add_match('Кр', 'Ф', 1)
+tourney.add_match('МХ', 'Си', -1)
+tourney.add_match('АП', 'ДМ', 1)
+tourney.add_match('АО', 'СС', -1)
 # 2 тур
-t_2019_05_06.add_match('Си', 'СС', -1)
-t_2019_05_06.add_match('ДТ', 'АП', 1)
-t_2019_05_06.add_match('ВВ', 'Кр', 1)
-t_2019_05_06.add_match('АО', 'МХ', -1)
-t_2019_05_06.add_match('Й', 'ДМ', -1)
-t_2019_05_06.add_match('Св', 'Ф', -1)
+tourney.add_match('Си', 'СС', -1)
+tourney.add_match('ДТ', 'АП', 1)
+tourney.add_match('ВВ', 'Кр', 1)
+tourney.add_match('АО', 'МХ', -1)
+tourney.add_match('Й', 'ДМ', -1)
+tourney.add_match('Св', 'Ф', -1)
 # 3 тур
-t_2019_05_06.add_match('СС', 'ВВ', 1)
-t_2019_05_06.add_match('ДТ', 'Си', -1)
-t_2019_05_06.add_match('МХ', 'АП', -1)
-t_2019_05_06.add_match('ДМ', 'Ф', 1)
-t_2019_05_06.add_match('Кр', 'Св', -1)
-t_2019_05_06.add_match('АО', 'Й', 1)
+tourney.add_match('СС', 'ВВ', 1)
+tourney.add_match('ДТ', 'Си', -1)
+tourney.add_match('МХ', 'АП', -1)
+tourney.add_match('ДМ', 'Ф', 1)
+tourney.add_match('Кр', 'Св', -1)
+tourney.add_match('АО', 'Й', 1)
 # результаты
-t_2019_05_06.update_ratings(ratings)
-tournaments.append(t_2019_05_06)
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
 
-#2019.05.27
-t_2019_05_27 = Tournament(
-    'The Mirror Showdown - IV', {
+tourney = Tournament(
+    'The Mirror Showdown - IV', dt.date(2019, 5, 27), 'Святослав Соколов', {
         'РЕ': 'Роман Евсеев',
         'АО': 'Александр Оводков',
         'СШ': 'Сергей Шевелев',
@@ -271,55 +373,54 @@ t_2019_05_27 = Tournament(
     })
 
 # 1 тур
-t_2019_05_27.add_match('РЕ', 'ЕК', 1)
-t_2019_05_27.add_match('ВВ', 'АП', 1)
-t_2019_05_27.add_match('АО', 'АКа', -1)
-t_2019_05_27.add_match('СШ', 'ПФ', 0)
-t_2019_05_27.add_match('ИМ', 'ИК', 1)
-t_2019_05_27.add_match('ДТ', 'СВ', 1)
-t_2019_05_27.add_match('ДУ', 'МКо', -1)
-t_2019_05_27.add_match('ПА', 'МА', 1)
-t_2019_05_27.add_match('ДА', 'ВК', 1)
-t_2019_05_27.add_match('АКу', 'МКа', -1)
+tourney.add_match('РЕ', 'ЕК', 1)
+tourney.add_match('ВВ', 'АП', 1)
+tourney.add_match('АО', 'АКа', -1)
+tourney.add_match('СШ', 'ПФ', 0)
+tourney.add_match('ИМ', 'ИК', 1)
+tourney.add_match('ДТ', 'СВ', 1)
+tourney.add_match('ДУ', 'МКо', -1)
+tourney.add_match('ПА', 'МА', 1)
+tourney.add_match('ДА', 'ВК', 1)
+tourney.add_match('АКу', 'МКа', -1)
 # 2 тур
-t_2019_05_27.add_match('ДА', 'РЕ', -1)
-t_2019_05_27.add_match('ИМ', 'МКа', -1)
-t_2019_05_27.add_match('ВВ', 'ПА', 1)
-t_2019_05_27.add_match('АКа', 'ДТ', -1)
-t_2019_05_27.add_match('МКо', 'ПФ', -1)
-t_2019_05_27.add_match('СШ', 'ДУ', 1)
-t_2019_05_27.add_match('СВ', 'АО', -1)
-t_2019_05_27.add_match('МА', 'АП', -1)
-t_2019_05_27.add_match('АКу', 'ИК', 1)
-t_2019_05_27.add_match('ЕК', 'ВК', 1)
+tourney.add_match('ДА', 'РЕ', -1)
+tourney.add_match('ИМ', 'МКа', -1)
+tourney.add_match('ВВ', 'ПА', 1)
+tourney.add_match('АКа', 'ДТ', -1)
+tourney.add_match('МКо', 'ПФ', -1)
+tourney.add_match('СШ', 'ДУ', 1)
+tourney.add_match('СВ', 'АО', -1)
+tourney.add_match('МА', 'АП', -1)
+tourney.add_match('АКу', 'ИК', 1)
+tourney.add_match('ЕК', 'ВК', 1)
 # 3 тур
-t_2019_05_27.add_match('МКа', 'РЕ', -1)
-t_2019_05_27.add_match('ДТ', 'ВВ', 1)
-t_2019_05_27.add_match('СШ', 'ДА', 1)
-t_2019_05_27.add_match('ПФ', 'ЕК', 0)
-t_2019_05_27.add_match('ИМ', 'АП', -1)
-t_2019_05_27.add_match('ПА', 'АКа', -1)
-t_2019_05_27.add_match('АКу', 'МКо', -1)
-t_2019_05_27.add_match('АО', 'ВК', 1)
-t_2019_05_27.add_match('ДУ', 'МА', -1)
-t_2019_05_27.add_match('ИК', 'СВ', 0)
+tourney.add_match('МКа', 'РЕ', -1)
+tourney.add_match('ДТ', 'ВВ', 1)
+tourney.add_match('СШ', 'ДА', 1)
+tourney.add_match('ПФ', 'ЕК', 0)
+tourney.add_match('ИМ', 'АП', -1)
+tourney.add_match('ПА', 'АКа', -1)
+tourney.add_match('АКу', 'МКо', -1)
+tourney.add_match('АО', 'ВК', 1)
+tourney.add_match('ДУ', 'МА', -1)
+tourney.add_match('ИК', 'СВ', 0)
 # 4 тур
-t_2019_05_27.add_match('ДТ', 'РЕ', 1)
-t_2019_05_27.add_match('СШ', 'МКа', 1)
-t_2019_05_27.add_match('АП', 'МКо', 1)
-t_2019_05_27.add_match('АКа', 'ПФ', -1)
-t_2019_05_27.add_match('АО', 'ВВ', -1)
-t_2019_05_27.add_match('ЕК', 'ДА', 1)
-t_2019_05_27.add_match('ИМ', 'ПА', 1)
-t_2019_05_27.add_match('МА', 'АКу', 1)
-t_2019_05_27.add_match('ИК', 'ДУ', 1)
+tourney.add_match('ДТ', 'РЕ', 1)
+tourney.add_match('СШ', 'МКа', 1)
+tourney.add_match('АП', 'МКо', 1)
+tourney.add_match('АКа', 'ПФ', -1)
+tourney.add_match('АО', 'ВВ', -1)
+tourney.add_match('ЕК', 'ДА', 1)
+tourney.add_match('ИМ', 'ПА', 1)
+tourney.add_match('МА', 'АКу', 1)
+tourney.add_match('ИК', 'ДУ', 1)
 # результаты
-t_2019_05_27.update_ratings(ratings)
-tournaments.append(t_2019_05_27)
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
 
-#2019.06.09
-t_2019_06_09 = Tournament(
-    'The Heroes Of The Vault', {
+tourney = Tournament(
+    'The Heroes Of The Vault', dt.date(2019, 6, 9), 'Святослав Соколов', {
         'АС': 'Алексей Смышляев',
         'КК': 'Константин Кручинин',
         'ПФ': 'Петр Федин',
@@ -331,27 +432,26 @@ t_2019_06_09 = Tournament(
     })
 
 # 1 тур
-t_2019_06_09.add_match('АС', 'СС', 1)
-t_2019_06_09.add_match('АО', 'ПФ', -1)
-t_2019_06_09.add_match('КК', 'ЕК', 1)
-t_2019_06_09.add_match('ВГ', 'ДТ', 0)
+tourney.add_match('АС', 'СС', 1)
+tourney.add_match('АО', 'ПФ', -1)
+tourney.add_match('КК', 'ЕК', 1)
+tourney.add_match('ВГ', 'ДТ', 0)
 # 2 тур
-t_2019_06_09.add_match('КК', 'ПФ', 1)
-t_2019_06_09.add_match('АС', 'ДТ', 1)
-t_2019_06_09.add_match('ВГ', 'СС', -1)
-t_2019_06_09.add_match('АО', 'ЕК', 1)
+tourney.add_match('КК', 'ПФ', 1)
+tourney.add_match('АС', 'ДТ', 1)
+tourney.add_match('ВГ', 'СС', -1)
+tourney.add_match('АО', 'ЕК', 1)
 # 3 тур
-t_2019_06_09.add_match('КК', 'АС', -1)
-t_2019_06_09.add_match('СС', 'ПФ', -1)
-t_2019_06_09.add_match('ДТ', 'АО', 1)
-t_2019_06_09.add_match('ВГ', 'ЕК', -1)
+tourney.add_match('КК', 'АС', -1)
+tourney.add_match('СС', 'ПФ', -1)
+tourney.add_match('ДТ', 'АО', 1)
+tourney.add_match('ВГ', 'ЕК', -1)
 # результаты
-t_2019_06_09.update_ratings(ratings)
-tournaments.append(t_2019_06_09)
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
 
-#2019.06.24
-t_2019_06_24 = Tournament(
-    'The Hunting Party - XIII', {
+tourney = Tournament(
+    'The Hunting Party - XIII', dt.date(2019, 6, 24), 'Святослав Соколов', {
         'СШ': 'Сергей Шевелев',
         'ВВ': 'Владимир Владимирович',
         'АС': 'Алексей Смышляев',
@@ -365,30 +465,29 @@ t_2019_06_24 = Tournament(
     })
 
 # 1 тур
-t_2019_06_24.add_match('ПА', 'ПФ', 1)
-t_2019_06_24.add_match('СШ', 'АС', 1)
-t_2019_06_24.add_match('ИМ', 'АЛ', 1)
-t_2019_06_24.add_match('ВВ', 'ДМ', 0)
-t_2019_06_24.add_match('ДУ', 'ДА', 1)
+tourney.add_match('ПА', 'ПФ', 1)
+tourney.add_match('СШ', 'АС', 1)
+tourney.add_match('ИМ', 'АЛ', 1)
+tourney.add_match('ВВ', 'ДМ', 0)
+tourney.add_match('ДУ', 'ДА', 1)
 # 2 тур
-t_2019_06_24.add_match('ИМ', 'ДУ', 1)
-t_2019_06_24.add_match('СШ', 'ПА', 1)
-t_2019_06_24.add_match('ВВ', 'АЛ', 1)
-t_2019_06_24.add_match('ДМ', 'ДА', 1)
-t_2019_06_24.add_match('АС', 'ПФ', 1)
+tourney.add_match('ИМ', 'ДУ', 1)
+tourney.add_match('СШ', 'ПА', 1)
+tourney.add_match('ВВ', 'АЛ', 1)
+tourney.add_match('ДМ', 'ДА', 1)
+tourney.add_match('АС', 'ПФ', 1)
 # 3 тур
-t_2019_06_24.add_match('ИМ', 'СШ', -1)
-t_2019_06_24.add_match('ВВ', 'ДУ', 1)
-t_2019_06_24.add_match('ДМ', 'АС', -1)
-t_2019_06_24.add_match('ПА', 'АЛ', 1)
-t_2019_06_24.add_match('ДА', 'ПФ', -1)
+tourney.add_match('ИМ', 'СШ', -1)
+tourney.add_match('ВВ', 'ДУ', 1)
+tourney.add_match('ДМ', 'АС', -1)
+tourney.add_match('ПА', 'АЛ', 1)
+tourney.add_match('ДА', 'ПФ', -1)
 # результаты
-t_2019_06_24.update_ratings(ratings)
-tournaments.append(t_2019_06_24)
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
 
-#2019.07.15
-t_2019_07_15 = Tournament(
-    'The Storming of The Mirrored City', {
+tourney = Tournament(
+    'The Storming of The Mirrored City', dt.date(2019, 7, 15), 'Святослав Соколов', {
         'РЕ': 'Роман Евсеев',
         'ПФ': 'Петр Федин',
         'ПК': 'Павел Кузнецов',
@@ -404,31 +503,31 @@ t_2019_07_15 = Tournament(
     })
 
 # 1 тур
-t_2019_07_15.add_match('ПК', 'ГГ', 0)
-t_2019_07_15.add_match('РЕ', 'ЕТ', 1)
-t_2019_07_15.add_match('ПФ', 'МО', 1)
-t_2019_07_15.add_match('ДН', 'СС', -1)
-t_2019_07_15.add_match('ИМ', 'АМ', -1)
-t_2019_07_15.add_match('ДТ', 'ДК', 1)
+tourney.add_match('ПК', 'ГГ', 0)
+tourney.add_match('РЕ', 'ЕТ', 1)
+tourney.add_match('ПФ', 'МО', 1)
+tourney.add_match('ДН', 'СС', -1)
+tourney.add_match('ИМ', 'АМ', -1)
+tourney.add_match('ДТ', 'ДК', 1)
 # 2 тур
-t_2019_07_15.add_match('СС', 'ДТ', 1)
-t_2019_07_15.add_match('РЕ', 'ПФ', -1)
-t_2019_07_15.add_match('ПК', 'АМ', 1)
-t_2019_07_15.add_match('ДН', 'ГГ', 0)
-t_2019_07_15.add_match('ДК', 'ЕТ', 1)
-t_2019_07_15.add_match('МО', 'ИМ', 1)
+tourney.add_match('СС', 'ДТ', 1)
+tourney.add_match('РЕ', 'ПФ', -1)
+tourney.add_match('ПК', 'АМ', 1)
+tourney.add_match('ДН', 'ГГ', 0)
+tourney.add_match('ДК', 'ЕТ', 1)
+tourney.add_match('МО', 'ИМ', 1)
 # 3 тур
-t_2019_07_15.add_match('СС', 'ПФ', -1)
-t_2019_07_15.add_match('ПК', 'ДТ', 1)
-t_2019_07_15.add_match('ДК', 'РЕ', -1)
-t_2019_07_15.add_match('МО', 'АМ', -1)
-t_2019_07_15.add_match('ДН', 'ИМ', 0)
+tourney.add_match('СС', 'ПФ', -1)
+tourney.add_match('ПК', 'ДТ', 1)
+tourney.add_match('ДК', 'РЕ', -1)
+tourney.add_match('МО', 'АМ', -1)
+tourney.add_match('ДН', 'ИМ', 0)
 # результаты
-t_2019_07_15.update_ratings(ratings)
-tournaments.append(t_2019_07_15)
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
 
-t_2019_07_28 = Tournament(
-    'The Hunting Party - XIV', {
+tourney = Tournament(
+    'The Hunting Party - XIV', dt.date(2019, 7, 28), 'Святослав Соколов', {
         'ПФ': 'Петр Федин',
         'АК': 'Антон Коняхин',
         'ВВ': 'Владимир Владимирович',
@@ -442,29 +541,29 @@ t_2019_07_28 = Tournament(
     })
 
 # 1 тур
-t_2019_07_28.add_match('ВВ', 'ДУ', 1)
-t_2019_07_28.add_match('ПФ', 'МК', 1)
-t_2019_07_28.add_match('АК', 'АА', -1)
-t_2019_07_28.add_match('ДМ', 'АС', -1)
-t_2019_07_28.add_match('АЧ', 'ДК', -1)
+tourney.add_match('ВВ', 'ДУ', 1)
+tourney.add_match('ПФ', 'МК', 1)
+tourney.add_match('АК', 'АА', -1)
+tourney.add_match('ДМ', 'АС', -1)
+tourney.add_match('АЧ', 'ДК', -1)
 # 2 тур
-t_2019_07_28.add_match('ПФ', 'ДК', 1)
-t_2019_07_28.add_match('АС', 'ВВ', 1)
-t_2019_07_28.add_match('АА', 'МК', -1)
-t_2019_07_28.add_match('АЧ', 'ДМ', -1)
-t_2019_07_28.add_match('АК', 'ДУ', 1)
+tourney.add_match('ПФ', 'ДК', 1)
+tourney.add_match('АС', 'ВВ', 1)
+tourney.add_match('АА', 'МК', -1)
+tourney.add_match('АЧ', 'ДМ', -1)
+tourney.add_match('АК', 'ДУ', 1)
 # 3 тур
-t_2019_07_28.add_match('ПФ', 'АС', 1)
-t_2019_07_28.add_match('АК', 'ДМ', -1)
-t_2019_07_28.add_match('МК', 'ДК', 1)
-t_2019_07_28.add_match('АА', 'ВВ', -1)
-t_2019_07_28.add_match('ДУ', 'АЧ', 1)
+tourney.add_match('ПФ', 'АС', 1)
+tourney.add_match('АК', 'ДМ', -1)
+tourney.add_match('МК', 'ДК', 1)
+tourney.add_match('АА', 'ВВ', -1)
+tourney.add_match('ДУ', 'АЧ', 1)
 # результаты
-t_2019_07_28.update_ratings(ratings)
-tournaments.append(t_2019_07_28)
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
 
-t_2019_08_11 = Tournament(
-    'The Hunting Party - XV', {
+tourney = Tournament(
+    'The Hunting Party - XV', dt.date(2019, 8, 1), 'Святослав Соколов', {
         'ДА': 'Давид Афинский',
         'АО': 'Александр Оводков',
         'ДВ': 'Ден Волк',
@@ -474,23 +573,23 @@ t_2019_08_11 = Tournament(
     })
 
 # 1 тур
-t_2019_08_11.add_match('ДА', 'АО', -1)
-t_2019_08_11.add_match('ДВ', 'АА', -1)
-t_2019_08_11.add_match('АМ', 'СС', 1)
+tourney.add_match('ДА', 'АО', -1)
+tourney.add_match('ДВ', 'АА', -1)
+tourney.add_match('АМ', 'СС', 1)
 # 2 тур
-t_2019_08_11.add_match('АА', 'АМ', -1)
-t_2019_08_11.add_match('АО', 'ДВ', 1)
-t_2019_08_11.add_match('СС', 'ДА', 1)
+tourney.add_match('АА', 'АМ', -1)
+tourney.add_match('АО', 'ДВ', 1)
+tourney.add_match('СС', 'ДА', 1)
 # 3 тур
-t_2019_08_11.add_match('АМ', 'АО', 1)
-t_2019_08_11.add_match('СС', 'АА', -1)
-t_2019_08_11.add_match('ДА', 'ДВ', -1)
+tourney.add_match('АМ', 'АО', 1)
+tourney.add_match('СС', 'АА', -1)
+tourney.add_match('ДА', 'ДВ', -1)
 # результаты
-t_2019_08_11.update_ratings(ratings)
-tournaments.append(t_2019_08_11)
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
 
-t_2019_08_25 = Tournament(
-    'The Mirror Showdown - 05', {
+tourney = Tournament(
+    'The Mirror Showdown - V', dt.date(2019, 8, 25), 'Святослав Соколов', {
         'ДК': 'Денис Кубиков',
         'АС': 'Алексей Смышляев',
         'ПФ': 'Петр Федин',
@@ -510,69 +609,253 @@ t_2019_08_25 = Tournament(
     })
 
 # 1 тур
-t_2019_08_25.add_match('ДК', 'АМ', -1)
-t_2019_08_25.add_match('АС', 'ПК', -1)
-t_2019_08_25.add_match('ПФ', 'ВТ', 1)
-t_2019_08_25.add_match('ДУ', 'МО', -1)
-t_2019_08_25.add_match('АА', 'ДВ', 0)
-t_2019_08_25.add_match('ДБ', 'АЧ', -1)
-t_2019_08_25.add_match('АК', 'ДТ', -1)
-t_2019_08_25.add_match('МФ', 'МЧ', 1)
+tourney.add_match('ДК', 'АМ', -1)
+tourney.add_match('АС', 'ПК', -1)
+tourney.add_match('ПФ', 'ВТ', 1)
+tourney.add_match('ДУ', 'МО', -1)
+tourney.add_match('АА', 'ДВ', 0)
+tourney.add_match('ДБ', 'АЧ', -1)
+tourney.add_match('АК', 'ДТ', -1)
+tourney.add_match('МФ', 'МЧ', 1)
 # 2 тур
-t_2019_08_25.add_match('АЧ', 'АМ', -1)
-t_2019_08_25.add_match('ПК', 'ПФ', -1)
-t_2019_08_25.add_match('МФ', 'МО', 1)
-t_2019_08_25.add_match('ДТ', 'АА', 1)
-t_2019_08_25.add_match('ДВ', 'ДБ', 0)
-t_2019_08_25.add_match('ДК', 'АС', -1)
-t_2019_08_25.add_match('ВТ', 'МЧ', -1)
-t_2019_08_25.add_match('АК', 'ДУ', 1)
+tourney.add_match('АЧ', 'АМ', -1)
+tourney.add_match('ПК', 'ПФ', -1)
+tourney.add_match('МФ', 'МО', 1)
+tourney.add_match('ДТ', 'АА', 1)
+tourney.add_match('ДВ', 'ДБ', 0)
+tourney.add_match('ДК', 'АС', -1)
+tourney.add_match('ВТ', 'МЧ', -1)
+tourney.add_match('АК', 'ДУ', 1)
 # 3 тур
-t_2019_08_25.add_match('ПФ', 'МФ', 1)
-t_2019_08_25.add_match('АМ', 'ДТ', -1)
-t_2019_08_25.add_match('АС', 'АЧ', 1)
-t_2019_08_25.add_match('ПК', 'АК', 1)
-t_2019_08_25.add_match('МЧ', 'ДВ', -1)
-t_2019_08_25.add_match('МО', 'АА', -1)
-t_2019_08_25.add_match('ДБ', 'ДК', -1)
-t_2019_08_25.add_match('ВТ', 'ДУ', -1)
+tourney.add_match('ПФ', 'МФ', 1)
+tourney.add_match('АМ', 'ДТ', -1)
+tourney.add_match('АС', 'АЧ', 1)
+tourney.add_match('ПК', 'АК', 1)
+tourney.add_match('МЧ', 'ДВ', -1)
+tourney.add_match('МО', 'АА', -1)
+tourney.add_match('ДБ', 'ДК', -1)
+tourney.add_match('ВТ', 'ДУ', -1)
 # 4 тур
-t_2019_08_25.add_match('ПФ', 'ДТ', -1)
-t_2019_08_25.add_match('АС', 'АМ', 1)
-t_2019_08_25.add_match('ПК', 'МФ', 1)
-t_2019_08_25.add_match('ДК', 'АЧ', -1)
-t_2019_08_25.add_match('АК', 'МО', 0)
-t_2019_08_25.add_match('ДУ', 'ДБ', 0)
+tourney.add_match('ПФ', 'ДТ', -1)
+tourney.add_match('АС', 'АМ', 1)
+tourney.add_match('ПК', 'МФ', 1)
+tourney.add_match('ДК', 'АЧ', -1)
+tourney.add_match('АК', 'МО', 0)
+tourney.add_match('ДУ', 'ДБ', 0)
 # результаты
-t_2019_08_25.update_ratings(ratings)
-tournaments.append(t_2019_08_25)
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
 
-'''
-t_ = Tournament(
-    '', {
-        '': '',
-        '': ''
+tourney = Tournament(
+    'The Hunting Party - XVI', dt.date(2019, 9, 8), 'Святослав Соколов', {
+        'ВВ': 'Владимир Владимирович',
+        'МаК': 'Марк Карк',
+        'ЕС': 'Евгений Сафронов',
+        'ДМ': 'Дмитрий Матвеев',
+        'МиК': 'Михаил Ковальков',
+        'ДК': 'Денис Кубиков',
+        'АК': 'Алексей Купляков',
+        'ВН': 'Виктор Нелипович',
+        'ВТ': 'Виталий Тютюриков',
+        'СС': 'Святослав Соколов'
     })
 
 # 1 тур
-t_.add_match('', '', )
-t_.add_match('', '', )
-t_.add_match('', '', )
-t_.add_match('', '', )
+tourney.add_match('ВВ', 'МаК', -1)
+tourney.add_match('ЕС', 'ДМ', 1)
+tourney.add_match('МиК', 'ДК', 1)
+tourney.add_match('АК', 'ВН', -1)
+tourney.add_match('ВТ', 'СС', -1)
 # 2 тур
-t_.add_match('', '', )
-t_.add_match('', '', )
-t_.add_match('', '', )
-t_.add_match('', '', )
+tourney.add_match('СС', 'ВН', -1)
+tourney.add_match('МиК', 'МаК', 1)
+tourney.add_match('ЕС', 'ВТ', 1)
+tourney.add_match('АК', 'ДМ', -1)
+tourney.add_match('ВВ', 'ДК', 1)
 # 3 тур
-t_.add_match('', '', )
-t_.add_match('', '', )
-t_.add_match('', '', )
-t_.add_match('', '', )
+tourney.add_match('ЕС', 'ВН', 1)
+tourney.add_match('МиК', 'СС', -1)
+tourney.add_match('ВВ', 'ДМ', -1)
+tourney.add_match('МаК', 'ДК', 1)
 # результаты
-t_.update_ratings(ratings)
-tournaments.append(t_)
-'''
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
 
-for p, r in sorted(ratings.items(), key=lambda pr: -pr[1].mu):
-    print(p, r.mu, r.sigma)
+tourney = Tournament(
+    'The Hunting Party - XVII', dt.date(2019, 9, 22), 'Святослав Соколов', {
+        'АС': 'Алексей Смышляев',
+        'АА': 'Александр Алексеев',
+        'ДК': 'Денис Кубиков',
+        'ПФ': 'Петр Федин',
+        'АКо': 'Антон Коняхин',
+        'МФ': 'Максим Федоров',
+        'ЕО': 'Евгений Овчинников',
+        'НЧ': 'Никита Чикулаев',
+        'ВВ': 'Владимир Владимирович',
+        'АЛ': 'Александр Лебедев',
+        'Д': 'Дарион',
+        'ГА': 'Григорий Архипов',
+        'АКу': 'Алексей Купляков',
+        'АМ': 'Алексей Меликянц',
+        'ДМ': 'Дмитрий Матвеев',
+        'СС': 'Святослав Соколов'
+    })
+
+# 1 тур
+tourney.add_match('ПФ', 'НЧ', 1)
+tourney.add_match('Д', 'ДМ', -1)
+tourney.add_match('ВВ', 'МФ', -1)
+tourney.add_match('АС', 'АА', -1)
+tourney.add_match('ДК', 'АКо', 1)
+tourney.add_match('АЛ', 'ЕО', -1)
+tourney.add_match('ГА', 'АКу', -1)
+tourney.add_match('АМ', 'СС', -1)
+# 2 тур
+tourney.add_match('ДК', 'СС', 1)
+tourney.add_match('АА', 'ДМ', -1)
+tourney.add_match('МФ', 'ЕО', -1)
+tourney.add_match('АКу', 'ПФ', 1)
+tourney.add_match('АКо', 'АМ', 1)
+tourney.add_match('АС', 'Д', -1)
+tourney.add_match('ВВ', 'АЛ', 1)
+tourney.add_match('ГА', 'НЧ', -1)
+# 3 тур
+tourney.add_match('ДМ', 'ДК', 1)
+tourney.add_match('ЕО', 'АКу', 1)
+tourney.add_match('Д', 'СС', -1)
+tourney.add_match('АКо', 'ВВ', -1)
+tourney.add_match('АА', 'МФ', 1)
+tourney.add_match('ПФ', 'АЛ', -1)
+tourney.add_match('НЧ', 'АС', 1)
+tourney.add_match('ГА', 'АМ', -1)
+# 4 тур
+tourney.add_match('ЕО', 'ДМ', 1)
+tourney.add_match('ВВ', 'ДК', -1)
+tourney.add_match('НЧ', 'АКу', 1)
+tourney.add_match('АКо', 'МФ', -1)
+tourney.add_match('АМ', 'Д', 1)
+tourney.add_match('АС', 'ПФ', -1)
+# результаты
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
+
+tourney = Tournament(
+    'The Mirror Showdown - VI', dt.date(2019, 10, 20), 'Святослав Соколов', {
+        'ПФ': 'Петр Федин',
+        'СС': 'Степан Степанов',
+        'ДК': 'Денис Кубиков',
+        'ААл': 'Александр Алексеев',
+        'НЧ': 'Никита Чикулаев',
+        'АС': 'Алексей Смышляев',
+        'ААн': 'Артем Анпилогов',
+        'ВВ': 'Владимир Владимирович',
+        'ДА': 'Данила Антонов',
+        'МФ': 'Максим Федоров'
+    })
+
+# 1 тур
+tourney.add_match('ПФ', 'МФ', 0)
+tourney.add_match('СС', 'ДА', -1)
+tourney.add_match('ДК', 'ААл', 1)
+tourney.add_match('НЧ', 'ВВ', 1)
+tourney.add_match('АС', 'ААн', 1)
+# 2 тур
+tourney.add_match('ДК', 'НЧ', 1)
+tourney.add_match('ДА', 'АС', -1)
+tourney.add_match('ПФ', 'ААл', 1)
+tourney.add_match('МФ', 'ВВ', -1)
+tourney.add_match('СС', 'ААн', -1)
+# 3 тур
+tourney.add_match('ДК', 'АС', 1)
+tourney.add_match('ПФ', 'НЧ', 1)
+tourney.add_match('ААн', 'ВВ', -1)
+tourney.add_match('ДА', 'МФ', -1)
+tourney.add_match('СС', 'ААл', -1)
+# результаты
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
+
+tourney = Tournament(
+    'MGT B-Day Party 2019', dt.date(2019, 12, 7), 'Святослав Соколов', {
+        'ЕС': 'Евгений Сафронов',
+        'МЯ': 'Максим Яцык',
+        'НЧ': 'Никита Чикулаев',
+        'ЕО': 'Евгений Овчинников',
+        'КК': 'Константин Кручинин',
+        'ПФ': 'Петр Федин',
+        'ЛО': 'Леонид Овчинников',
+        'АМ': 'Анна Мельникова',
+        'МС': 'Михаил Соколов',
+        'ПК': 'Павел Кузнецов',
+        'МО': 'Максим Оргиец',
+        'АШ': 'Ася Шестова',
+        'АК': 'Анатолий Коновалов',
+        'АЧ': 'Антон Чичеткин',
+        'ДА': 'Данила Антонов',
+        'АА': 'Александр Алексеев'
+    })
+
+# 1 тур
+tourney.add_match('МЯ', 'АА', -1)
+tourney.add_match('МС', 'АШ', 1)
+tourney.add_match('ПФ', 'КК', 1)
+tourney.add_match('ЕС', 'ДА', 1)
+tourney.add_match('НЧ', 'ЛО', 1)
+tourney.add_match('АМ', 'АК', -1)
+tourney.add_match('ПК', 'МО', 1)
+tourney.add_match('АЧ', 'ЕО', -1)
+# 2 тур
+tourney.add_match('ЕО', 'НЧ', -1)
+tourney.add_match('ЕС', 'МС', 0)
+tourney.add_match('ПК', 'ПФ', -1)
+tourney.add_match('АК', 'АА', 1)
+tourney.add_match('АЧ', 'ЛО', 1)
+tourney.add_match('ДА', 'АШ', 1)
+tourney.add_match('МО', 'КК', -1)
+tourney.add_match('АМ', 'МЯ', 1)
+# 3 тур
+tourney.add_match('НЧ', 'ПФ', -1)
+tourney.add_match('АК', 'ЕС', 0)
+tourney.add_match('МС', 'АМ', -1)
+tourney.add_match('КК', 'ЕО', 1)
+tourney.add_match('АЧ', 'ПК', -1)
+tourney.add_match('ДА', 'АА', 0)
+tourney.add_match('ЛО', 'АШ', 1)
+tourney.add_match('МЯ', 'МО', 0)
+# результаты
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
+
+tourney = Tournament(
+    'The Hunting Party - XVIII', dt.date(2019, 12, 22), 'Святослав Соколов', {
+        'МФ': 'Максим Федоров',
+        'ЕС': 'Евгений Сафронов',
+        'КК': 'Константин Кручинин',
+        'Д': 'Ден Волк',
+        'НЧ': 'Никита Чикулаев',
+        'ПК': 'Павел Кузнецов',
+        'СС': 'Святослав Соколов',
+        'МХ': 'Максим Халилулин'
+    })
+
+# 1 тур
+tourney.add_match('МФ', 'НЧ', 1)
+tourney.add_match('ЕС', 'СС', 0)
+tourney.add_match('КК', 'МХ', 1)
+tourney.add_match('Д', 'ПК', 0)
+# 2 тур
+tourney.add_match('МФ', 'КК', -1)
+tourney.add_match('Д', 'СС', 0)
+tourney.add_match('ПК', 'ЕС', 1)
+tourney.add_match('НЧ', 'МХ', 1)
+# 3 тур
+tourney.add_match('КК', 'ПК', 1)
+tourney.add_match('НЧ', 'Д', 1)
+tourney.add_match('МФ', 'СС', 1)
+tourney.add_match('ЕС', 'МХ', 1)
+# результаты
+tourney.update_ratings(ratings)
+tournaments.append(tourney)
+
+for p, r in sorted(ratings.items(), key=lambda pr: -pr[1].mu if pr[0] in msk_players else 0)[:15]:
+    print(p.rjust(25), r.mu)
