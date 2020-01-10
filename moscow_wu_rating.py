@@ -427,7 +427,7 @@ t_2019_07_15.add_match('ДН', 'ИМ', 0)
 t_2019_07_15.update_ratings(ratings)
 tournaments.append(t_2019_07_15)
 
-t_2019_07_29 = Tournament(
+t_2019_07_28 = Tournament(
     'The Hunting Party - XIV', {
         'ПФ': 'Петр Федин',
         'АК': 'Антон Коняхин',
@@ -442,26 +442,26 @@ t_2019_07_29 = Tournament(
     })
 
 # 1 тур
-t_2019_07_29.add_match('ВВ', 'ДУ', 1)
-t_2019_07_29.add_match('ПФ', 'МК', 1)
-t_2019_07_29.add_match('АК', 'АА', -1)
-t_2019_07_29.add_match('ДМ', 'АС', -1)
-t_2019_07_29.add_match('АЧ', 'ДК', -1)
+t_2019_07_28.add_match('ВВ', 'ДУ', 1)
+t_2019_07_28.add_match('ПФ', 'МК', 1)
+t_2019_07_28.add_match('АК', 'АА', -1)
+t_2019_07_28.add_match('ДМ', 'АС', -1)
+t_2019_07_28.add_match('АЧ', 'ДК', -1)
 # 2 тур
-t_2019_07_29.add_match('ПФ', 'ДК', 1)
-t_2019_07_29.add_match('АС', 'ВВ', 1)
-t_2019_07_29.add_match('АА', 'МК', -1)
-t_2019_07_29.add_match('АЧ', 'ДМ', -1)
-t_2019_07_29.add_match('АК', 'ДУ', 1)
+t_2019_07_28.add_match('ПФ', 'ДК', 1)
+t_2019_07_28.add_match('АС', 'ВВ', 1)
+t_2019_07_28.add_match('АА', 'МК', -1)
+t_2019_07_28.add_match('АЧ', 'ДМ', -1)
+t_2019_07_28.add_match('АК', 'ДУ', 1)
 # 3 тур
-t_2019_07_29.add_match('ПФ', 'АС', 1)
-t_2019_07_29.add_match('АК', 'ДМ', -1)
-t_2019_07_29.add_match('МК', 'ДК', 1)
-t_2019_07_29.add_match('АА', 'ВВ', -1)
-t_2019_07_29.add_match('ДУ', 'АЧ', 1)
+t_2019_07_28.add_match('ПФ', 'АС', 1)
+t_2019_07_28.add_match('АК', 'ДМ', -1)
+t_2019_07_28.add_match('МК', 'ДК', 1)
+t_2019_07_28.add_match('АА', 'ВВ', -1)
+t_2019_07_28.add_match('ДУ', 'АЧ', 1)
 # результаты
-t_2019_07_29.update_ratings(ratings)
-tournaments.append(t_2019_07_29)
+t_2019_07_28.update_ratings(ratings)
+tournaments.append(t_2019_07_28)
 
 t_2019_08_11 = Tournament(
     'The Hunting Party - XV', {
