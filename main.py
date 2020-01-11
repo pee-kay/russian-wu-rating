@@ -4,6 +4,7 @@
 import trueskill
 import winrate
 import elo
+import glob
 import datetime
 from process_csv import load_players, load_tournament
 
@@ -49,7 +50,7 @@ class Tournament:
 
     @property
     def date(self):
-        return datetime.date(self._date)
+        return datetime.date(self._date.year, self._date.month, self._date.day)
 
     @property
     def org(self):
@@ -86,7 +87,7 @@ class Tournaments(list):
     def rate_players(self, players, player_check = None, tourney_check = None, system = elo):
         ratings = {}
 
-        for tourney in self:
+        for tourney in sorted(self, key = lambda t: t.date):
             if tourney_check is not None and not tourney_check(tourney):
                 continue
 
@@ -110,8 +111,6 @@ tournaments = Tournaments()
 # TODO: The Mirror Showdown - II 15.10.2018 https://docs.google.com/spreadsheets/d/1IgwytourneyzhfNlwKL7UMcBOYCVdzcAhp5Cfzkb_ueWN0gU/edit#gid=1317522882
 
 # TODO: The Hunting Party - IX 24.12.2018 https://docs.google.com/spreadsheets/d/1xE529VWVc1zY3Sl1ck0f9jBFR2EqzpLWUSDOswMOX3Q/edit#gid=1317522882
-
-load_tournament('tournaments/\'SPb GT 2019.01.08\', (2019, 1, 8), \'Arsanar\', True.csv', tournaments, players_fname)
 
 tourney = tournaments.create(
     'The Mirror Showdown - III', (2019, 1, 20), 'Святослав Соколов', True, {
@@ -828,6 +827,9 @@ tourney.add_match('НЧ', 'Д', 1)
 tourney.add_match('МФ', 'СС', 1)
 tourney.add_match('ЕС', 'МХ', 1)
 
+for fname in glob.glob('tournaments/*.csv'):
+    load_tournament(fname, tournaments, players_fname)
+
 def main():
     print('Топ25 игроков России (по турнирам со стеклом)')
     print('=============================================')
@@ -835,34 +837,29 @@ def main():
         print(str(i + 1).rjust(3), p.display.ljust(25), p.city.ljust(10), round(r, 2))
     print()
 
-    #with open('players.csv', 'w') as plf:
-    #    for n, p in sorted(players.items(), key = lambda p: (p[1].city, p[1].name)):
-    #        plf.write('{},{},{}\n'.format(p.name, p.city, p.display if p.display != p.name else ''))
+    print('Топ15 игроков Москвы (по турнирам со стеклом)')
+    print('=============================================')
+    for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk', lambda t: t.with_glass)[:15]):
+        print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
+    print()
 
-    #print('Топ15 игроков Москвы (по турнирам со стеклом)')
-    #print('=============================================')
-    #for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk', lambda t: t.with_glass)[:15]):
-    #    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
-    #print()
+    print('Топ15 игроков Москвы (по всем добавленным турнирам и лигам)')
+    print('===========================================================')
+    for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk')[:15]):
+        print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
+    print()
 
-    #print('Топ15 игроков Москвы (по всем турнирам и лигам)')
-    #print('=============================================')
-    #for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk')[:15]):
-    #    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
-    #print()
+    print('Топ15 игроков Москвы (по турнирам @vapour_crow)')
+    print('===============================================')
+    for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk', lambda t: t.org == 'Святослав Соколов')[:15]):
+        print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
+    print()
 
-    #print('Топ15 игроков Москвы (по турнирам @vapour_crow)')
-    #print('===============================================')
-    #for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk', lambda t: t.org == 'Святослав Соколов')[:15]):
-    #    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
-    #print()
-
-    #print('Рейтинг игроков Москвы (по всем турнирам и лигам)')
-    #print('=================================================')
-    #for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk')):
-    #    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
-    #print()
-
+    print('Рейтинг игроков Москвы (по всем добавленным турнирам и лигам)')
+    print('=============================================================')
+    for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk')):
+        print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
+    print()
 
 if __name__ == '__main__':
     main()
