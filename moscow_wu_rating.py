@@ -5,6 +5,7 @@ import trueskill
 import winrate
 import elo
 import datetime
+from process_csv import load_players, load_tournament
 
 class Player:
     def __init__(self, name, city='Msk', display=None):
@@ -101,31 +102,8 @@ class Tournaments(list):
 
         return result
 
-players = Player.create_players(
-    'Петр Федин', 'Дмитрий Точенов', 'Алексей Смышляев', 'Павел Кузнецов', 'Константин Кручинин',
-    'Владимир Владимирович', 'Никита Чикулаев', 'Анна Мельникова', 'Денис Кубиков',
-    'Сергей Шевелев', 'Максим Федоров', 'Евгений Сафронов', 'Александр Алексеев', 'Роман Евсеев',
-    'Дмитрий Матвеев', 'Александр Петрив', 'Анатолий Коновалов', 'Михаил Ковальков', 'Иван Марков',
-    'Максим Оргиец', 'Александр Оводков', 'Святослав Соколов', 'Евгений Овчинников',
-    ('Artur Diodand', 'SPb'), 'Антон Чичеткин', 'Данила Антонов', 'Ден Волк', 'Антон Коняхин',
-    'Федор Федоренко', ('Arsanar', 'SPb'), 'Виктор Нелипович', ('Soel', 'SPb'),
-    'Александр Каревский', 'Денис Ульмаев', 'Марк Карк', 'Максим Каревский', 'Мирон Андреев',
-    'Павел Аленчев', 'Виталий Тютюриков', 'Михаил Соколов', 'Илья Кордонец', 'Алексей Купляков',
-    'Юлия Овчинникова', 'Глеб Гусев', 'Давид Нариманидзе', 'Евгений Тюляев', 'Денис Никишин',
-    'Александр Кутлин', 'YNot', 'Артем Анпилогов', 'Дмитрий Бондаренко', 'Леонид Овчинников',
-    'Андрей Оводков', 'Александр Лебедев', 'Свежеватель', 'Виталий Кривошеев', 'Алексей Меликянц',
-    'Максим Халилулин', 'Антон Корнаков', 'Евгений Крамеров', 'Андрей Морозов', 'Стас Водолазский',
-    'Дарион', 'Faraicool', 'Владимир Осокин', ('Nevar', 'SPb'), 'Максим Яцык', 'Максим Чередников',
-    'Алексей Павлов', 'Кронос', 'Кирилл Бадягин', 'Ася Шестова', 'Василий Гущин', 'Степан Степанов',
-    'Григорий Архипов', 'Полина Морозова', 'Давид Афинский', 'Кирилл Москаленко',
-    'Владимир Барсегов', 'Максим Шамцян', 'Александр Старовойтов', 'Григорий Фисаков',
-    'Егор Долженко', ('Сергей Сапожков', 'Voronezh', 'Sap'), ('Ilya', 'SPb'), ('Lordik', 'SPb'),
-    ('Dimka', 'SPb'), ('Brin', 'SPb'), ('Kefir', 'SPb'), ('Dok', 'SPb'), ('Just', 'SPb'),
-    ('Kamahl', 'SPb'), ('Oleg', 'SPb'), ('Exselsior', 'SPb'), ('Voron', 'SPb'), ('Pawlove', 'SPb'),
-    ('Verger', 'SPb'), ('Anguis', 'SPb'), ('Rodion', 'SPb'), ('Oksana', 'SPb'), ('Grib', 'SPb'),
-    ('Smog', 'SPb'), ('Hity', 'SPb'), ('Kozulkis', 'SPb'), ('SashaPskov', 'Pskov'),
-    ('Sasha', 'SPb'), ('Solnysko', 'SPb'), ('Boris', 'SPb'), ('Lover', 'SPb'), ('Coach', 'SPb'),
-    ('Tema', 'SPb'), ('Andriy', 'SPb'), ('Ivan', 'SPb'), ('Barb', 'SPb'), ('Tupocowboy', 'SPb'))
+players_fname = 'players.csv'
+players = Player.create_players(*load_players(players_fname).values())
 
 tournaments = Tournaments()
 
@@ -133,134 +111,7 @@ tournaments = Tournaments()
 
 # TODO: The Hunting Party - IX 24.12.2018 https://docs.google.com/spreadsheets/d/1xE529VWVc1zY3Sl1ck0f9jBFR2EqzpLWUSDOswMOX3Q/edit#gid=1317522882
 
-tourney = tournaments.create(
-    'SPb GT 2019.01.08', (2019, 1, 8), 'Arsanar', True, {
-        1: 'Ilya',
-        2: 'Lordik',
-        3: 'Artur Diodand',
-        4: 'Dimka',
-        5: 'Brin',
-        6: 'Kefir',
-        7: 'Dok',
-        8: 'Just',
-        9: 'Kamahl',
-        10: 'Oleg',
-        11: 'Exselsior',
-        12: 'Soel',
-        13: 'Voron',
-        14: 'Pawlove',
-        15: 'Verger',
-        16: 'Anguis',
-        17: 'Rodion',
-        18: 'Oksana',
-        19: 'Grib',
-        20: 'Smog',
-        21: 'Hity',
-        22: 'Kozulkis',
-        23: 'SashaPskov',
-        24: 'Sasha',
-        25: 'Solnysko',
-        26: 'Boris',
-        27: 'Nevar',
-        28: 'Lover',
-        29: 'Coach',
-        30: 'Tema',
-        31: 'Andriy',
-        32: 'Ivan',
-        33: 'Barb',
-        34: 'Tupocowboy'
-    })
-
-# 1 тур
-tourney.add_match(16, 29, -1)
-tourney.add_match(2, 13, 1)
-tourney.add_match(7, 19, 1)
-tourney.add_match(5, 17, 1)
-tourney.add_match(22, 28, 1)
-tourney.add_match(23, 34, 1)
-tourney.add_match(11, 31, 1)
-tourney.add_match(18, 33, 1)
-tourney.add_match(8, 15, 1)
-tourney.add_match(1, 12, 1)
-tourney.add_match(4, 27, 1)
-tourney.add_match(6, 21, 1)
-tourney.add_match(20, 30, -1)
-tourney.add_match(3, 24, 1)
-tourney.add_match(9, 26, 1)
-tourney.add_match(10, 32, 1)
-tourney.add_match(14, 25, 1)
-# 2 тур
-tourney.add_match(3, 6, 1)
-tourney.add_match(1, 11, 1)
-tourney.add_match(2, 23, 1)
-tourney.add_match(4, 18, 1)
-tourney.add_match(10, 30, 1)
-tourney.add_match(8, 22, 1)
-tourney.add_match(5, 7, -1)
-tourney.add_match(9, 29, 1)
-tourney.add_match(14, 26, -1)
-tourney.add_match(16, 25, 1)
-tourney.add_match(15, 19, -1)
-tourney.add_match(17, 20, -1)
-tourney.add_match(27, 28, -1)
-tourney.add_match(32, 33, -1)
-tourney.add_match(13, 34, 1)
-tourney.add_match(12, 31, 1)
-tourney.add_match(21, 24, 1)
-# 3 тур
-tourney.add_match(2, 3, 1)
-tourney.add_match(1, 8, 1)
-tourney.add_match(4, 10, 1)
-tourney.add_match(7, 9, -1)
-tourney.add_match(5, 18, 1)
-tourney.add_match(20, 26, 1)
-tourney.add_match(11, 29, 1)
-tourney.add_match(23, 30, 1)
-tourney.add_match(16, 19, 1)
-tourney.add_match(6, 12, 1)
-tourney.add_match(22, 33, 1)
-tourney.add_match(13, 28, 1)
-tourney.add_match(14, 21, 1)
-tourney.add_match(25, 27, 1)
-tourney.add_match(15, 34, 1)
-tourney.add_match(17, 32, 1)
-tourney.add_match(24, 31, 1)
-# 4 тур
-tourney.add_match(1, 2, 1)
-tourney.add_match(4, 9, 1)
-tourney.add_match(3, 20, 1)
-tourney.add_match(8, 10, -1)
-tourney.add_match(7, 16, 1)
-tourney.add_match(5, 13, 1)
-tourney.add_match(6, 23, 1)
-tourney.add_match(11, 22, 1)
-tourney.add_match(14, 15, -1)
-tourney.add_match(18, 25, 1)
-tourney.add_match(17, 29, 1)
-tourney.add_match(21, 33, 1)
-tourney.add_match(12, 30, 1)
-tourney.add_match(19, 26, 1)
-tourney.add_match(24, 28, 1)
-tourney.add_match(27, 32, 1)
-tourney.add_match(31, 34, 1)
-# 5 тур
-tourney.add_match(1, 4, 1)
-tourney.add_match(3, 10, 1)
-tourney.add_match(2, 11, 1)
-tourney.add_match(6, 7, 1)
-tourney.add_match(5, 9, 1)
-tourney.add_match(15, 18, 1)
-tourney.add_match(8, 22, 1)
-tourney.add_match(13, 20, 1)
-tourney.add_match(16, 21, 1)
-tourney.add_match(12, 23, 1)
-tourney.add_match(17, 24, 1)
-tourney.add_match(14, 19, 1)
-tourney.add_match(27, 29, 1)
-tourney.add_match(25, 33, 1)
-tourney.add_match(26, 30, 1)
-tourney.add_match(28, 31, 1)
-tourney.add_match(32, 34, 1)
+load_tournament('tournaments/\'SPb GT 2019.01.08\', (2019, 1, 8), \'Arsanar\', True.csv', tournaments, players_fname)
 
 tourney = tournaments.create(
     'The Mirror Showdown - III', (2019, 1, 20), 'Святослав Соколов', True, {
@@ -977,32 +828,41 @@ tourney.add_match('НЧ', 'Д', 1)
 tourney.add_match('МФ', 'СС', 1)
 tourney.add_match('ЕС', 'МХ', 1)
 
-print('Топ25 игроков России (по турнирам со стеклом)')
-print('=============================================')
-for i, (p, r) in enumerate(tournaments.rate_players(players, tourney_check = lambda t: t.with_glass)[:25]):
-    print(str(i + 1).rjust(3), p.display.ljust(25), p.city.ljust(10), round(r, 2))
-print()
+def main():
+    print('Топ25 игроков России (по турнирам со стеклом)')
+    print('=============================================')
+    for i, (p, r) in enumerate(tournaments.rate_players(players, tourney_check = lambda t: t.with_glass)[:25]):
+        print(str(i + 1).rjust(3), p.display.ljust(25), p.city.ljust(10), round(r, 2))
+    print()
 
-#print('Топ15 игроков Москвы (по турнирам со стеклом)')
-#print('=============================================')
-#for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk', lambda t: t.with_glass)[:15]):
-#    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
-#print()
+    #with open('players.csv', 'w') as plf:
+    #    for n, p in sorted(players.items(), key = lambda p: (p[1].city, p[1].name)):
+    #        plf.write('{},{},{}\n'.format(p.name, p.city, p.display if p.display != p.name else ''))
 
-#print('Топ15 игроков Москвы (по всем турнирам и лигам)')
-#print('=============================================')
-#for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk')[:15]):
-#    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
-#print()
+    #print('Топ15 игроков Москвы (по турнирам со стеклом)')
+    #print('=============================================')
+    #for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk', lambda t: t.with_glass)[:15]):
+    #    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
+    #print()
 
-#print('Топ15 игроков Москвы (по турнирам @vapour_crow)')
-#print('===============================================')
-#for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk', lambda t: t.org == 'Святослав Соколов')[:15]):
-#    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
-#print()
+    #print('Топ15 игроков Москвы (по всем турнирам и лигам)')
+    #print('=============================================')
+    #for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk')[:15]):
+    #    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
+    #print()
 
-#print('Рейтинг игроков Москвы (по всем турнирам и лигам)')
-#print('=================================================')
-#for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk')):
-#    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
-#print()
+    #print('Топ15 игроков Москвы (по турнирам @vapour_crow)')
+    #print('===============================================')
+    #for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk', lambda t: t.org == 'Святослав Соколов')[:15]):
+    #    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
+    #print()
+
+    #print('Рейтинг игроков Москвы (по всем турнирам и лигам)')
+    #print('=================================================')
+    #for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk')):
+    #    print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
+    #print()
+
+
+if __name__ == '__main__':
+    main()
