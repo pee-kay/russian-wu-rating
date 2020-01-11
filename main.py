@@ -42,7 +42,7 @@ class Tournament:
         self._org = org
         self._with_glass = with_glass
         self._players = players
-        self._matches = []
+        self._matches = [[]]
 
     @property
     def name(self):
@@ -60,23 +60,27 @@ class Tournament:
     def with_glass(self):
         return self._with_glass
 
+    def end_current_tour(self):
+        self._matches.append([])
+
     def add_match(self, p1, p2, res=1):
         if res < 0:
-            self._matches.append((self._players[p2], self._players[p1], False))
+            self._matches[-1].append((self._players[p2], self._players[p1], False))
         elif res == 0:
-            self._matches.append((self._players[p1], self._players[p2], True))
+            self._matches[-1].append((self._players[p1], self._players[p2], True))
         else:
-            self._matches.append((self._players[p1], self._players[p2], False))
+            self._matches[-1].append((self._players[p1], self._players[p2], False))
 
     def update_ratings(self, ratings, system = trueskill):
-        for (p1, p2, drawn) in self._matches:
-            if p1 not in ratings:
-                ratings[p1] = system.Rating()
+        for tour in self._matches:
+            for (p1, p2, drawn) in tour:
+                if p1 not in ratings:
+                    ratings[p1] = system.Rating()
 
-            if p2 not in ratings:
-                ratings[p2] = system.Rating()
+                if p2 not in ratings:
+                    ratings[p2] = system.Rating()
 
-            ratings[p1], ratings[p2] = system.rate_1vs1(ratings[p1], ratings[p2], drawn)
+                ratings[p1], ratings[p2] = system.rate_1vs1(ratings[p1], ratings[p2], drawn)
 
 class Tournaments(list):
     def create(self, *args, **kwargs):
@@ -144,6 +148,7 @@ tourney.add_match('ПФ', 'АМ', 0)
 tourney.add_match('НЧ', 'АП', 1)
 tourney.add_match('АС', 'СБ', 0)
 tourney.add_match('ДТ', 'СШ', -1)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('ПК', 'АД', -1)
 tourney.add_match('ДН', 'КК', -1)
@@ -154,6 +159,7 @@ tourney.add_match('АМ', 'ФФ', -1)
 tourney.add_match('АК', 'ЮА', 1)
 tourney.add_match('РЕ', 'ЕО', 1)
 tourney.add_match('ДТ', 'АП', 1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('КК', 'АД', 0)
 tourney.add_match('ЕС', 'НЧ', -1)
@@ -163,6 +169,7 @@ tourney.add_match('ДН', 'ДТ', -1)
 tourney.add_match('ФФ', 'СШ', 1)
 tourney.add_match('АС', 'АМ', 1)
 tourney.add_match('СБ', 'ЕО', 1)
+tourney.end_current_tour()
 # 4 тур
 tourney.add_match('НЧ', 'КК', -1)
 tourney.add_match('АД', 'ПФ', 1)
@@ -209,6 +216,7 @@ tourney.add_match('ВГ', 'АК', -1)
 tourney.add_match('СБ', 'СС', -1)
 tourney.add_match('СШ', 'Сап', -1)
 tourney.add_match('ДТ', 'ПФ', 1)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('КК', 'ЕК', 1)
 tourney.add_match('ДТ', 'АК', 1)
@@ -220,6 +228,7 @@ tourney.add_match('АП', 'МШ', 1)
 tourney.add_match('МК', 'СШ', 1)
 tourney.add_match('ПА', 'ВГ', 1)
 tourney.add_match('ПФ', 'ГФ', 1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('КК', 'Сап', 1)
 tourney.add_match('ДТ', 'СС', 1)
@@ -231,6 +240,7 @@ tourney.add_match('АС', 'ЕК', 1)
 tourney.add_match('ПК', 'КМ', 1)
 tourney.add_match('СБ', 'ЕД', 1)
 tourney.add_match('СШ', 'МШ', 1)
+tourney.end_current_tour()
 # 4 тур
 tourney.add_match('КК', 'ДТ', 1)
 tourney.add_match('ПФ', 'ВБ', 1)
@@ -271,6 +281,7 @@ tourney.add_match('АМ', 'ВВ', 1)
 tourney.add_match('АС', 'ИМ', 1)
 tourney.add_match('АлО', 'МО', -1)
 tourney.add_match('АнО', 'АК', 0)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('НЧ', 'ПФ', -1)
 tourney.add_match('АС', 'АМ', 1)
@@ -279,6 +290,7 @@ tourney.add_match('Н', 'ИМ', -1)
 tourney.add_match('МК', 'АК', -1)
 tourney.add_match('ВВ', 'МА', 1)
 tourney.add_match('АнО', 'АлО', 1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('АС', 'Ф', -1)
 tourney.add_match('ПФ', 'АнО', 1)
@@ -305,11 +317,13 @@ tourney.add_match('АО', 'ПМ', 1)
 tourney.add_match('ВТ', 'ИМ', -1)
 tourney.add_match('ВО', 'КБ', -1)
 tourney.add_match('МК', 'КК', 1)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('ИМ', 'АО', 1)
 tourney.add_match('МК', 'КБ', 1)
 tourney.add_match('ВТ', 'ПМ', 1)
 tourney.add_match('ВО', 'КК', -1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('ИМ', 'МК', -1)
 tourney.add_match('АО', 'КК', -1)
@@ -339,6 +353,7 @@ tourney.add_match('Кр', 'Ф', 1)
 tourney.add_match('МХ', 'Си', -1)
 tourney.add_match('АП', 'ДМ', 1)
 tourney.add_match('АО', 'СС', -1)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('Си', 'СС', -1)
 tourney.add_match('ДТ', 'АП', 1)
@@ -346,6 +361,7 @@ tourney.add_match('ВВ', 'Кр', 1)
 tourney.add_match('АО', 'МХ', -1)
 tourney.add_match('Й', 'ДМ', -1)
 tourney.add_match('Св', 'Ф', -1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('СС', 'ВВ', 1)
 tourney.add_match('ДТ', 'Си', -1)
@@ -389,6 +405,7 @@ tourney.add_match('ДУ', 'МКо', -1)
 tourney.add_match('ПА', 'МА', 1)
 tourney.add_match('ДА', 'ВК', 1)
 tourney.add_match('АКу', 'МКа', -1)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('ДА', 'РЕ', -1)
 tourney.add_match('ИМ', 'МКа', -1)
@@ -400,6 +417,7 @@ tourney.add_match('СВ', 'АО', -1)
 tourney.add_match('МА', 'АП', -1)
 tourney.add_match('АКу', 'ИК', 1)
 tourney.add_match('ЕК', 'ВК', 1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('МКа', 'РЕ', -1)
 tourney.add_match('ДТ', 'ВВ', 1)
@@ -411,6 +429,7 @@ tourney.add_match('АКу', 'МКо', -1)
 tourney.add_match('АО', 'ВК', 1)
 tourney.add_match('ДУ', 'МА', -1)
 tourney.add_match('ИК', 'СВ', 0)
+tourney.end_current_tour()
 # 4 тур
 tourney.add_match('ДТ', 'РЕ', 1)
 tourney.add_match('СШ', 'МКа', 1)
@@ -439,11 +458,13 @@ tourney.add_match('АС', 'СС', 1)
 tourney.add_match('АО', 'ПФ', -1)
 tourney.add_match('КК', 'ЕК', 1)
 tourney.add_match('ВГ', 'ДТ', 0)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('КК', 'ПФ', 1)
 tourney.add_match('АС', 'ДТ', 1)
 tourney.add_match('ВГ', 'СС', -1)
 tourney.add_match('АО', 'ЕК', 1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('КК', 'АС', -1)
 tourney.add_match('СС', 'ПФ', -1)
@@ -470,12 +491,14 @@ tourney.add_match('СШ', 'АС', 1)
 tourney.add_match('ИМ', 'АЛ', 1)
 tourney.add_match('ВВ', 'ДМ', 0)
 tourney.add_match('ДУ', 'ДА', 1)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('ИМ', 'ДУ', 1)
 tourney.add_match('СШ', 'ПА', 1)
 tourney.add_match('ВВ', 'АЛ', 1)
 tourney.add_match('ДМ', 'ДА', 1)
 tourney.add_match('АС', 'ПФ', 1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('ИМ', 'СШ', -1)
 tourney.add_match('ВВ', 'ДУ', 1)
@@ -506,6 +529,7 @@ tourney.add_match('ПФ', 'МО', 1)
 tourney.add_match('ДН', 'СС', -1)
 tourney.add_match('ИМ', 'АМ', -1)
 tourney.add_match('ДТ', 'ДК', 1)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('СС', 'ДТ', 1)
 tourney.add_match('РЕ', 'ПФ', -1)
@@ -513,6 +537,7 @@ tourney.add_match('ПК', 'АМ', 1)
 tourney.add_match('ДН', 'ГГ', 0)
 tourney.add_match('ДК', 'ЕТ', 1)
 tourney.add_match('МО', 'ИМ', 1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('СС', 'ПФ', -1)
 tourney.add_match('ПК', 'ДТ', 1)
@@ -540,12 +565,14 @@ tourney.add_match('ПФ', 'МК', 1)
 tourney.add_match('АК', 'АА', -1)
 tourney.add_match('ДМ', 'АС', -1)
 tourney.add_match('АЧ', 'ДК', -1)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('ПФ', 'ДК', 1)
 tourney.add_match('АС', 'ВВ', 1)
 tourney.add_match('АА', 'МК', -1)
 tourney.add_match('АЧ', 'ДМ', -1)
 tourney.add_match('АК', 'ДУ', 1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('ПФ', 'АС', 1)
 tourney.add_match('АК', 'ДМ', -1)
@@ -567,10 +594,12 @@ tourney = tournaments.create(
 tourney.add_match('ДА', 'АО', -1)
 tourney.add_match('ДВ', 'АА', -1)
 tourney.add_match('АМ', 'СС', 1)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('АА', 'АМ', -1)
 tourney.add_match('АО', 'ДВ', 1)
 tourney.add_match('СС', 'ДА', 1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('АМ', 'АО', 1)
 tourney.add_match('СС', 'АА', -1)
@@ -605,6 +634,7 @@ tourney.add_match('АА', 'ДВ', 0)
 tourney.add_match('ДБ', 'АЧ', -1)
 tourney.add_match('АК', 'ДТ', -1)
 tourney.add_match('МФ', 'МЧ', 1)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('АЧ', 'АМ', -1)
 tourney.add_match('ПК', 'ПФ', -1)
@@ -614,6 +644,7 @@ tourney.add_match('ДВ', 'ДБ', 0)
 tourney.add_match('ДК', 'АС', -1)
 tourney.add_match('ВТ', 'МЧ', -1)
 tourney.add_match('АК', 'ДУ', 1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('ПФ', 'МФ', 1)
 tourney.add_match('АМ', 'ДТ', -1)
@@ -623,6 +654,7 @@ tourney.add_match('МЧ', 'ДВ', -1)
 tourney.add_match('МО', 'АА', -1)
 tourney.add_match('ДБ', 'ДК', -1)
 tourney.add_match('ВТ', 'ДУ', -1)
+tourney.end_current_tour()
 # 4 тур
 tourney.add_match('ПФ', 'ДТ', -1)
 tourney.add_match('АС', 'АМ', 1)
@@ -651,12 +683,14 @@ tourney.add_match('ЕС', 'ДМ', 1)
 tourney.add_match('МиК', 'ДК', 1)
 tourney.add_match('АК', 'ВН', -1)
 tourney.add_match('ВТ', 'СС', -1)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('СС', 'ВН', -1)
 tourney.add_match('МиК', 'МаК', 1)
 tourney.add_match('ЕС', 'ВТ', 1)
 tourney.add_match('АК', 'ДМ', -1)
 tourney.add_match('ВВ', 'ДК', 1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('ЕС', 'ВН', 1)
 tourney.add_match('МиК', 'СС', -1)
@@ -692,6 +726,7 @@ tourney.add_match('ДК', 'АКо', 1)
 tourney.add_match('АЛ', 'ЕО', -1)
 tourney.add_match('ГА', 'АКу', -1)
 tourney.add_match('АМ', 'СС', -1)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('ДК', 'СС', 1)
 tourney.add_match('АА', 'ДМ', -1)
@@ -701,6 +736,7 @@ tourney.add_match('АКо', 'АМ', 1)
 tourney.add_match('АС', 'Д', -1)
 tourney.add_match('ВВ', 'АЛ', 1)
 tourney.add_match('ГА', 'НЧ', -1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('ДМ', 'ДК', 1)
 tourney.add_match('ЕО', 'АКу', 1)
@@ -710,6 +746,7 @@ tourney.add_match('АА', 'МФ', 1)
 tourney.add_match('ПФ', 'АЛ', -1)
 tourney.add_match('НЧ', 'АС', 1)
 tourney.add_match('ГА', 'АМ', -1)
+tourney.end_current_tour()
 # 4 тур
 tourney.add_match('ЕО', 'ДМ', 1)
 tourney.add_match('ВВ', 'ДК', -1)
@@ -738,12 +775,14 @@ tourney.add_match('СС', 'ДА', -1)
 tourney.add_match('ДК', 'ААл', 1)
 tourney.add_match('НЧ', 'ВВ', 1)
 tourney.add_match('АС', 'ААн', 1)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('ДК', 'НЧ', 1)
 tourney.add_match('ДА', 'АС', -1)
 tourney.add_match('ПФ', 'ААл', 1)
 tourney.add_match('МФ', 'ВВ', -1)
 tourney.add_match('СС', 'ААн', -1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('ДК', 'АС', 1)
 tourney.add_match('ПФ', 'НЧ', 1)
@@ -780,6 +819,7 @@ tourney.add_match('НЧ', 'ЛО', 1)
 tourney.add_match('АМ', 'АК', -1)
 tourney.add_match('ПК', 'МО', 1)
 tourney.add_match('АЧ', 'ЕО', -1)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('ЕО', 'НЧ', -1)
 tourney.add_match('ЕС', 'МС', 0)
@@ -789,6 +829,7 @@ tourney.add_match('АЧ', 'ЛО', 1)
 tourney.add_match('ДА', 'АШ', 1)
 tourney.add_match('МО', 'КК', -1)
 tourney.add_match('АМ', 'МЯ', 1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('НЧ', 'ПФ', -1)
 tourney.add_match('АК', 'ЕС', 0)
@@ -816,16 +857,24 @@ tourney.add_match('МФ', 'НЧ', 1)
 tourney.add_match('ЕС', 'СС', 0)
 tourney.add_match('КК', 'МХ', 1)
 tourney.add_match('Д', 'ПК', 0)
+tourney.end_current_tour()
 # 2 тур
 tourney.add_match('МФ', 'КК', -1)
 tourney.add_match('Д', 'СС', 0)
 tourney.add_match('ПК', 'ЕС', 1)
 tourney.add_match('НЧ', 'МХ', 1)
+tourney.end_current_tour()
 # 3 тур
 tourney.add_match('КК', 'ПК', 1)
 tourney.add_match('НЧ', 'Д', 1)
 tourney.add_match('МФ', 'СС', 1)
 tourney.add_match('ЕС', 'МХ', 1)
+
+for tourney in tournaments:
+    fname = '\'{}\', ({}, {}, {}), \'{}\', {}.csv'.format(tourney.name, tourney.date.year, tourney.date.month, tourney.date.day, tourney.org, tourney.with_glass)
+    #with open(fname, 'w') as csvf:
+    #    csvf.write('#,Name,')
+
 
 for fname in glob.glob('tournaments/*.csv'):
     load_tournament(fname, tournaments, players_fname)
@@ -836,7 +885,7 @@ def main():
     for i, (p, r) in enumerate(tournaments.rate_players(players, tourney_check = lambda t: t.with_glass)[:25]):
         print(str(i + 1).rjust(3), p.display.ljust(25), p.city.ljust(10), round(r, 2))
     print()
-
+    '''
     print('Топ15 игроков Москвы (по турнирам со стеклом)')
     print('=============================================')
     for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk', lambda t: t.with_glass)[:15]):
@@ -859,7 +908,7 @@ def main():
     print('=============================================================')
     for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'Msk')):
         print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
-    print()
+    print()'''
 
 if __name__ == '__main__':
     main()

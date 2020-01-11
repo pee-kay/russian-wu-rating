@@ -15,20 +15,24 @@ def load_players(fname):
     return players
 
 def load_tournament(fname, tournaments = None, players_fname = 'players.csv'):
-    tour_n = 1
+    tb_cols = []
+    vp_cols = []
+    tour_n = 0
     players = []
     tables = set()
     with open(fname, 'r') as csvf:
         rdr = csv.reader(csvf)
         for i, l in enumerate(rdr):
             if i == 0:
-                tour_n = l.count(l[3])
-                if tour_n > 1 and l[3] != l[7]:
-                    raise RuntimeError('Wrong csv, missing table column')
+                tb_cols = [i for i in range(len(l)) if l[i] in ['t', 'T', 'TB', 'Tb', 'tb']]
+                vp_cols = [i for i in range(len(l)) if l[i] in ['v', 'V', 'VP', 'Vp', 'vp']]
+                tour_n = len(tb_cols)
+                if len(vp_cols) < tour_n or len(vp_cols) > (tour_n + 1):
+                    raise RuntimeError('Wrong tournament caption {}'.format(l))
                 continue
 
             name = l[1].strip()
-            tours = [(l[3 + j * 4], l[4 + j * 4]) for j in range(tour_n)]
+            tours = [(l[j], l[k]) for j, k in zip(tb_cols, vp_cols[:tour_n])]
             tables = tables.union(set([t[0] for t in tours]))
             players.append((i, name, tours))
 
@@ -68,6 +72,8 @@ def load_tournament(fname, tournaments = None, players_fname = 'players.csv'):
                 i2 = table[1][0]
                 res = 1 if table[0][1] > table[1][1] else (-1 if table[0][1] < table[1][1] else 0)
                 tourney.add_match(i1, i2, res)
+
+            tourney.end_current_tour()
 
 if __name__ == '__main__':
     import sys
