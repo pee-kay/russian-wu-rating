@@ -2,7 +2,7 @@ class Rating:
     def __init__(self):
         self.mu = 1500.0
 
-def rate_1vs1(r1, r2, drawn = False, k = 10.0):
+def rate_1vs1(r1, r2, drawn = False, k = 15.0):
     s = 0.5 if drawn else 1.0
     e1 = 1.0 / (1.0 + 10.0 ** ((r2.mu - r1.mu) / 400.0))
     e2 = 1.0 / (1.0 + 10.0 ** ((r1.mu - r2.mu) / 400.0))
