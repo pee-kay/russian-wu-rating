@@ -107,14 +107,6 @@ class Tournaments(list):
 
         return result
 
-
-# TODO: The Mirror Showdown - II 15.10.2018 https://docs.google.com/spreadsheets/d/1IgwytourneyzhfNlwKL7UMcBOYCVdzcAhp5Cfzkb_ueWN0gU/edit#gid=1317522882
-
-# TODO: The Hunting Party - IX 24.12.2018 https://docs.google.com/spreadsheets/d/1xE529VWVc1zY3Sl1ck0f9jBFR2EqzpLWUSDOswMOX3Q/edit#gid=1317522882
-
-# TODO: попробовать добавить командник 'Shadeglass Crusade': https://docs.google.com/spreadsheets/d/1rdY1WNSRE1moKqVWZMxHGJlBaxPiC02wa-Ko5BeRo5M/edit#gid=0
-
-
 def main():
     players_fname = 'players.csv'
     players = Player.create_players(*load_players(players_fname).values())
@@ -122,6 +114,8 @@ def main():
     tournaments = Tournaments()
     for fname in glob.glob('tournaments/*.csv'):
         load_tournament(fname, tournaments, players_fname)
+
+    # TODO: попробовать добавить командник 'Shadeglass Crusade': https://docs.google.com/spreadsheets/d/1rdY1WNSRE1moKqVWZMxHGJlBaxPiC02wa-Ko5BeRo5M/edit#gid=0
 
     print('Топ25 игроков России (по турнирам со стеклом)')
     print('=============================================')
