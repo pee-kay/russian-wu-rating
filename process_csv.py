@@ -53,7 +53,9 @@ def load_tournament(fname, tournaments = None, players_fname = 'players.csv'):
         exec('params = ({})'.format(os.path.splitext(os.path.basename(fname))[0]), gl)
         name, date, org, with_glass = gl['params']
 
-        tourney = tournaments.create(name, date, org, with_glass, tourney_players)
+        # TODO: use more explicit information about Grand Clashes
+        is_gc = 'Grand Clash' in os.path.basename(fname)
+        tourney = tournaments.create(name, date, org, with_glass, is_gc, tourney_players)
 
         for tour in range(tour_n):
             for t in sorted(tables):

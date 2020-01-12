@@ -35,11 +35,12 @@ class Player:
         return players
 
 class Tournament:
-    def __init__(self, name, date, org, with_glass, players):
+    def __init__(self, name, date, org, with_glass, is_grand_clash, players):
         self._name = name
         self._date = datetime.date(*date)
         self._org = org
         self._with_glass = with_glass
+        self._is_grand_clash = is_grand_clash
         self._players = players
         self._matches = [[]]
 
@@ -58,6 +59,10 @@ class Tournament:
     @property
     def with_glass(self):
         return self._with_glass
+
+    @property
+    def is_grand_clash(self):
+        return self._is_grand_clash
 
     def end_current_tour(self):
         self._matches.append([])
@@ -101,6 +106,9 @@ class Tournaments(list):
         for p, r in sorted(ratings.items(), key=lambda pr: pr[1].mu, reverse=True):
             player = players[p]
             if player_check is not None and not player_check(player):
+                continue
+
+            if system is winrate and r.n < 5:
                 continue
 
             result.append((player, r.mu))
