@@ -147,5 +147,11 @@ def main():
         print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
     print()
 
+    print('Рейтинг игроков Санкт-Петербурга')
+    print('================================')
+    for i, (p, r) in enumerate(tournaments.rate_players(players, lambda p: p.city == 'SPb')):
+        print(str(i + 1).rjust(3), p.display.ljust(25), round(r, 2))
+    print()
+
 if __name__ == '__main__':
     main()
