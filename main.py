@@ -9,10 +9,12 @@ def main():
     players = Player.load_players(players_fname)
 
     tournaments = Tournaments()
+
     for fname in glob.glob('tournaments/*.csv'):
         tournaments.load_tournament(fname, players_fname)
 
-    # TODO: попробовать добавить командник 'Shadeglass Crusade': https://docs.google.com/spreadsheets/d/1rdY1WNSRE1moKqVWZMxHGJlBaxPiC02wa-Ko5BeRo5M/edit#gid=0
+    for fname in glob.glob('leagues/*.csv'):
+        tournaments.load_league(fname, players_fname)
 
     print('Топ25 игроков России (по турнирам со стеклом)')
     print('=============================================')

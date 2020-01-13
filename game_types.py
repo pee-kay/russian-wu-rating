@@ -100,9 +100,36 @@ class Tournament:
 
                 ratings[p1], ratings[p2] = system.rate_1vs1(ratings[p1], ratings[p2], drawn)
 
+class League(Tournament):
+    def __init__(self, name, start_date, org, players):
+        super().__init__(name, start_date, org, False, False, players)
+        self._start_date = self._date
+        self._match_dates = [[]]
+
+    def end_current_tour(self):
+        super().end_current_tour()
+        self._match_dates.append([])
+
+    def add_match(self, p1, p2, res=1, date=None):
+        super().add_match(p1, p2, res)
+
+        date = self._date if date is None else date
+        self._match_dates[-1].append(date)
+
+        if date < self._start_date:
+            raise RuntimeError('Match couldn\'t happen before start of the league')
+
+        if date > self._date:
+            self._date = date
+
 class Tournaments(list):
     def create(self, *args, **kwargs):
         tourney = Tournament(*args, **kwargs)
+        self.append(tourney)
+        return tourney
+
+    def create_league(self, *args, **kwargs):
+        tourney = League(*args, **kwargs)
         self.append(tourney)
         return tourney
 
@@ -145,8 +172,9 @@ class Tournaments(list):
                         raise RuntimeError('Wrong tournament caption {}'.format(l))
                     continue
 
+                print(l)
                 name = l[1].strip()
-                tours = [(l[j], l[k]) for j, k in zip(tb_cols, vp_cols[:tour_n])]
+                tours = [(int(l[j]), int(l[k])) for j, k in zip(tb_cols, vp_cols[:tour_n])]
                 tables = tables.union(set([t[0] for t in tours]))
                 players.append((i, name, tours))
 
@@ -189,3 +217,38 @@ class Tournaments(list):
                 tourney.add_match(i1, i2, res)
 
             tourney.end_current_tour()
+
+    def load_league(self, fname, players_fname = 'players.csv'):
+        tourney = None
+        tourney_players = {}
+        missing_players = []
+        existing_players = Player.load_players(players_fname)
+        with open(fname, 'r') as csvf:
+            rdr = csv.reader(csvf)
+            for i, l in enumerate(rdr):
+                if i == 0:
+                    player_n = int(l[0])
+                    continue
+
+                if i <= player_n:
+                    print(l)
+                    name = l[1].strip()
+
+                    if name not in existing_players and name != 'Proxy':
+                        missing_players.append(name)
+
+                    tourney_players[l[0]] = name
+
+                    if len(tourney_players) == player_n:
+                        if missing_players:
+                            raise RuntimeError('Missing players: {}'.format(missing_players))
+
+                        gl = {}
+                        exec('params = ({})'.format(os.path.splitext(os.path.basename(fname))[0]), gl)
+                        name, date, org = gl['params']
+
+                        tourney = self.create_league(name, date, org, tourney_players)
+                else:
+                    print(i, l)
+                    p1, p2, year, month, day = l[:5]
+                    tourney.add_match(p1, p2, 1, datetime.date(int(year), int(month), int(day)))
