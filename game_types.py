@@ -208,7 +208,7 @@ class Tournaments(list):
                     continue
 
                 if len(table) > 2:
-                    raise RuntimeError('Too many players on the same table')
+                    raise RuntimeError('Too many players on the same table (tour {}, table {})'.format(tour, t))
 
                 i1 = table[0][0]
                 i2 = table[1][0]
