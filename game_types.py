@@ -172,7 +172,6 @@ class Tournaments(list):
                         raise RuntimeError('Wrong tournament caption {}'.format(l))
                     continue
 
-                print(l)
                 name = l[1].strip()
                 tours = [(int(l[j]), int(l[k])) for j, k in zip(tb_cols, vp_cols[:tour_n])]
                 tables = tables.union(set([t[0] for t in tours]))
@@ -231,7 +230,6 @@ class Tournaments(list):
                     continue
 
                 if i <= player_n:
-                    print(l)
                     name = l[1].strip()
 
                     if name not in existing_players and name != 'Proxy':
@@ -249,6 +247,5 @@ class Tournaments(list):
 
                         tourney = self.create_league(name, date, org, tourney_players)
                 else:
-                    print(i, l)
                     p1, p2, year, month, day = l[:5]
                     tourney.add_match(p1, p2, 1, datetime.date(int(year), int(month), int(day)))
