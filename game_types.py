@@ -3,6 +3,7 @@ import winrate
 import elo
 import csv
 import os
+import numpy
 
 class Player:
     def __init__(self, name, city='Msk', display=None):
@@ -100,6 +101,29 @@ class Tournament:
 
                 ratings[p1], ratings[p2] = system.rate_1vs1(ratings[p1], ratings[p2], drawn)
 
+    def update_prob(self, ratings, prob, diff_step):
+        for tour in self._matches:
+            for p1, p2, drawn in tour:
+                p1, p2 = self._players[p1], self._players[p2]
+                r1, r2 = ratings[p1], ratings[p2]
+
+                diff = abs(r1.mu - r2.mu)
+                while diff >= prob[0][-1]:
+                    prob[0].append(prob[0][-1] + diff_step)
+                    prob[1].append(0)
+                    prob[2].append(0.0)
+
+                diff_i = 0
+                for i, bnd in enumerate(prob[0]):
+                    if bnd > diff:
+                        diff_i = i
+                        break
+
+                upd = 0.5 if drawn else (1 if r1.mu >= r2.mu else 0)
+
+                prob[1][diff_i] += 1
+                prob[2][diff_i] += upd
+
 class League(Tournament):
     def __init__(self, name, start_date, org, players):
         super().__init__(name, start_date, org, False, False, players)
@@ -154,6 +178,19 @@ class Tournaments(list):
             result.append((player, r.mu))
 
         return result
+
+    def rate_prob(self, players, system = elo, diff_step = 1):
+        ratings = {}
+
+        for tourney in sorted(self, key = lambda t: t.date):
+            tourney.update_ratings(ratings, system)
+
+        prob = [[diff_step],[0],[0.0]]
+        for tourney in sorted(self, key = lambda t: t.date):
+            tourney.update_prob(ratings, prob, diff_step)
+
+        return prob
+
 
     def load_tournament(self, fname, players_fname = 'players.csv'):
         tb_cols = []
