@@ -3,7 +3,6 @@ import winrate
 import elo
 import csv
 import os
-import numpy
 
 class Player:
     def __init__(self, name, city='Msk', display=None):
@@ -44,7 +43,7 @@ class Player:
                     raise RuntimeError('Player duplicate {}'.format(l))
 
                 players.append((l[0], l[1], l[0] if l[2] == '' else l[2]))
-                player_names = player_names.union(set(l[0]));
+                player_names = player_names.union(set(l[0]))
 
         return Player.create_players(*players)
 
@@ -157,27 +156,55 @@ class Tournaments(list):
         self.append(tourney)
         return tourney
 
-    def rate_players(self, players, player_check = None, tourney_check = None, system = elo):
-        ratings = {}
+    def rate_players(self, players, player_check = None, tourney_check = None, system = elo, sep = ()):
+        class State:
+            def __init__(self):
+                self.ratings = {}
+                self.result = []
+                self.prev_ids = {}
 
+            def separate(self):
+                self.result.append([])
+
+                ids = {}
+                for p, r in sorted(self.ratings.items(), key=lambda pr: pr[1].mu, reverse=True):
+                    player = players[p]
+                    if player_check is not None and not player_check(player):
+                        continue
+
+                    if system is winrate and r.n < 5:
+                        continue
+
+                    diff_i = None
+                    diff_r = None
+                    if player.name in self.prev_ids:
+                        prev_i = self.prev_ids[player.name]
+                        diff_i = prev_i - len(self.result[-1])
+                        diff_r = r.mu - self.result[-2][prev_i][1]
+
+                    ids[player.name] = len(self.result[-1])
+                    self.result[-1].append((player, r.mu, diff_i, diff_r))
+
+                self.prev_ids = ids
+
+        state = State()
         for tourney in sorted(self, key = lambda t: t.date):
             if tourney_check is not None and not tourney_check(tourney):
                 continue
 
-            tourney.update_ratings(ratings, system)
+            while sep and tourney.date >= sep[0]:
+                state.separate()
+                sep = sep[1:]
 
-        result = []
-        for p, r in sorted(ratings.items(), key=lambda pr: pr[1].mu, reverse=True):
-            player = players[p]
-            if player_check is not None and not player_check(player):
-                continue
+            tourney.update_ratings(state.ratings, system)
 
-            if system is winrate and r.n < 5:
-                continue
+        while sep:
+            state.separate()
+            sep = sep[1:]
 
-            result.append((player, r.mu))
+        state.separate()
 
-        return result
+        return state.result
 
     def rate_prob(self, players, system = elo, diff_step = 1):
         ratings = {}
