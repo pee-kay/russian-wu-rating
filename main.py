@@ -51,7 +51,7 @@ def main():
     if not os.path.exists('output'):
         os.mkdir('output')
 
-    with open('output/glass_tournaments_top25.md', 'w') as log:
+    with open('output/glass-tournaments-top25.md', 'w') as log:
         ratings = tournaments.rate_players(cur_date, players, tourney_check=lambda t: t.with_glass and t.date <= cur_date, sep=(
             datetime.date(2019, 1, 1), datetime.date(2019, 4, 1), datetime.date(2019, 7, 1), datetime.date(2019, 10, 1), datetime.date(2020, 1, 1)))
         for rating, label in zip(ratings[::-1],
@@ -74,7 +74,7 @@ def main():
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
             print(file=log)
 
-    with open('output/russian_top25.md', 'w') as log:
+    with open('output/russian-top25.md', 'w') as log:
         ratings = tournaments.rate_players(cur_date, players, tourney_check=lambda t: t.date <= cur_date, sep=(
             datetime.date(2019, 1, 1), datetime.date(2019, 4, 1), datetime.date(2019, 7, 1), datetime.date(2019, 10, 1), datetime.date(2020, 1, 1)))
         for rating, label in zip(ratings[::-1],
@@ -97,7 +97,7 @@ def main():
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
             print(file=log)
 
-    with open('output/russian_full.md', 'w') as log:
+    with open('output/russian-full.md', 'w') as log:
         ratings = tournaments.rate_players(
             cur_date, players, tourney_check=lambda t: t.date <= cur_date)
         for rating, label in zip(ratings[::-1],
@@ -115,7 +115,7 @@ def main():
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
             print(file=log)
 
-    with open('output/moscow_top25.md', 'w') as log:
+    with open('output/moscow-top25.md', 'w') as log:
         ratings = tournaments.rate_players(cur_date, players, lambda p: p.city == 'Msk', lambda t: t.date <= cur_date, sep=(
             datetime.date(2019, 1, 1), datetime.date(2019, 4, 1), datetime.date(2019, 7, 1), datetime.date(2019, 10, 1), datetime.date(2020, 1, 1)))
         for rating, label in zip(ratings[::-1],
@@ -138,7 +138,7 @@ def main():
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
             print(file=log)
 
-    with open('output/moscow_full.md', 'w') as log:
+    with open('output/moscow-full.md', 'w') as log:
         ratings = tournaments.rate_players(
             cur_date, players, lambda p: p.city == 'Msk', lambda t: t.date <= cur_date)
         for rating, label in zip(ratings[::-1],
@@ -156,7 +156,7 @@ def main():
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
             print(file=log)
 
-    with open('output/spb_top25.md', 'w') as log:
+    with open('output/spb-top25.md', 'w') as log:
         ratings = tournaments.rate_players(cur_date, players, lambda p: p.city == 'SPb', lambda t: t.date <= cur_date, sep=(
             datetime.date(2019, 1, 1), datetime.date(2019, 4, 1), datetime.date(2019, 7, 1), datetime.date(2019, 10, 1), datetime.date(2020, 1, 1)))
         for rating, label in zip(ratings[::-1],
@@ -179,7 +179,7 @@ def main():
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
             print(file=log)
 
-    with open('output/spb_full.md', 'w') as log:
+    with open('output/spb-full.md', 'w') as log:
         ratings = tournaments.rate_players(
             cur_date, players, lambda p: p.city == 'SPb', lambda t: t.date <= cur_date)
         for rating, label in zip(ratings[::-1],
@@ -197,7 +197,7 @@ def main():
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
             print(file=log)
 
-    with open('output/shade_city_top25.md', 'w') as log:
+    with open('output/shade-city-top25.md', 'w') as log:
         ratings = tournaments.rate_players(cur_date, players, tourney_check=lambda t: t.org == 'Святослав Соколов' and t.date <= cur_date, sep=(
             datetime.date(2019, 1, 1), datetime.date(2019, 4, 1), datetime.date(2019, 7, 1), datetime.date(2019, 10, 1), datetime.date(2020, 1, 1)))
         for rating, label in zip(ratings[::-1],
@@ -220,7 +220,7 @@ def main():
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
             print(file=log)
 
-    with open('output/shade_city_full.md', 'w') as log:
+    with open('output/shade-city-full.md', 'w') as log:
         ratings = tournaments.rate_players(
             cur_date, players, tourney_check=lambda t: t.org == 'Святослав Соколов' and t.date <= cur_date)
         for rating, label in zip(ratings[::-1],
