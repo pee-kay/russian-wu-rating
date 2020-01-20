@@ -61,18 +61,18 @@ def main():
                                   'Топ25 игроков России Q2 2019 (по турнирам со стеклом)',
                                   'Топ25 игроков России Q1 2019 (по турнирам со стеклом)',
                                   'Топ25 игроков России 2018 (по турнирам со стеклом)']):
-            print(label, file=log)
-            print('=' * len(label), file=log)
+            print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print(' # |Player                   |City      |Rating  ', file=log)
-                print('---|-------------------------|----------|--------', file=log)
+                print('| # |Player                   |City      |Rating  |', file=log)
+                print('|---|-------------------------|----------|--------|', file=log)
             else:
-                print(' # |Player                   |City      |Rating  | +/-', file=log)
-                print('---|-------------------------|----------|--------|----', file=log)
+                print('| # |Player                   |City      |Rating  | +/-|', file=log)
+                print('|---|-------------------------|----------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating[:25]):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
             print(file=log)
+        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/russian-top25.md', 'w') as log:
         ratings = tournaments.rate_players(cur_date, players, tourney_check=lambda t: t.date <= cur_date, sep=(
@@ -84,36 +84,36 @@ def main():
                                   'Топ25 игроков России Q2 2019',
                                   'Топ25 игроков России Q1 2019',
                                   'Топ25 игроков России 2018']):
-            print(label, file=log)
-            print('=' * len(label), file=log)
+            print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print(' # |Player                   |City      |Rating  ', file=log)
-                print('---|-------------------------|----------|--------', file=log)
+                print('| # |Player                   |City      |Rating  |', file=log)
+                print('|---|-------------------------|----------|--------|', file=log)
             else:
-                print(' # |Player                   |City      |Rating  | +/-', file=log)
-                print('---|-------------------------|----------|--------|----', file=log)
+                print('| # |Player                   |City      |Rating  | +/-|', file=log)
+                print('|---|-------------------------|----------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating[:25]):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
             print(file=log)
+        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/russian-full.md', 'w') as log:
         ratings = tournaments.rate_players(
             cur_date, players, tourney_check=lambda t: t.date <= cur_date)
         for rating, label in zip(ratings[::-1],
                                  ['Полный рейтинг игроков России {}'.format(cur_date_str)]):
-            print(label, file=log)
-            print('=' * len(label), file=log)
+            print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print(' # |Player                   |City      |Rating  ', file=log)
-                print('---|-------------------------|----------|--------', file=log)
+                print('| # |Player                   |City      |Rating  |', file=log)
+                print('|---|-------------------------|----------|--------|', file=log)
             else:
-                print(' # |Player                   |City      |Rating  | +/-', file=log)
-                print('---|-------------------------|----------|--------|----', file=log)
+                print('| # |Player                   |City      |Rating  | +/-|', file=log)
+                print('|---|-------------------------|----------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
             print(file=log)
+        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/moscow-top25.md', 'w') as log:
         ratings = tournaments.rate_players(cur_date, players, lambda p: p.city == 'Msk', lambda t: t.date <= cur_date, sep=(
@@ -125,36 +125,36 @@ def main():
                                   'Топ25 игроков Москвы Q2 2019',
                                   'Топ25 игроков Москвы Q1 2019',
                                   'Топ25 игроков Москвы 2018']):
-            print(label, file=log)
-            print('=' * len(label), file=log)
+            print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print(' # |Player                   |Rating  ', file=log)
-                print('---|-------------------------|--------', file=log)
+                print('| # |Player                   |Rating  |', file=log)
+                print('|---|-------------------------|--------|', file=log)
             else:
-                print(' # |Player                   |Rating  | +/-', file=log)
-                print('---|-------------------------|--------|----', file=log)
+                print('| # |Player                   |Rating  | +/-|', file=log)
+                print('|---|-------------------------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating[:25]):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
             print(file=log)
+        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/moscow-full.md', 'w') as log:
         ratings = tournaments.rate_players(
             cur_date, players, lambda p: p.city == 'Msk', lambda t: t.date <= cur_date)
         for rating, label in zip(ratings[::-1],
                                  ['Полный рейтинг игроков Москвы {}'.format(cur_date_str)]):
-            print(label, file=log)
-            print('=' * len(label), file=log)
+            print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print(' # |Player                   |Rating  ', file=log)
-                print('---|-------------------------|--------', file=log)
+                print('| # |Player                   |Rating  |', file=log)
+                print('|---|-------------------------|--------|', file=log)
             else:
-                print(' # |Player                   |Rating  | +/-', file=log)
-                print('---|-------------------------|--------|----', file=log)
+                print('| # |Player                   |Rating  | +/-|', file=log)
+                print('|---|-------------------------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
             print(file=log)
+        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/spb-top25.md', 'w') as log:
         ratings = tournaments.rate_players(cur_date, players, lambda p: p.city == 'SPb', lambda t: t.date <= cur_date, sep=(
@@ -166,36 +166,36 @@ def main():
                                   'Топ25 игроков Санкт-Петербурга Q2 2019',
                                   'Топ25 игроков Санкт-Петербурга Q1 2019',
                                   'Топ25 игроков Санкт-Петербурга 2018']):
-            print(label, file=log)
-            print('=' * len(label), file=log)
+            print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print(' # |Player                   |Rating  ', file=log)
-                print('---|-------------------------|--------', file=log)
+                print('| # |Player                   |Rating  |', file=log)
+                print('|---|-------------------------|--------|', file=log)
             else:
-                print(' # |Player                   |Rating  | +/-', file=log)
-                print('---|-------------------------|--------|----', file=log)
+                print('| # |Player                   |Rating  | +/-|', file=log)
+                print('|---|-------------------------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating[:25]):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
             print(file=log)
+        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/spb-full.md', 'w') as log:
         ratings = tournaments.rate_players(
             cur_date, players, lambda p: p.city == 'SPb', lambda t: t.date <= cur_date)
         for rating, label in zip(ratings[::-1],
                                  ['Полный рейтинг игроков Санкт-Петербурга {}'.format(cur_date_str)]):
-            print(label, file=log)
-            print('=' * len(label), file=log)
+            print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print(' # |Player                   |Rating  ', file=log)
-                print('---|-------------------------|--------', file=log)
+                print('| # |Player                   |Rating  |', file=log)
+                print('|---|-------------------------|--------|', file=log)
             else:
-                print(' # |Player                   |Rating  | +/-', file=log)
-                print('---|-------------------------|--------|----', file=log)
+                print('| # |Player                   |Rating  | +/-|', file=log)
+                print('|---|-------------------------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
             print(file=log)
+        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/shade-city-top25.md', 'w') as log:
         ratings = tournaments.rate_players(cur_date, players, tourney_check=lambda t: t.org == 'Святослав Соколов' and t.date <= cur_date, sep=(
@@ -207,36 +207,36 @@ def main():
                                   'Топ25 игроков турниров Shade City Q2 2019',
                                   'Топ25 игроков турниров Shade City Q1 2019',
                                   'Топ25 игроков турниров Shade City 2018']):
-            print(label, file=log)
-            print('=' * len(label), file=log)
+            print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print(' # |Player                   |City      |Rating  ', file=log)
-                print('---|-------------------------|----------|--------', file=log)
+                print('| # |Player                   |City      |Rating  |', file=log)
+                print('|---|-------------------------|----------|--------|', file=log)
             else:
-                print(' # |Player                   |City      |Rating  | +/-', file=log)
-                print('---|-------------------------|----------|--------|----', file=log)
+                print('| # |Player                   |City      |Rating  | +/-|', file=log)
+                print('|---|-------------------------|----------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating[:25]):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
             print(file=log)
+        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/shade-city-full.md', 'w') as log:
         ratings = tournaments.rate_players(
             cur_date, players, tourney_check=lambda t: t.org == 'Святослав Соколов' and t.date <= cur_date)
         for rating, label in zip(ratings[::-1],
                                  ['Полный рейтинг игроков турниров Shade City {}'.format(cur_date_str)]):
-            print(label, file=log)
-            print('=' * len(label), file=log)
+            print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print(' # |Player                   |City      |Rating  ', file=log)
-                print('---|-------------------------|----------|--------', file=log)
+                print('| # |Player                   |City      |Rating  |', file=log)
+                print('|---|-------------------------|----------|--------|', file=log)
             else:
-                print(' # |Player                   |City      |Rating  | +/-', file=log)
-                print('---|-------------------------|----------|--------|----', file=log)
+                print('| # |Player                   |City      |Rating  | +/-|', file=log)
+                print('|---|-------------------------|----------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
             print(file=log)
+        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
 
 if __name__ == '__main__':
