@@ -9,13 +9,13 @@ import os
 
 
 def get_player_line(p, r, i=None, diff_i=None, diff_r=None, with_city=False):
-    res = []
+    res = ['',]
     if i != None:
         res.append(str(i).rjust(3))
-    res.append(p.display.ljust(25)[:25])
+    res.append(p.display.ljust(25))
     if with_city:
-        res.append(p.city.ljust(10)[:10])
-    res.append(str(round(r, 2)).ljust(8)[:8])
+        res.append(p.city.ljust(10))
+    res.append(str(round(r, 2)).ljust(8))
     if diff_i != None:
         if diff_i > 0:
             res.append(('+' + str(diff_i)).rjust(4))
@@ -28,6 +28,7 @@ def get_player_line(p, r, i=None, diff_i=None, diff_r=None, with_city=False):
             res.append(('+' + str(diff_i)).rjust(8))
         else:
             res.append(str(diff_i).rjust(8))
+    res.append('')
     return '|'.join(res)
 
 
@@ -72,7 +73,7 @@ def main():
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
             print(file=log)
-        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
+        print('\n---\n\n[К списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/russian-top25.md', 'w') as log:
         ratings = tournaments.rate_players(cur_date, players, tourney_check=lambda t: t.date <= cur_date, sep=(
@@ -95,7 +96,7 @@ def main():
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
             print(file=log)
-        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
+        print('\n---\n\n[К списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/russian-full.md', 'w') as log:
         ratings = tournaments.rate_players(
@@ -113,7 +114,7 @@ def main():
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
             print(file=log)
-        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
+        print('\n---\n\n[К списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/moscow-top25.md', 'w') as log:
         ratings = tournaments.rate_players(cur_date, players, lambda p: p.city == 'Msk', lambda t: t.date <= cur_date, sep=(
@@ -136,7 +137,7 @@ def main():
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
             print(file=log)
-        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
+        print('\n---\n\n[К списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/moscow-full.md', 'w') as log:
         ratings = tournaments.rate_players(
@@ -154,7 +155,7 @@ def main():
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
             print(file=log)
-        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
+        print('\n---\n\n[К списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/spb-top25.md', 'w') as log:
         ratings = tournaments.rate_players(cur_date, players, lambda p: p.city == 'SPb', lambda t: t.date <= cur_date, sep=(
@@ -177,7 +178,7 @@ def main():
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
             print(file=log)
-        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
+        print('\n---\n\n[К списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/spb-full.md', 'w') as log:
         ratings = tournaments.rate_players(
@@ -195,7 +196,7 @@ def main():
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
             print(file=log)
-        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
+        print('\n---\n\n[К списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/shade-city-top25.md', 'w') as log:
         ratings = tournaments.rate_players(cur_date, players, tourney_check=lambda t: t.org == 'Святослав Соколов' and t.date <= cur_date, sep=(
@@ -218,9 +219,10 @@ def main():
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
             print(file=log)
-        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
+        print('\n---\n\n[К списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
     with open('output/shade-city-full.md', 'w') as log:
+        print('[К списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
         ratings = tournaments.rate_players(
             cur_date, players, tourney_check=lambda t: t.org == 'Святослав Соколов' and t.date <= cur_date)
         for rating, label in zip(ratings[::-1],
@@ -236,7 +238,7 @@ def main():
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
             print(file=log)
-        print('[Назад к списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
+        print('\n---\n\n[К списку рейтингов](https://pee-kay.github.io/russian-wu-rating)', file=log)
 
 
 if __name__ == '__main__':
