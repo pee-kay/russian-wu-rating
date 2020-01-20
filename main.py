@@ -33,7 +33,7 @@ def get_player_line(p, r, i=None, diff_i=None, diff_r=None, with_city=False):
 
 def main():
     repo = git.Repo(os.path.dirname(__file__))
-    cur_date = datetime.date.fromtimestamp(repo.heads[0].commit.committed_date)
+    cur_date = datetime.date.fromtimestamp(repo.head.commit.committed_date)
     cur_date_str = '{:02}.{:02}.{}'.format(
         cur_date.day, cur_date.month, cur_date.year)
 
@@ -52,7 +52,7 @@ def main():
         os.mkdir('output')
 
     with open('output/glass_tournaments_top25.md', 'w') as log:
-        ratings = tournaments.rate_players(players, tourney_check=lambda t: t.with_glass and t.date <= cur_date, sep=(
+        ratings = tournaments.rate_players(cur_date, players, tourney_check=lambda t: t.with_glass and t.date <= cur_date, sep=(
             datetime.date(2019, 1, 1), datetime.date(2019, 4, 1), datetime.date(2019, 7, 1), datetime.date(2019, 10, 1), datetime.date(2020, 1, 1)))
         for rating, label in zip(ratings[::-1],
                                  ['Топ25 игроков России {} (по турнирам со стеклом)'.format(cur_date_str),
@@ -75,7 +75,7 @@ def main():
             print(file=log)
 
     with open('output/russian_top25.md', 'w') as log:
-        ratings = tournaments.rate_players(players, tourney_check=lambda t: t.date <= cur_date, sep=(
+        ratings = tournaments.rate_players(cur_date, players, tourney_check=lambda t: t.date <= cur_date, sep=(
             datetime.date(2019, 1, 1), datetime.date(2019, 4, 1), datetime.date(2019, 7, 1), datetime.date(2019, 10, 1), datetime.date(2020, 1, 1)))
         for rating, label in zip(ratings[::-1],
                                  ['Топ25 игроков России {}'.format(cur_date_str),
@@ -99,7 +99,7 @@ def main():
 
     with open('output/russian_full.md', 'w') as log:
         ratings = tournaments.rate_players(
-            players, tourney_check=lambda t: t.date <= cur_date)
+            cur_date, players, tourney_check=lambda t: t.date <= cur_date)
         for rating, label in zip(ratings[::-1],
                                  ['Полный рейтинг игроков России {}'.format(cur_date_str)]):
             print(label, file=log)
@@ -116,7 +116,7 @@ def main():
             print(file=log)
 
     with open('output/moscow_top25.md', 'w') as log:
-        ratings = tournaments.rate_players(players, lambda p: p.city == 'Msk', lambda t: t.date <= cur_date, sep=(
+        ratings = tournaments.rate_players(cur_date, players, lambda p: p.city == 'Msk', lambda t: t.date <= cur_date, sep=(
             datetime.date(2019, 1, 1), datetime.date(2019, 4, 1), datetime.date(2019, 7, 1), datetime.date(2019, 10, 1), datetime.date(2020, 1, 1)))
         for rating, label in zip(ratings[::-1],
                                  ['Топ25 игроков Москвы {}'.format(cur_date_str),
@@ -140,7 +140,7 @@ def main():
 
     with open('output/moscow_full.md', 'w') as log:
         ratings = tournaments.rate_players(
-            players, lambda p: p.city == 'Msk', lambda t: t.date <= cur_date)
+            cur_date, players, lambda p: p.city == 'Msk', lambda t: t.date <= cur_date)
         for rating, label in zip(ratings[::-1],
                                  ['Полный рейтинг игроков Москвы {}'.format(cur_date_str)]):
             print(label, file=log)
@@ -157,7 +157,7 @@ def main():
             print(file=log)
 
     with open('output/spb_top25.md', 'w') as log:
-        ratings = tournaments.rate_players(players, lambda p: p.city == 'SPb', lambda t: t.date <= cur_date, sep=(
+        ratings = tournaments.rate_players(cur_date, players, lambda p: p.city == 'SPb', lambda t: t.date <= cur_date, sep=(
             datetime.date(2019, 1, 1), datetime.date(2019, 4, 1), datetime.date(2019, 7, 1), datetime.date(2019, 10, 1), datetime.date(2020, 1, 1)))
         for rating, label in zip(ratings[::-1],
                                  ['Топ25 игроков Санкт-Петербурга {}'.format(cur_date_str),
@@ -181,7 +181,7 @@ def main():
 
     with open('output/spb_full.md', 'w') as log:
         ratings = tournaments.rate_players(
-            players, lambda p: p.city == 'SPb', lambda t: t.date <= cur_date)
+            cur_date, players, lambda p: p.city == 'SPb', lambda t: t.date <= cur_date)
         for rating, label in zip(ratings[::-1],
                                  ['Полный рейтинг игроков Санкт-Петербурга {}'.format(cur_date_str)]):
             print(label, file=log)
@@ -198,7 +198,7 @@ def main():
             print(file=log)
 
     with open('output/shade_city_top25.md', 'w') as log:
-        ratings = tournaments.rate_players(players, tourney_check=lambda t: t.org == 'Святослав Соколов' and t.date <= cur_date, sep=(
+        ratings = tournaments.rate_players(cur_date, players, tourney_check=lambda t: t.org == 'Святослав Соколов' and t.date <= cur_date, sep=(
             datetime.date(2019, 1, 1), datetime.date(2019, 4, 1), datetime.date(2019, 7, 1), datetime.date(2019, 10, 1), datetime.date(2020, 1, 1)))
         for rating, label in zip(ratings[::-1],
                                  ['Топ25 игроков турниров Shade City {}'.format(cur_date_str),
@@ -222,7 +222,7 @@ def main():
 
     with open('output/shade_city_full.md', 'w') as log:
         ratings = tournaments.rate_players(
-            players, tourney_check=lambda t: t.org == 'Святослав Соколов' and t.date <= cur_date)
+            cur_date, players, tourney_check=lambda t: t.org == 'Святослав Соколов' and t.date <= cur_date)
         for rating, label in zip(ratings[::-1],
                                  ['Полный рейтинг игроков турниров Shade City {}'.format(cur_date_str)]):
             print(label, file=log)

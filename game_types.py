@@ -98,7 +98,7 @@ class Tournament:
                 if p2 not in ratings:
                     ratings[p2] = system.Rating()
 
-                ratings[p1], ratings[p2] = system.rate_1vs1(ratings[p1], ratings[p2], drawn)
+                ratings[p1], ratings[p2] = system.rate_1vs1(ratings[p1], ratings[p2], drawn, date = self.date)
 
     def update_prob(self, ratings, prob, diff_step):
         for tour in self._matches:
@@ -156,14 +156,14 @@ class Tournaments(list):
         self.append(tourney)
         return tourney
 
-    def rate_players(self, players, player_check = None, tourney_check = None, system = elo, sep = ()):
+    def rate_players(self, cur_date, players, player_check = None, tourney_check = None, system = elo, sep = ()):
         class State:
             def __init__(self):
                 self.ratings = {}
                 self.result = []
                 self.prev_ids = {}
 
-            def separate(self):
+            def separate(self, date):
                 self.result.append([])
 
                 ids = {}
@@ -171,6 +171,9 @@ class Tournaments(list):
                     player = players[p]
                     if player_check is not None and not player_check(player):
                         continue
+
+                    #if r.last_active is not None and r.last_active + datetime.timedelta(365) < date:
+                    #    continue
 
                     if system is winrate and r.n < 5:
                         continue
@@ -193,16 +196,16 @@ class Tournaments(list):
                 continue
 
             while sep and tourney.date >= sep[0]:
-                state.separate()
+                state.separate(sep[0])
                 sep = sep[1:]
 
             tourney.update_ratings(state.ratings, system)
 
         while sep:
-            state.separate()
+            state.separate(sep[0])
             sep = sep[1:]
 
-        state.separate()
+        state.separate(cur_date)
 
         return state.result
 
