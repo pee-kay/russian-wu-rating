@@ -12,7 +12,7 @@ def get_player_line(p, r, i=None, diff_i=None, diff_r=None, with_city=False):
     res = ['',]
     if i != None:
         res.append(str(i).rjust(3))
-    res.append(p.display.ljust(25))
+    res.append(p.display.ljust(35))
     if with_city:
         res.append(p.city.ljust(10))
     res.append(str(round(r, 2)).ljust(8))
@@ -65,11 +65,11 @@ def main():
                                   'Топ25 игроков России 2018 (по турнирам со стеклом)']):
             print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print('| # |Player                   |City      |Rating  |', file=log)
-                print('|---|-------------------------|----------|--------|', file=log)
+                print('| # |Player                             |City      |Rating  |', file=log)
+                print('|---|-----------------------------------|----------|--------|', file=log)
             else:
-                print('| # |Player                   |City      |Rating  | +/-|', file=log)
-                print('|---|-------------------------|----------|--------|----|', file=log)
+                print('| # |Player                             |City      |Rating  | +/-|', file=log)
+                print('|---|-----------------------------------|----------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating[:25]):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
@@ -89,11 +89,11 @@ def main():
                                   'Топ25 игроков России 2018']):
             print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print('| # |Player                   |City      |Rating  |', file=log)
-                print('|---|-------------------------|----------|--------|', file=log)
+                print('| # |Player                             |City      |Rating  |', file=log)
+                print('|---|-----------------------------------|----------|--------|', file=log)
             else:
-                print('| # |Player                   |City      |Rating  | +/-|', file=log)
-                print('|---|-------------------------|----------|--------|----|', file=log)
+                print('| # |Player                             |City      |Rating  | +/-|', file=log)
+                print('|---|-----------------------------------|----------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating[:25]):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
@@ -108,11 +108,11 @@ def main():
                                  ['Полный рейтинг игроков России {}'.format(cur_date_str)]):
             print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print('| # |Player                   |City      |Rating  |', file=log)
-                print('|---|-------------------------|----------|--------|', file=log)
+                print('| # |Player                             |City      |Rating  |', file=log)
+                print('|---|-----------------------------------|----------|--------|', file=log)
             else:
-                print('| # |Player                   |City      |Rating  | +/-|', file=log)
-                print('|---|-------------------------|----------|--------|----|', file=log)
+                print('| # |Player                             |City      |Rating  | +/-|', file=log)
+                print('|---|-----------------------------------|----------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
@@ -132,11 +132,11 @@ def main():
                                   'Топ25 игроков Москвы 2018']):
             print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print('| # |Player                   |Rating  |', file=log)
-                print('|---|-------------------------|--------|', file=log)
+                print('| # |Player                             |Rating  |', file=log)
+                print('|---|-----------------------------------|--------|', file=log)
             else:
-                print('| # |Player                   |Rating  | +/-|', file=log)
-                print('|---|-------------------------|--------|----|', file=log)
+                print('| # |Player                             |Rating  | +/-|', file=log)
+                print('|---|-----------------------------------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating[:25]):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
@@ -151,11 +151,11 @@ def main():
                                  ['Полный рейтинг игроков Москвы {}'.format(cur_date_str)]):
             print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print('| # |Player                   |Rating  |', file=log)
-                print('|---|-------------------------|--------|', file=log)
+                print('| # |Player                             |Rating  |', file=log)
+                print('|---|-----------------------------------|--------|', file=log)
             else:
-                print('| # |Player                   |Rating  | +/-|', file=log)
-                print('|---|-------------------------|--------|----|', file=log)
+                print('| # |Player                             |Rating  | +/-|', file=log)
+                print('|---|-----------------------------------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
@@ -175,11 +175,11 @@ def main():
                                   'Топ25 игроков Санкт-Петербурга 2018']):
             print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print('| # |Player                   |Rating  |', file=log)
-                print('|---|-------------------------|--------|', file=log)
+                print('| # |Player                             |Rating  |', file=log)
+                print('|---|-----------------------------------|--------|', file=log)
             else:
-                print('| # |Player                   |Rating  | +/-|', file=log)
-                print('|---|-------------------------|--------|----|', file=log)
+                print('| # |Player                             |Rating  | +/-|', file=log)
+                print('|---|-----------------------------------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating[:25]):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
@@ -194,11 +194,11 @@ def main():
                                  ['Полный рейтинг игроков Санкт-Петербурга {}'.format(cur_date_str)]):
             print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print('| # |Player                   |Rating  |', file=log)
-                print('|---|-------------------------|--------|', file=log)
+                print('| # |Player                             |Rating  |', file=log)
+                print('|---|-----------------------------------|--------|', file=log)
             else:
-                print('| # |Player                   |Rating  | +/-|', file=log)
-                print('|---|-------------------------|--------|----|', file=log)
+                print('| # |Player                             |Rating  | +/-|', file=log)
+                print('|---|-----------------------------------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i)), file=log)
@@ -218,11 +218,11 @@ def main():
                                   'Топ25 игроков турниров Shade City 2018']):
             print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print('| # |Player                   |City      |Rating  |', file=log)
-                print('|---|-------------------------|----------|--------|', file=log)
+                print('| # |Player                             |City      |Rating  |', file=log)
+                print('|---|-----------------------------------|----------|--------|', file=log)
             else:
-                print('| # |Player                   |City      |Rating  | +/-|', file=log)
-                print('|---|-------------------------|----------|--------|----|', file=log)
+                print('| # |Player                             |City      |Rating  | +/-|', file=log)
+                print('|---|-----------------------------------|----------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating[:25]):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
@@ -237,11 +237,11 @@ def main():
                                  ['Полный рейтинг игроков турниров Shade City {}'.format(cur_date_str)]):
             print('# {} #\n'.format(label), file=log)
             if rating is ratings[0]:
-                print('| # |Player                   |City      |Rating  |', file=log)
-                print('|---|-------------------------|----------|--------|', file=log)
+                print('| # |Player                             |City      |Rating  |', file=log)
+                print('|---|-----------------------------------|----------|--------|', file=log)
             else:
-                print('| # |Player                   |City      |Rating  | +/-|', file=log)
-                print('|---|-------------------------|----------|--------|----|', file=log)
+                print('| # |Player                             |City      |Rating  | +/-|', file=log)
+                print('|---|-----------------------------------|----------|--------|----|', file=log)
             for i, (p, r, diff_i, _) in enumerate(rating):
                 print(get_player_line(
                     p, r, i + 1, None if rating is ratings[0] else (0 if diff_i is None else diff_i), with_city=True), file=log)
