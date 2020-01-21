@@ -4,6 +4,8 @@ import elo
 import csv
 import os
 
+RANKS = {'LG' : 0, 'LT' : 1, 'GT' : 2, 'GC' : 3, 'GM' : 4}
+
 class Player:
     def __init__(self, name, city='Msk', display=None):
         self.name = name
@@ -48,12 +50,11 @@ class Player:
         return Player.create_players(*players)
 
 class Tournament:
-    def __init__(self, name, date, org, with_glass, is_grand_clash, players):
+    def __init__(self, name, date, org, tt, players):
         self._name = name
         self._date = datetime.date(*date)
         self._org = org
-        self._with_glass = with_glass
-        self._is_grand_clash = is_grand_clash
+        self._rank = RANKS[tt]
         self._players = players
         self._matches = [[]]
 
@@ -71,11 +72,15 @@ class Tournament:
 
     @property
     def with_glass(self):
-        return self._with_glass
+        return self._rank >= 2
 
     @property
     def is_grand_clash(self):
-        return self._is_grand_clash
+        return self._rank >= 3
+
+    @property
+    def rank(self):
+        return self._rank
 
     def end_current_tour(self):
         self._matches.append([])
@@ -125,7 +130,7 @@ class Tournament:
 
 class League(Tournament):
     def __init__(self, name, start_date, org, players):
-        super().__init__(name, start_date, org, False, False, players)
+        super().__init__(name, start_date, org, 'LG', players)
         self._start_date = self._date
         self._match_dates = [[]]
 
@@ -258,11 +263,11 @@ class Tournaments(list):
 
         gl = {}
         exec('params = ({})'.format(os.path.splitext(os.path.basename(fname))[0]), gl)
-        name, date, org, with_glass = gl['params']
+        date, name, org, tt = gl['params']
 
         # TODO: use more explicit information about Grand Clashes
         is_gc = 'Grand Clash' in os.path.basename(fname)
-        tourney = self.create(name, date, org, with_glass, is_gc, tourney_players)
+        tourney = self.create(name, date, org, tt, tourney_players)
 
         for tour in range(tour_n):
             for t in sorted(tables):
@@ -310,7 +315,7 @@ class Tournaments(list):
 
                         gl = {}
                         exec('params = ({})'.format(os.path.splitext(os.path.basename(fname))[0]), gl)
-                        name, date, org = gl['params']
+                        date, name, org = gl['params']
 
                         tourney = self.create_league(name, date, org, tourney_players)
                 else:
