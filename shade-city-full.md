@@ -1,4 +1,4 @@
-[К списку рейтингов](https://pee-kay.github.io/russian-wu-rating)
+[К основным рейтингам](https://pee-kay.github.io/russian-wu-rating)
 # Полный рейтинг игроков турниров Shade City 21.01.2020 #
 
 | # |Player                   |City      |Rating  |
@@ -100,4 +100,4 @@
 
 ---
 
-[К списку рейтингов](https://pee-kay.github.io/russian-wu-rating)
+[К основным рейтингам](https://pee-kay.github.io/russian-wu-rating)

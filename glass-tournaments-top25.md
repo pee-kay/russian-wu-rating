@@ -1,3 +1,4 @@
+[К основным рейтингам](https://pee-kay.github.io/russian-wu-rating)
 # Топ25 игроков России 21.01.2020 (по турнирам со стеклом) #
 
 | # |Player                   |City      |Rating  | +/-|
@@ -181,4 +182,4 @@
 
 ---
 
-[К списку рейтингов](https://pee-kay.github.io/russian-wu-rating)
+[К основным рейтингам](https://pee-kay.github.io/russian-wu-rating)
