@@ -4,7 +4,8 @@ import elo
 import csv
 import os
 
-RANKS = {'LG' : 0, 'LT' : 1, 'GT' : 2, 'TC': 2, 'GC' : 3, 'GM' : 4}
+RANKS = {'LG': 0, 'LT': 1, 'GT': 2, 'TC': 2, 'GC': 3, 'GM': 4}
+
 
 class Player:
     def __init__(self, name, city='Msk', display=None):
@@ -48,6 +49,7 @@ class Player:
                 player_names = player_names.union(set(l[0]))
 
         return Player.create_players(*players)
+
 
 class Tournament:
     def __init__(self, name, date, org, city, tt, players):
@@ -108,7 +110,8 @@ class Tournament:
                 if p2 not in ratings:
                     ratings[p2] = system.Rating()
 
-                ratings[p1], ratings[p2] = system.rate_1vs1(ratings[p1], ratings[p2], drawn, date = self.date)
+                ratings[p1], ratings[p2] = system.rate_1vs1(
+                    ratings[p1], ratings[p2], drawn, date=self.date)
 
     def update_prob(self, ratings, prob, diff_step):
         for tour in self._matches:
@@ -133,6 +136,7 @@ class Tournament:
                 prob[1][diff_i] += 1
                 prob[2][diff_i] += upd
 
+
 class League(Tournament):
     def __init__(self, name, start_date, org, city, players):
         super().__init__(name, start_date, org, city, 'LG', players)
@@ -150,10 +154,12 @@ class League(Tournament):
         self._match_dates[-1].append(date)
 
         if date < self._start_date:
-            raise RuntimeError('Match couldn\'t happen before start of the league')
+            raise RuntimeError(
+                'Match couldn\'t happen before start of the league')
 
         if date > self._date:
             self._date = date
+
 
 class Tournaments(list):
     def create(self, *args, **kwargs):
@@ -166,7 +172,14 @@ class Tournaments(list):
         self.append(tourney)
         return tourney
 
-    def rate_players(self, cur_date, players, player_check = None, tourney_check = None, system = elo, sep = ()):
+    def rate_players(self, cur_date, players, player_check=None, tourney_check=None, system=elo, sep=(), min_n=5, filter_date=None, max_rd_ratio=0.9):
+        try:
+            r = system.Rating()
+            _ = r.rdSq
+            with_rd = True
+        except AttributeError:
+            with_rd = False
+
         class State:
             def __init__(self):
                 self.ratings = {}
@@ -176,32 +189,44 @@ class Tournaments(list):
             def separate(self, date):
                 self.result.append([])
 
+                def check_rating(r):
+                    return r.getRdSq(date) < system.MAX_RD_SQ * max_rd_ratio * max_rd_ratio if with_rd else r.n >= min_n or filter_date is None or date <= filter_date
+
                 ids = {}
-                for p, r in sorted(self.ratings.items(), key=lambda pr: pr[1].mu, reverse=True):
+                for p, r in sorted(self.ratings.items(), key=lambda pr: (-pr[1].mu if check_rating(pr[1]) else 0, players[pr[0]].display)):
                     player = players[p]
                     if player_check is not None and not player_check(player):
                         continue
 
-                    #if r.last_active is not None and r.last_active + datetime.timedelta(365) < date:
-                    #    continue
-
-                    if system is winrate and r.n < 5:
+                    if system is winrate and r.n < min_n:
                         continue
 
-                    diff_i = None
+                    rating = r.mu if check_rating(r) else None
+
+                    if self.result[-1]:
+                        new = rating != self.result[-1][-1][2]
+                        position = len(
+                            self.result[-1]) + 1 if new else self.result[-1][-1][0]
+                    else:
+                        new = True
+                        position = 1
+
+                    diff_p = None
                     diff_r = None
                     if player.name in self.prev_ids:
                         prev_i = self.prev_ids[player.name]
-                        diff_i = prev_i - len(self.result[-1])
-                        diff_r = r.mu - self.result[-2][prev_i][1]
+                        diff_p = self.result[-2][prev_i][0] - position
+                        if rating != None and self.result[-2][prev_i][2] != None:
+                            diff_r = rating - self.result[-2][prev_i][2]
 
                     ids[player.name] = len(self.result[-1])
-                    self.result[-1].append((player, r.mu, diff_i, diff_r))
+                    self.result[-1].append((position,
+                                            player, rating, r.getRdSq(date) ** 0.5 if with_rd else 0, diff_p, diff_r))
 
                 self.prev_ids = ids
 
         state = State()
-        for tourney in sorted(self, key = lambda t: t.date):
+        for tourney in sorted(self, key=lambda t: t.date):
             if tourney_check is not None and not tourney_check(tourney):
                 continue
 
@@ -219,20 +244,19 @@ class Tournaments(list):
 
         return state.result
 
-    def rate_prob(self, players, system = elo, diff_step = 1):
+    def rate_prob(self, players, system=elo, diff_step=1):
         ratings = {}
 
-        for tourney in sorted(self, key = lambda t: t.date):
+        for tourney in sorted(self, key=lambda t: t.date):
             tourney.update_ratings(ratings, system)
 
-        prob = [[diff_step],[0],[0.0]]
-        for tourney in sorted(self, key = lambda t: t.date):
+        prob = [[diff_step], [0], [0.0]]
+        for tourney in sorted(self, key=lambda t: t.date):
             tourney.update_prob(ratings, prob, diff_step)
 
         return prob
 
-
-    def load_tournament(self, fname, players_fname = 'players.csv'):
+    def load_tournament(self, fname, players_fname='players.csv'):
         tb_cols = []
         vp_cols = []
         tour_n = 0
@@ -242,15 +266,19 @@ class Tournaments(list):
             rdr = csv.reader(csvf)
             for i, l in enumerate(rdr):
                 if i == 0:
-                    tb_cols = [i for i in range(len(l)) if l[i] in ['t', 'T', 'TB', 'Tb', 'tb']]
-                    vp_cols = [i for i in range(len(l)) if l[i] in ['v', 'V', 'VP', 'Vp', 'vp']]
+                    tb_cols = [i for i in range(len(l)) if l[i] in [
+                        't', 'T', 'TB', 'Tb', 'tb']]
+                    vp_cols = [i for i in range(len(l)) if l[i] in [
+                        'v', 'V', 'VP', 'Vp', 'vp']]
                     tour_n = len(tb_cols)
                     if len(vp_cols) < tour_n or len(vp_cols) > (tour_n + 1):
-                        raise RuntimeError('Wrong tournament caption {}'.format(l))
+                        raise RuntimeError(
+                            'Wrong tournament caption {}'.format(l))
                     continue
 
                 name = l[1].strip()
-                tours = [(int(l[j]), int(l[k])) for j, k in zip(tb_cols, vp_cols[:tour_n])]
+                tours = [(int(l[j]), int(l[k]))
+                         for j, k in zip(tb_cols, vp_cols[:tour_n])]
                 tables = tables.union(set([t[0] for t in tours]))
                 players.append((i, name, tours))
 
@@ -267,7 +295,8 @@ class Tournaments(list):
             raise RuntimeError('Missing players: {}'.format(missing_players))
 
         gl = {}
-        exec('params = ({})'.format(os.path.splitext(os.path.basename(fname))[0]), gl)
+        exec('params = ({})'.format(
+            os.path.splitext(os.path.basename(fname))[0]), gl)
         date, name, org, city, tt = gl['params']
         tourney = self.create(name, date, org, city, tt, tourney_players)
 
@@ -282,16 +311,18 @@ class Tournaments(list):
                     continue
 
                 if len(table) > 2:
-                    raise RuntimeError('Too many players on the same table (tour {}, table {})'.format(tour, t))
+                    raise RuntimeError(
+                        'Too many players on the same table (tour {}, table {})'.format(tour, t))
 
                 i1 = table[0][0]
                 i2 = table[1][0]
-                res = 1 if table[0][1] > table[1][1] else (-1 if table[0][1] < table[1][1] else 0)
+                res = 1 if table[0][1] > table[1][1] else (
+                    -1 if table[0][1] < table[1][1] else 0)
                 tourney.add_match(i1, i2, res)
 
             tourney.end_current_tour()
 
-    def load_league(self, fname, players_fname = 'players.csv'):
+    def load_league(self, fname, players_fname='players.csv'):
         tourney = None
         tourney_players = {}
         missing_players = []
@@ -313,13 +344,17 @@ class Tournaments(list):
 
                     if len(tourney_players) == player_n:
                         if missing_players:
-                            raise RuntimeError('Missing players: {}'.format(missing_players))
+                            raise RuntimeError(
+                                'Missing players: {}'.format(missing_players))
 
                         gl = {}
-                        exec('params = ({})'.format(os.path.splitext(os.path.basename(fname))[0]), gl)
+                        exec('params = ({})'.format(
+                            os.path.splitext(os.path.basename(fname))[0]), gl)
                         date, name, org, city = gl['params']
 
-                        tourney = self.create_league(name, date, org, city, tourney_players)
+                        tourney = self.create_league(
+                            name, date, org, city, tourney_players)
                 else:
                     p1, p2, year, month, day = l[:5]
-                    tourney.add_match(p1, p2, 1, datetime.date(int(year), int(month), int(day)))
+                    tourney.add_match(p1, p2, 1, datetime.date(
+                        int(year), int(month), int(day)))
