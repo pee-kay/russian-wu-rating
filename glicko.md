@@ -17,4 +17,5 @@
 ---
 
 [к рейтингам по системе Эло](https://pee-kay.github.io/russian-wu-rating/all.html)
+
 [на главную](https://pee-kay.github.io/russian-wu-rating)
