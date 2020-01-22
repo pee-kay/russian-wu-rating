@@ -24,117 +24,118 @@
 | 19|Georgiy                            |1553.07 |
 | 20|Verger                             |1546.49 |
 | 21|Priest                             |1546.08 |
-| 22|Sveta                              |1544.87 |
-| 23|Sli                                |1543.63 |
-| 24|Lycian                             |1538.22 |
-| 25|Doctor                             |1532.75 |
-| 26|Boris                              |1528.85 |
-| 27|Artur                              |1528.55 |
-| 28|Owl                                |1525.87 |
-| 29|Imp                                |1524.82 |
-| 30|Arsanar                            |1523.39 |
-| 31|Prokopov                           |1516.53 |
-| 32|Nevar                              |1515.87 |
-| 33|Anna                               |1515.69 |
-| 34|Fatherbox                          |1508.72 |
-| 35|Nikita Argov                       |1508.14 |
-| 36|Oksana                             |1506.09 |
-| 37|Senek                              |1505.87 |
-| 38|Ruker                              |1503.84 |
-| 39|Excelsior                          |1503.68 |
-| 40|Student                            |1502.6  |
-| 41|Limur                              |1501.78 |
-| 42|Your mother friend                 |1501.35 |
-| 43|Naruto                             |1501.01 |
-| 44|Homyak                             |1500.52 |
-| 45|Slay                               |1500.16 |
-| 46|Skiv                               |1499.62 |
-| 47|Vitaliy                            |1499.61 |
-| 48|KOT                                |1498.97 |
-| 49|Grib                               |1498.55 |
-| 50|Seriy                              |1497.98 |
-| 51|Bessmertniy                        |1495.47 |
-| 52|Aleksey Rassecheniy                |1493.1  |
-| 53|Danil                              |1490.94 |
-| 54|Tanya                              |1490.72 |
-| 55|Darth Framas                       |1489.93 |
-| 56|Amarok                             |1489.68 |
-| 57|Lodin                              |1489.3  |
-| 58|Maks 2.0                           |1489.17 |
-| 59|Pavel                              |1488.14 |
-| 60|Solnce                             |1486.97 |
-| 61|Oval                               |1486.6  |
-| 62|Smog                               |1486.33 |
-| 63|Renor                              |1485.86 |
-| 64|Владислав Войнов                   |1485.45 |
-| 65|Hity                               |1484.84 |
-| 66|Navigator                          |1483.76 |
-| 67|Reka                               |1483.65 |
-| 68|Dimka                              |1483.58 |
-| 69|Tulin                              |1483.49 |
-| 70|DRPFDR                             |1482.01 |
-| 71|Michail                            |1482.0  |
-| 72|Hevka                              |1481.94 |
-| 73|Hovard51                           |1481.13 |
-| 74|Slav                               |1481.09 |
-| 75|Rodion                             |1480.44 |
-| 76|Voloshin                           |1478.38 |
-| 77|Roma                               |1478.3  |
-| 78|Mekhanka                           |1477.13 |
-| 79|Vladimir                           |1476.5  |
-| 80|Timur                              |1476.31 |
-| 81|Solano                             |1475.43 |
-| 82|Banket                             |1475.06 |
-| 83|Viktor                             |1474.68 |
-| 84|TK                                 |1471.7  |
-| 85|Smoker                             |1470.85 |
-| 86|Dominator 667                      |1469.69 |
-| 87|Arstozkan                          |1469.6  |
-| 88|Petr                               |1469.31 |
-| 89|TauViktor                          |1468.79 |
-| 90|Egor                               |1468.2  |
-| 91|Nechrist                           |1468.19 |
-| 92|Keboto                             |1468.09 |
-| 93|Karina                             |1465.21 |
-| 94|Denis                              |1464.3  |
-| 95|Kainobor                           |1462.49 |
-| 96|Nikita                             |1461.55 |
-| 97|Coach                              |1461.47 |
-| 98|Vlad                               |1458.85 |
-| 99|Kirill                             |1456.85 |
-|100|Dredd                              |1456.68 |
-|101|Taranov                            |1452.41 |
-|102|Pornoork                           |1452.36 |
-|103|Maks                               |1452.2  |
-|104|Belenov                            |1452.19 |
-|105|Lera                               |1451.92 |
-|106|XuTu                               |1449.76 |
-|107|Vanya Sabaka                       |1449.41 |
-|108|Kolya                              |1449.37 |
-|109|Andrey                             |1447.8  |
-|110|Sergey                             |1446.91 |
-|111|Barb                               |1446.01 |
-|112|Stepan                             |1444.52 |
-|113|Ivan                               |1443.61 |
-|114|Ahti                               |1443.53 |
-|115|Tegark                             |1442.2  |
-|116|Margo                              |1437.1  |
-|117|Dominator 666                      |1436.75 |
-|118|Kondor                             |1433.91 |
-|119|Udar                               |1430.4  |
-|120|SashaPskov                         |1428.96 |
-|121|Proletariy                         |1427.05 |
-|122|Stradevary                         |1421.93 |
-|123|Krot                               |1418.76 |
-|124|Tupocowboy                         |1418.64 |
-|125|Maksim                             |1412.66 |
-|126|Dants                              |1411.67 |
-|127|Lover                              |1401.3  |
-|128|Amgalan                            |1397.64 |
-|129|Danyar                             |1393.71 |
-|130|Badya                              |1389.99 |
-|131|Saervak                            |1331.4  |
+| 22|Sli                                |1543.63 |
+| 23|Doctor                             |1532.75 |
+| 24|Boris                              |1528.85 |
+| 25|Owl                                |1525.87 |
+| 26|Imp                                |1524.82 |
+| 27|Arsanar                            |1523.39 |
+| 28|Nevar                              |1515.87 |
+| 29|Fatherbox                          |1508.72 |
+| 30|Oksana                             |1506.09 |
+| 31|Senek                              |1505.87 |
+| 32|Ruker                              |1503.84 |
+| 33|Excelsior                          |1503.68 |
+| 34|Homyak                             |1500.52 |
+| 35|Skiv                               |1499.62 |
+| 36|Vitaliy                            |1499.61 |
+| 37|Grib                               |1498.55 |
+| 38|Seriy                              |1497.98 |
+| 39|Bessmertniy                        |1495.47 |
+| 40|Darth Framas                       |1489.93 |
+| 41|Amarok                             |1489.68 |
+| 42|Solnce                             |1486.97 |
+| 43|Smog                               |1486.33 |
+| 44|Michail                            |1482.0  |
+| 45|Rodion                             |1480.44 |
+| 46|Roma                               |1478.3  |
+| 47|Timur                              |1476.31 |
+| 48|Solano                             |1475.43 |
+| 49|Viktor                             |1474.68 |
+| 50|Dominator 667                      |1469.69 |
+| 51|Egor                               |1468.2  |
+| 52|Vlad                               |1458.85 |
+| 53|Kirill                             |1456.85 |
+| 54|Taranov                            |1452.41 |
+| 55|XuTu                               |1449.76 |
+| 56|Kolya                              |1449.37 |
+| 57|Sergey                             |1446.91 |
+| 58|Barb                               |1446.01 |
+| 59|Ivan                               |1443.61 |
+| 60|Dominator 666                      |1436.75 |
+| 61|Udar                               |1430.4  |
+| 62|SashaPskov                         |1428.96 |
+| 63|Krot                               |1418.76 |
+| 64|Maksim                             |1412.66 |
+| 65|Dants                              |1411.67 |
+| 66|Lover                              |1401.3  |
+| 67|Amgalan                            |1397.64 |
+| 68|Danyar                             |1393.71 |
+| 69|Badya                              |1389.99 |
+| 70|Saervak                            |1331.4  |
+| 71|Ahti                               |   N/A  |
+|   |Aleksey Rassecheniy                |   N/A  |
+|   |Andrey                             |   N/A  |
+|   |Anna                               |   N/A  |
+|   |Arstozkan                          |   N/A  |
+|   |Artur                              |   N/A  |
+|   |Banket                             |   N/A  |
+|   |Belenov                            |   N/A  |
+|   |Coach                              |   N/A  |
+|   |DRPFDR                             |   N/A  |
+|   |Danil                              |   N/A  |
+|   |Denis                              |   N/A  |
+|   |Dimka                              |   N/A  |
+|   |Dredd                              |   N/A  |
+|   |Hevka                              |   N/A  |
+|   |Hity                               |   N/A  |
+|   |Hovard51                           |   N/A  |
+|   |KOT                                |   N/A  |
+|   |Kainobor                           |   N/A  |
+|   |Karina                             |   N/A  |
+|   |Keboto                             |   N/A  |
+|   |Kondor                             |   N/A  |
+|   |Lera                               |   N/A  |
+|   |Limur                              |   N/A  |
+|   |Lodin                              |   N/A  |
+|   |Lycian                             |   N/A  |
+|   |Maks                               |   N/A  |
+|   |Maks 2.0                           |   N/A  |
+|   |Margo                              |   N/A  |
+|   |Mekhanka                           |   N/A  |
+|   |Naruto                             |   N/A  |
+|   |Navigator                          |   N/A  |
+|   |Nechrist                           |   N/A  |
+|   |Nikita                             |   N/A  |
+|   |Nikita Argov                       |   N/A  |
+|   |Oval                               |   N/A  |
+|   |Pavel                              |   N/A  |
+|   |Petr                               |   N/A  |
+|   |Pornoork                           |   N/A  |
+|   |Prokopov                           |   N/A  |
+|   |Proletariy                         |   N/A  |
+|   |Reka                               |   N/A  |
+|   |Renor                              |   N/A  |
+|   |Slav                               |   N/A  |
+|   |Slay                               |   N/A  |
+|   |Smoker                             |   N/A  |
+|   |Stepan                             |   N/A  |
+|   |Stradevary                         |   N/A  |
+|   |Student                            |   N/A  |
+|   |Sveta                              |   N/A  |
+|   |TK                                 |   N/A  |
+|   |Tanya                              |   N/A  |
+|   |TauViktor                          |   N/A  |
+|   |Tegark                             |   N/A  |
+|   |Tulin                              |   N/A  |
+|   |Tupocowboy                         |   N/A  |
+|   |Vanya Sabaka                       |   N/A  |
+|   |Vladimir                           |   N/A  |
+|   |Voloshin                           |   N/A  |
+|   |Your mother friend                 |   N/A  |
+|   |Владислав Войнов                   |   N/A  |
 
+N/A - недостаточно матчей для определения рейтинга (<6)
 
 ---
 
