@@ -1,5 +1,5 @@
 [К основным рейтингам](https://pee-kay.github.io/russian-wu-rating)
-# Полный рейтинг игроков Санкт-Петербурга 22.01.2020 #
+# Полный рейтинг игроков Санкт-Петербурга 25.01.2020 #
 
 | # |Player                             |Rating  |
 |---|-----------------------------------|--------|
@@ -12,73 +12,74 @@
 |  7|Oleg                               |1668.49 |
 |  8|Vanya                              |1618.13 |
 |  9|Kamahl                             |1613.97 |
-| 10|Voron                              |1595.39 |
+| 10|Voron                              |1586.08 |
 | 11|Pawlove                            |1582.88 |
 | 12|Kifir                              |1581.86 |
 | 13|Dimon                              |1581.17 |
 | 14|Soel                               |1580.17 |
 | 15|Anguis                             |1576.95 |
-| 16|Tema                               |1575.59 |
-| 17|Kozulskis                          |1565.92 |
-| 18|Sasha                              |1565.89 |
-| 19|Georgiy                            |1553.07 |
+| 16|Boris                              |1561.59 |
+| 17|Georgiy                            |1553.07 |
+| 18|Timur                              |1548.59 |
+| 19|Kozulskis                          |1546.9  |
 | 20|Verger                             |1546.49 |
 | 21|Priest                             |1546.08 |
 | 22|Sli                                |1543.63 |
-| 23|Doctor                             |1532.75 |
-| 24|Boris                              |1528.85 |
-| 25|Owl                                |1525.87 |
-| 26|Imp                                |1524.82 |
-| 27|Arsanar                            |1523.39 |
-| 28|Nevar                              |1515.87 |
-| 29|Fatherbox                          |1508.72 |
-| 30|Oksana                             |1506.09 |
-| 31|Senek                              |1505.87 |
-| 32|Ruker                              |1503.84 |
-| 33|Excelsior                          |1503.68 |
-| 34|Homyak                             |1500.52 |
-| 35|Skiv                               |1499.62 |
-| 36|Vitaliy                            |1499.61 |
-| 37|Grib                               |1498.55 |
-| 38|Seriy                              |1497.98 |
-| 39|Bessmertniy                        |1495.47 |
-| 40|Darth Framas                       |1489.93 |
-| 41|Amarok                             |1489.68 |
-| 42|Solnce                             |1486.97 |
-| 43|Smog                               |1486.33 |
-| 44|Michail                            |1482.0  |
-| 45|Rodion                             |1480.44 |
-| 46|Roma                               |1478.3  |
-| 47|Timur                              |1476.31 |
-| 48|Solano                             |1475.43 |
-| 49|Viktor                             |1474.68 |
-| 50|Dominator 667                      |1469.69 |
-| 51|Egor                               |1468.2  |
-| 52|Vlad                               |1458.85 |
-| 53|Kirill                             |1456.85 |
-| 54|Taranov                            |1452.41 |
-| 55|XuTu                               |1449.76 |
-| 56|Kolya                              |1449.37 |
-| 57|Sergey                             |1446.91 |
-| 58|Barb                               |1446.01 |
-| 59|Ivan                               |1443.61 |
-| 60|Dominator 666                      |1436.75 |
-| 61|Udar                               |1430.4  |
-| 62|SashaPskov                         |1428.96 |
-| 63|Krot                               |1418.76 |
-| 64|Maksim                             |1412.66 |
-| 65|Dants                              |1411.67 |
-| 66|Lover                              |1401.3  |
-| 67|Amgalan                            |1397.64 |
-| 68|Danyar                             |1393.71 |
-| 69|Badya                              |1389.99 |
-| 70|Saervak                            |1331.4  |
-| 71|Ahti                               |   N/A  |
+| 23|Imp                                |1539.03 |
+| 24|Tema                               |1535.65 |
+| 25|Doctor                             |1532.75 |
+| 26|Nevar                              |1529.88 |
+| 27|Amarok                             |1528.32 |
+| 28|Sasha                              |1527.77 |
+| 29|Artur                              |1525.93 |
+| 30|Owl                                |1525.87 |
+| 31|Arsanar                            |1523.39 |
+| 32|Seriy                              |1518.76 |
+| 33|Fatherbox                          |1508.72 |
+| 34|Oksana                             |1506.09 |
+| 35|Senek                              |1505.87 |
+| 36|Ruker                              |1503.84 |
+| 37|Excelsior                          |1503.68 |
+| 38|Homyak                             |1500.52 |
+| 39|Skiv                               |1499.62 |
+| 40|Vitaliy                            |1499.61 |
+| 41|Grib                               |1498.55 |
+| 42|Bessmertniy                        |1495.47 |
+| 43|Darth Framas                       |1489.93 |
+| 44|Solnce                             |1486.97 |
+| 45|Smog                               |1486.33 |
+| 46|Michail                            |1482.0  |
+| 47|Rodion                             |1480.44 |
+| 48|Roma                               |1478.3  |
+| 49|Solano                             |1475.43 |
+| 50|Viktor                             |1474.68 |
+| 51|Dominator 667                      |1469.69 |
+| 52|Egor                               |1468.2  |
+| 53|Lodin                              |1462.91 |
+| 54|Vlad                               |1458.85 |
+| 55|Kirill                             |1456.85 |
+| 56|Taranov                            |1452.41 |
+| 57|XuTu                               |1449.76 |
+| 58|Kolya                              |1449.37 |
+| 59|Sergey                             |1446.91 |
+| 60|Barb                               |1446.01 |
+| 61|Ivan                               |1443.61 |
+| 62|Dominator 666                      |1436.75 |
+| 63|Udar                               |1430.4  |
+| 64|SashaPskov                         |1428.96 |
+| 65|Krot                               |1418.76 |
+| 66|Maksim                             |1412.66 |
+| 67|Dants                              |1411.67 |
+| 68|Lover                              |1401.3  |
+| 69|Amgalan                            |1397.64 |
+| 70|Danyar                             |1393.71 |
+| 71|Badya                              |1389.99 |
+| 72|Saervak                            |1331.4  |
+| 73|Ahti                               |   N/A  |
 |   |Aleksey Rassecheniy                |   N/A  |
 |   |Andrey                             |   N/A  |
 |   |Anna                               |   N/A  |
 |   |Arstozkan                          |   N/A  |
-|   |Artur                              |   N/A  |
 |   |Banket                             |   N/A  |
 |   |Belenov                            |   N/A  |
 |   |Coach                              |   N/A  |
@@ -89,6 +90,7 @@
 |   |Dredd                              |   N/A  |
 |   |Hevka                              |   N/A  |
 |   |Hity                               |   N/A  |
+|   |Hound                              |   N/A  |
 |   |Hovard51                           |   N/A  |
 |   |KOT                                |   N/A  |
 |   |Kainobor                           |   N/A  |
@@ -97,7 +99,6 @@
 |   |Kondor                             |   N/A  |
 |   |Lera                               |   N/A  |
 |   |Limur                              |   N/A  |
-|   |Lodin                              |   N/A  |
 |   |Lycian                             |   N/A  |
 |   |Maks                               |   N/A  |
 |   |Maks 2.0                           |   N/A  |
