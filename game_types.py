@@ -52,14 +52,39 @@ class Player:
         return Player.create_players(*players)
 
 
+class Faction:
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return 'Faction({})'.format(repr(self.name))
+
+    @staticmethod
+    def load_factions(fname):
+        factions = {}
+
+        with open(fname, 'r') as csvf:
+            rdr = csv.reader(csvf)
+            for l in rdr:
+                factions[l[0]] = Faction(l[0])
+                factions[l[0].lower()] = factions[l[0]]
+                factions[l[0].replace("'", "’").lower()] = factions[l[0]]
+                if l[1]:
+                    for s in l[1].split('|'):
+                        factions[s.lower()] = factions[l[0]]
+
+        return factions
+
+
 class Tournament:
-    def __init__(self, name, date, org, city, tt, players):
+    def __init__(self, name, date, org, city, tt, players, factions={}):
         self._name = name
         self._date = datetime.date(*date)
         self._org = org
         self._city = city
         self._rank = RANKS[tt]
         self._players = players
+        self._factions = factions
         self._matches = [[]]
 
     @property
@@ -93,13 +118,17 @@ class Tournament:
     def end_current_tour(self):
         self._matches.append([])
 
-    def add_match(self, p1, p2, res=1):
+    def add_match(self, p1, p2, res=1, f1=None, f2=None):
+        if f1 is None and self._factions:
+            f1 = self._factions[p1]
+        if f2 is None and self._factions:
+            f2 = self._factions[p2]
         if res < 0:
-            self._matches[-1].append((p2, p1, False))
+            self._matches[-1].append((p2, p1, False, f2, f1))
         elif res == 0:
-            self._matches[-1].append((p1, p2, True))
+            self._matches[-1].append((p1, p2, True, f1, f2))
         else:
-            self._matches[-1].append((p1, p2, False))
+            self._matches[-1].append((p1, p2, False, f1, f2))
 
     def check_players(self, players, player_check):
         for p in self._players:
@@ -111,9 +140,9 @@ class Tournament:
 
         return False
 
-    def update_ratings(self, ratings, system):
+    def update_ratings(self, ratings, system, faction_ratings=None):
         for tour in self._matches:
-            for p1, p2, drawn in tour:
+            for p1, p2, drawn, f1, f2 in tour:
                 p1, p2 = self._players[p1], self._players[p2]
                 if p1 not in ratings:
                     ratings[p1] = system.Rating()
@@ -121,14 +150,30 @@ class Tournament:
                 if p2 not in ratings:
                     ratings[p2] = system.Rating()
 
-                ratings[p1], ratings[p2] = system.rate_1vs1(ratings[p1],
-                                                            ratings[p2],
-                                                            drawn,
-                                                            date=self.date)
+                if faction_ratings != None and f1 != None and f2 != None and f1 != f2:
+                    if f1 not in faction_ratings:
+                        faction_ratings[f1] = system.Rating()
+
+                    if f2 not in faction_ratings:
+                        faction_ratings[f2] = system.Rating()
+
+                    ratings[p1], ratings[p2], faction_ratings[
+                        f1], faction_ratings[f2] = system.rate_2vs2(
+                            ratings[p1],
+                            ratings[p2],
+                            faction_ratings[f1],
+                            faction_ratings[f2],
+                            drawn,
+                            date=self.date)
+                else:
+                    ratings[p1], ratings[p2] = system.rate_1vs1(ratings[p1],
+                                                                ratings[p2],
+                                                                drawn,
+                                                                date=self.date)
 
     def update_prob(self, ratings, prob, diff_step):
         for tour in self._matches:
-            for p1, p2, drawn in tour:
+            for p1, p2, drawn, _, _ in tour:
                 p1, p2 = self._players[p1], self._players[p2]
                 r1, r2 = ratings[p1], ratings[p2]
 
@@ -194,7 +239,8 @@ class Tournaments(list):
                      sep=(),
                      min_n=5,
                      filter_date=None,
-                     max_rd_ratio=0.9):
+                     max_rd_ratio=0.9,
+                     with_factions=False):
         try:
             r = system.Rating()
             _ = r.rdSq
@@ -203,18 +249,55 @@ class Tournaments(list):
             with_rd = False
 
         class State:
-            def __init__(self):
+            def __init__(self, with_factions):
                 self.ratings = {}
+                self.faction_ratings = {} if with_factions else None
                 self.result = []
                 self.prev_ids = {}
+                self.prev_faction_ids = {}
 
             def separate(self, date):
-                self.result.append([])
+                self.result.append(([], []))
 
                 def check_rating(r):
                     return r.getRdSq(
                         date
                     ) < system.MAX_RD_SQ * max_rd_ratio * max_rd_ratio if with_rd else r.n >= min_n or filter_date is None or date <= filter_date
+
+                ids = {}
+                if self.faction_ratings:
+                    for faction, r in sorted(
+                            self.faction_ratings.items(),
+                            key=lambda fr:
+                        (-fr[1].mu if check_rating(fr[1]) else 0, fr[0])):
+
+                        rating = r.mu if check_rating(r) else None
+
+                        if self.result[-1][1]:
+                            new = rating != self.result[-1][1][-1][2]
+                            position = len(
+                                self.result[-1]
+                                [1]) + 1 if new else self.result[-1][1][-1][0]
+                        else:
+                            new = True
+                            position = 1
+
+                        diff_p = None
+                        diff_r = None
+                        if faction in self.prev_faction_ids:
+                            prev_i = self.prev_faction_ids[faction]
+                            diff_p = self.result[-2][1][prev_i][0] - position
+                            if rating != None and self.result[-2][1][prev_i][
+                                    2] != None:
+                                diff_r = rating - self.result[-2][1][prev_i][2]
+
+                        ids[faction] = len(self.result[-1][1])
+                        self.result[-1][1].append(
+                            (position, faction, rating,
+                             r.getRdSq(date)**0.5 if with_rd else 0, diff_p,
+                             diff_r))
+
+                self.prev_faction_ids = ids
 
                 ids = {}
                 for p, r in sorted(
@@ -231,10 +314,11 @@ class Tournaments(list):
 
                     rating = r.mu if check_rating(r) else None
 
-                    if self.result[-1]:
-                        new = rating != self.result[-1][-1][2]
-                        position = len(self.result[-1]
-                                       ) + 1 if new else self.result[-1][-1][0]
+                    if self.result[-1][0]:
+                        new = rating != self.result[-1][0][-1][2]
+                        position = len(
+                            self.result[-1]
+                            [0]) + 1 if new else self.result[-1][0][-1][0]
                     else:
                         new = True
                         position = 1
@@ -243,23 +327,26 @@ class Tournaments(list):
                     diff_r = None
                     if player.name in self.prev_ids:
                         prev_i = self.prev_ids[player.name]
-                        diff_p = self.result[-2][prev_i][0] - position
-                        if rating != None and self.result[-2][prev_i][
+                        diff_p = self.result[-2][0][prev_i][0] - position
+                        if rating != None and self.result[-2][0][prev_i][
                                 2] != None:
-                            diff_r = rating - self.result[-2][prev_i][2]
+                            diff_r = rating - self.result[-2][0][prev_i][2]
 
-                    ids[player.name] = len(self.result[-1])
-                    self.result[-1].append(
+                    ids[player.name] = len(self.result[-1][0])
+                    self.result[-1][0].append(
                         (position, player, rating,
                          r.getRdSq(date)**0.5 if with_rd else 0, diff_p,
                          diff_r))
 
                 self.prev_ids = ids
 
-        state = State()
+        state = State(with_factions)
         latest_date = None
         for tourney in sorted(self, key=lambda t: t.date):
             if tourney_check is not None and not tourney_check(tourney):
+                continue
+
+            if with_factions and not tourney._factions:
                 continue
 
             while sep and tourney.date >= sep[0]:
@@ -267,7 +354,8 @@ class Tournaments(list):
                 latest_date = sep[0]
                 sep = sep[1:]
 
-            tourney.update_ratings(state.ratings, system)
+            tourney.update_ratings(state.ratings, system,
+                                   state.faction_ratings)
 
             if player_check is None or tourney.check_players(
                     players, player_check):
@@ -294,11 +382,17 @@ class Tournaments(list):
 
         return prob
 
-    def load_tournament(self, fname, players_fname='players.csv'):
+    def load_tournament(self,
+                        fname,
+                        players_fname='players.csv',
+                        factions_fname='factions.csv'):
         tb_cols = []
         vp_cols = []
+        nm_cols = []
+        fc_cols = []
         tour_n = 0
         players = []
+        factions = Faction.load_factions(factions_fname)
         tables = set()
         with open(fname, 'r') as csvf:
             rdr = csv.reader(csvf)
@@ -312,26 +406,40 @@ class Tournaments(list):
                         i for i in range(len(l))
                         if l[i] in ['v', 'V', 'VP', 'Vp', 'vp']
                     ]
+                    nm_cols = [
+                        i for i in range(len(l))
+                        if l[i] in ['N', 'Name', 'Nick']
+                    ]
+                    fc_cols = [
+                        i for i in range(len(l)) if l[i] in ['F', 'Faction']
+                    ]
                     tour_n = len(tb_cols)
                     if len(vp_cols) < tour_n or len(vp_cols) > (tour_n + 1):
                         raise RuntimeError(
                             'Wrong tournament caption {}'.format(l))
                     continue
 
-                name = l[1].strip()
+                name = l[nm_cols[0] if nm_cols else 1].strip()
+                faction = None
+                if fc_cols:
+                    fc_key = l[fc_cols[0]].strip().lower()
+                    faction = factions[fc_key].name
                 tours = [(int(l[j]), int(l[k]))
                          for j, k in zip(tb_cols, vp_cols[:tour_n])]
                 tables = tables.union(set([t[0] for t in tours]))
-                players.append((i, name, tours))
+                players.append((i, name, faction, tours))
 
+        tourney_factions = {}
         tourney_players = {}
         missing_players = []
         existing_players = Player.load_players(players_fname)
-        for i, name, _ in players:
+        for i, name, faction, _ in players:
             if name not in existing_players and name != 'Proxy':
                 missing_players.append(name)
 
             tourney_players[i] = name
+            if faction is not None:
+                tourney_factions[i] = faction
 
         if missing_players:
             raise RuntimeError('Missing players: {}'.format(missing_players))
@@ -341,12 +449,16 @@ class Tournaments(list):
             'params = ({})'.format(
                 os.path.splitext(os.path.basename(fname))[0]), gl)
         date, name, org, city, tt = gl['params']
-        tourney = self.create(name, date, org, city, tt, tourney_players)
+        tourney = self.create(name, date, org, city, tt, tourney_players,
+                              tourney_factions)
+
+        if not tourney_factions:
+            pass  #print(name)
 
         for tour in range(tour_n):
             for t in sorted(tables):
                 table = []
-                for i, name, tours in players:
+                for i, name, _, tours in players:
                     if name != 'Proxy' and tours[tour][0] == t:
                         table.append((i, tours[tour][1]))
 

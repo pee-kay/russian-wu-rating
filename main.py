@@ -51,6 +51,32 @@ def format_player_info(p,
     return '|'.join(res)
 
 
+def format_faction_info(f, r, rd=None, i=None, diff_i=None, diff_r=None):
+    res = [
+        '',
+    ]
+    if i != None:
+        res.append(str(i).rjust(3))
+    res.append(f.ljust(35))
+    res.append(str('   N/A' if r is None else round(r, 2)).ljust(8))
+    if rd != None:
+        res.append(str(round(rd, 2)).ljust(7))
+    if diff_i != None:
+        if diff_i > 0:
+            res.append(('+' + str(diff_i)).rjust(4))
+        elif diff_i == 0:
+            res.append('    ')
+        else:
+            res.append(str(diff_i).rjust(4))
+    if diff_r != None:
+        if diff_r >= 0:
+            res.append(('+' + str(diff_i)).rjust(8))
+        else:
+            res.append(str(diff_i).rjust(8))
+    res.append('')
+    return '|'.join(res)
+
+
 def export_rating(fname,
                   label,
                   tournaments,
@@ -64,7 +90,10 @@ def export_rating(fname,
                   min_n=6,
                   filter_date=datetime.date(2020, 1, 1),
                   max_rd_ratio=0.9,
-                  system=elo):
+                  system=elo,
+                  with_factions=False,
+                  label_factions='',
+                  top_factions=None):
     try:
         r = system.Rating()
         _ = r.rdSq
@@ -86,12 +115,48 @@ def export_rating(fname,
             min_n=min_n,
             filter_date=filter_date,
             max_rd_ratio=max_rd_ratio,
-            system=system)
+            system=system,
+            with_factions=with_factions)
 
         print_na_info = False
-        for rating, m_label in zip(ratings[::-1], ('{:02}.{:02}.{}'.format(
-                latest_date.day, latest_date.month, latest_date.year), ) +
-                                   MILESTONE_LABELS):
+        for (rating, rating_factions), m_label in zip(
+                ratings[::-1],
+            ('{:02}.{:02}.{}'.format(latest_date.day, latest_date.month,
+                                     latest_date.year), ) + MILESTONE_LABELS):
+
+            if with_factions:
+                print('# {} {} #\n'.format(label_factions, m_label), file=log)
+
+                cap0 = '| # |Warband                            |'
+                cap1 = '|---|-----------------------------------|'
+                cap0 += 'Rating  |'
+                cap1 += '--------|'
+                if with_rd:
+                    cap0 += 'StD    |'
+                    cap1 += '-------|'
+                first = rating_factions is ratings[0][1]
+                if not first:
+                    cap0 += ' +/-|'
+                    cap1 += '----|'
+
+                print(cap0, file=log)
+                print(cap1, file=log)
+
+                prev_pos = None
+                for pos, f, r, rd, diff_pos, _ in rating_factions[:len(
+                        rating_factions
+                ) if top_factions is None else top_factions]:
+                    print(format_faction_info(
+                        f, r, rd if with_rd else None,
+                        pos if pos != prev_pos else '', None if first else
+                        (0 if diff_pos is None else diff_pos)),
+                          file=log)
+                    prev_pos = pos
+                    if r is None:
+                        print_na_info = True
+
+                print(file=log)
+
             print('# {} {} #\n'.format(label, m_label), file=log)
 
             cap0 = '| # |Player                             |'
@@ -104,7 +169,7 @@ def export_rating(fname,
             if with_rd:
                 cap0 += 'StD    |'
                 cap1 += '-------|'
-            first = rating is ratings[0]
+            first = rating is ratings[0][0]
             if not first:
                 cap0 += ' +/-|'
                 cap1 += '----|'
@@ -167,6 +232,29 @@ def main():
     if not os.path.exists('output'):
         os.mkdir('output')
 
+    export_rating('output/combined-top25-top10.md',
+                  'Топ25 игроков',
+                  tournaments,
+                  players,
+                  cur_date,
+                  with_milestones=True,
+                  with_city=True,
+                  top=25,
+                  with_factions=True,
+                  label_factions='Топ10 банд',
+                  top_factions=10,
+                  tourney_check=lambda t: t.date <= cur_date)
+
+    export_rating('output/combined-full.md',
+                  'Текущий рейтинг игроков',
+                  tournaments,
+                  players,
+                  cur_date,
+                  with_city=True,
+                  with_factions=True,
+                  label_factions='Текущий рейтинг банд',
+                  tourney_check=lambda t: t.date <= cur_date)
+
     export_rating('output/glass-tournaments-top25.md',
                   'Топ25 игроков России (по турнирам со стеклом)',
                   tournaments,
@@ -189,7 +277,7 @@ def main():
                   tourney_check=lambda t: t.date <= cur_date)
 
     export_rating('output/russian-full.md',
-                  'Полный рейтинг игроков России',
+                  'Текущий рейтинг игроков России',
                   tournaments,
                   players,
                   cur_date,
@@ -207,7 +295,7 @@ def main():
                   tourney_check=lambda t: t.date <= cur_date)
 
     export_rating('output/moscow-full.md',
-                  'Полный рейтинг игроков Москвы',
+                  'Текущий рейтинг игроков Москвы',
                   tournaments,
                   players,
                   cur_date,
@@ -225,7 +313,7 @@ def main():
                   tourney_check=lambda t: t.date <= cur_date)
 
     export_rating('output/spb-full.md',
-                  'Полный рейтинг игроков Санкт-Петербурга',
+                  'Текущий рейтинг игроков Санкт-Петербурга',
                   tournaments,
                   players,
                   cur_date,
@@ -245,7 +333,7 @@ def main():
                   min_n=3)
 
     export_rating('output/shade-city-full.md',
-                  'Полный рейтинг игроков турниров Shade City',
+                  'Текущий рейтинг игроков турниров Shade City',
                   tournaments,
                   players,
                   cur_date,
@@ -266,7 +354,7 @@ def main():
                   system=glicko)
 
     export_rating('output/russian-full-glicko.md',
-                  'Полный рейтинг игроков России (Glicko)',
+                  'Текущий рейтинг игроков России (Glicko)',
                   tournaments,
                   players,
                   cur_date,
@@ -286,7 +374,7 @@ def main():
                   system=glicko)
 
     export_rating('output/moscow-full-glicko.md',
-                  'Полный рейтинг игроков Москвы (Glicko)',
+                  'Текущий рейтинг игроков Москвы (Glicko)',
                   tournaments,
                   players,
                   cur_date,
@@ -306,7 +394,7 @@ def main():
                   system=glicko)
 
     export_rating('output/spb-full-glicko.md',
-                  'Полный рейтинг игроков Санкт-Петербурга (Glicko)',
+                  'Текущий рейтинг игроков Санкт-Петербурга (Glicko)',
                   tournaments,
                   players,
                   cur_date,
