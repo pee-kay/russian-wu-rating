@@ -346,9 +346,6 @@ class Tournaments(list):
             if tourney_check is not None and not tourney_check(tourney):
                 continue
 
-            if with_factions and not tourney._factions:
-                continue
-
             while sep and tourney.date >= sep[0]:
                 state.separate(sep[0])
                 latest_date = sep[0]
@@ -453,7 +450,7 @@ class Tournaments(list):
                               tourney_factions)
 
         if not tourney_factions:
-            pass  #print(name)
+            print(name)
 
         for tour in range(tour_n):
             for t in sorted(tables):
