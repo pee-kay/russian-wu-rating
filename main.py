@@ -9,21 +9,24 @@ import git
 import elo
 import os
 
-MILESTONES = (datetime.date(2019, 1, 1),
-              datetime.date(2019, 4, 1),
-              datetime.date(2019, 7, 1),
-              datetime.date(2019, 10, 1),
-              datetime.date(2020, 1, 1))
+MILESTONES = (datetime.date(2019, 1, 1), datetime.date(2019, 4, 1),
+              datetime.date(2019, 7,
+                            1), datetime.date(2019, 10,
+                                              1), datetime.date(2020, 1, 1))
 
-MILESTONE_LABELS = ('2019',
-                    'Q3 2019',
-                    'Q2 2019',
-                    'Q1 2019',
-                    '2018')
+MILESTONE_LABELS = ('2019', 'Q3 2019', 'Q2 2019', 'Q1 2019', '2018')
 
 
-def format_player_info(p, r, rd=None, i=None, diff_i=None, diff_r=None, with_city=False):
-    res = ['', ]
+def format_player_info(p,
+                       r,
+                       rd=None,
+                       i=None,
+                       diff_i=None,
+                       diff_r=None,
+                       with_city=False):
+    res = [
+        '',
+    ]
     if i != None:
         res.append(str(i).rjust(3))
     res.append(p.display.ljust(35))
@@ -48,10 +51,20 @@ def format_player_info(p, r, rd=None, i=None, diff_i=None, diff_r=None, with_cit
     return '|'.join(res)
 
 
-def export_rating(fname, label, tournaments, players, cur_date, player_check=None, tourney_check=None, top=None, with_milestones=False, with_city=False, min_n=6, filter_date=datetime.date(2020, 1, 1), max_rd_ratio=0.9, system=elo):
-    cur_date_str = '{:02}.{:02}.{}'.format(
-        cur_date.day, cur_date.month, cur_date.year)
-
+def export_rating(fname,
+                  label,
+                  tournaments,
+                  players,
+                  cur_date,
+                  player_check=None,
+                  tourney_check=None,
+                  top=None,
+                  with_milestones=False,
+                  with_city=False,
+                  min_n=6,
+                  filter_date=datetime.date(2020, 1, 1),
+                  max_rd_ratio=0.9,
+                  system=elo):
     try:
         r = system.Rating()
         _ = r.rdSq
@@ -61,13 +74,24 @@ def export_rating(fname, label, tournaments, players, cur_date, player_check=Non
 
     with open(fname, 'w') as log:
         print(
-            '[К основным рейтингам](https://pee-kay.github.io/russian-wu-rating)', file=log)
+            '[К основным рейтингам](https://pee-kay.github.io/russian-wu-rating)',
+            file=log)
 
-        ratings = tournaments.rate_players(
-            cur_date, players, player_check, tourney_check, sep=MILESTONES if with_milestones else (), min_n=min_n, filter_date=filter_date, max_rd_ratio=max_rd_ratio, system=system)
+        ratings, latest_date = tournaments.rate_players(
+            cur_date,
+            players,
+            player_check,
+            tourney_check,
+            sep=MILESTONES if with_milestones else (),
+            min_n=min_n,
+            filter_date=filter_date,
+            max_rd_ratio=max_rd_ratio,
+            system=system)
 
         print_na_info = False
-        for rating, m_label in zip(ratings[::-1], (cur_date_str,) + MILESTONE_LABELS):
+        for rating, m_label in zip(ratings[::-1], ('{:02}.{:02}.{}'.format(
+                latest_date.day, latest_date.month, latest_date.year), ) +
+                                   MILESTONE_LABELS):
             print('# {} {} #\n'.format(label, m_label), file=log)
 
             cap0 = '| # |Player                             |'
@@ -89,9 +113,16 @@ def export_rating(fname, label, tournaments, players, cur_date, player_check=Non
             print(cap1, file=log)
 
             prev_pos = None
-            for pos, p, r, rd, diff_pos, _ in rating[: len(rating) if top is None else top]:
-                print(format_player_info(p, r, rd if with_rd else None, pos if pos != prev_pos else '', None if first else (
-                    0 if diff_pos is None else diff_pos), with_city=with_city), file=log)
+            for pos, p, r, rd, diff_pos, _ in rating[:len(rating)
+                                                     if top is None else top]:
+                print(format_player_info(p,
+                                         r,
+                                         rd if with_rd else None,
+                                         pos if pos != prev_pos else '',
+                                         None if first else
+                                         (0 if diff_pos is None else diff_pos),
+                                         with_city=with_city),
+                      file=log)
                 prev_pos = pos
                 if r is None:
                     print_na_info = True
@@ -99,19 +130,23 @@ def export_rating(fname, label, tournaments, players, cur_date, player_check=Non
             print(file=log)
 
         if with_rd:
-            print(
-                'StD - среднеквадратическое отклонение рейтинга', file=log)
+            print('StD - среднеквадратическое отклонение рейтинга', file=log)
 
         if print_na_info:
             if with_rd:
                 print(
-                    'N/A - недостаточно определенный или устаревший рейтинг (StD < {})'.format(round(system.MAX_RD * max_rd_ratio)), file=log)
+                    'N/A - недостаточно определенный или устаревший рейтинг (StD < {})'
+                    .format(round(system.MAX_RD * max_rd_ratio)),
+                    file=log)
             else:
                 print(
-                    'N/A - недостаточно матчей для определения рейтинга (<{})'.format(min_n), file=log)
+                    'N/A - недостаточно матчей для определения рейтинга (<{})'.
+                    format(min_n),
+                    file=log)
 
         print(
-            '\n---\n\n[К основным рейтингам](https://pee-kay.github.io/russian-wu-rating)', file=log)
+            '\n---\n\n[К основным рейтингам](https://pee-kay.github.io/russian-wu-rating)',
+            file=log)
 
 
 def main():
@@ -132,50 +167,152 @@ def main():
     if not os.path.exists('output'):
         os.mkdir('output')
 
-    export_rating('output/glass-tournaments-top25.md', 'Топ25 игроков России (по турнирам со стеклом)',
-                  tournaments, players, cur_date, with_milestones=True, with_city=True, top=25, tourney_check=lambda t: t.with_glass and t.date <= cur_date, min_n=3)
+    export_rating('output/glass-tournaments-top25.md',
+                  'Топ25 игроков России (по турнирам со стеклом)',
+                  tournaments,
+                  players,
+                  cur_date,
+                  with_milestones=True,
+                  with_city=True,
+                  top=25,
+                  tourney_check=lambda t: t.with_glass and t.date <= cur_date,
+                  min_n=3)
 
-    export_rating('output/russian-top25.md', 'Топ25 игроков России',
-                  tournaments, players, cur_date, with_milestones=True, with_city=True, top=25, tourney_check=lambda t: t.date <= cur_date)
+    export_rating('output/russian-top25.md',
+                  'Топ25 игроков России',
+                  tournaments,
+                  players,
+                  cur_date,
+                  with_milestones=True,
+                  with_city=True,
+                  top=25,
+                  tourney_check=lambda t: t.date <= cur_date)
 
-    export_rating('output/russian-full.md', 'Полный рейтинг игроков России',
-                  tournaments, players, cur_date, with_city=True, tourney_check=lambda t: t.date <= cur_date)
+    export_rating('output/russian-full.md',
+                  'Полный рейтинг игроков России',
+                  tournaments,
+                  players,
+                  cur_date,
+                  with_city=True,
+                  tourney_check=lambda t: t.date <= cur_date)
 
-    export_rating('output/moscow-top25.md', 'Топ25 игроков Москвы',
-                  tournaments, players, cur_date, with_milestones=True, top=25, player_check=lambda p: p.city == 'Msk', tourney_check=lambda t: t.date <= cur_date)
+    export_rating('output/moscow-top25.md',
+                  'Топ25 игроков Москвы',
+                  tournaments,
+                  players,
+                  cur_date,
+                  with_milestones=True,
+                  top=25,
+                  player_check=lambda p: p.city == 'Msk',
+                  tourney_check=lambda t: t.date <= cur_date)
 
-    export_rating('output/moscow-full.md', 'Полный рейтинг игроков Москвы',
-                  tournaments, players, cur_date, player_check=lambda p: p.city == 'Msk', tourney_check=lambda t: t.date <= cur_date)
+    export_rating('output/moscow-full.md',
+                  'Полный рейтинг игроков Москвы',
+                  tournaments,
+                  players,
+                  cur_date,
+                  player_check=lambda p: p.city == 'Msk',
+                  tourney_check=lambda t: t.date <= cur_date)
 
-    export_rating('output/spb-top25.md', 'Топ25 игроков Санкт-Петербурга',
-                  tournaments, players, cur_date, with_milestones=True, top=25, player_check=lambda p: p.city == 'SPb', tourney_check=lambda t: t.date <= cur_date)
+    export_rating('output/spb-top25.md',
+                  'Топ25 игроков Санкт-Петербурга',
+                  tournaments,
+                  players,
+                  cur_date,
+                  with_milestones=True,
+                  top=25,
+                  player_check=lambda p: p.city == 'SPb',
+                  tourney_check=lambda t: t.date <= cur_date)
 
-    export_rating('output/spb-full.md', 'Полный рейтинг игроков Санкт-Петербурга',
-                  tournaments, players, cur_date, player_check=lambda p: p.city == 'SPb', tourney_check=lambda t: t.date <= cur_date)
+    export_rating('output/spb-full.md',
+                  'Полный рейтинг игроков Санкт-Петербурга',
+                  tournaments,
+                  players,
+                  cur_date,
+                  player_check=lambda p: p.city == 'SPb',
+                  tourney_check=lambda t: t.date <= cur_date)
 
-    export_rating('output/shade-city-top25.md', 'Топ25 игроков турниров Shade City',
-                  tournaments, players, cur_date, with_milestones=True, with_city=True, top=25, tourney_check=lambda t: t.org == 'Святослав Соколов' and t.date <= cur_date, min_n=3)
+    export_rating('output/shade-city-top25.md',
+                  'Топ25 игроков турниров Shade City',
+                  tournaments,
+                  players,
+                  cur_date,
+                  with_milestones=True,
+                  with_city=True,
+                  top=25,
+                  tourney_check=lambda t: t.org == 'Святослав Соколов' and t.
+                  date <= cur_date,
+                  min_n=3)
 
-    export_rating('output/shade-city-full.md', 'Полный рейтинг игроков турниров Shade City',
-                  tournaments, players, cur_date, with_city=True, tourney_check=lambda t: t.org == 'Святослав Соколов' and t.date <= cur_date, min_n=3)
+    export_rating('output/shade-city-full.md',
+                  'Полный рейтинг игроков турниров Shade City',
+                  tournaments,
+                  players,
+                  cur_date,
+                  with_city=True,
+                  tourney_check=lambda t: t.org == 'Святослав Соколов' and t.
+                  date <= cur_date,
+                  min_n=3)
 
-    export_rating('output/russian-top25-glicko.md', 'Топ25 игроков России (Glicko)',
-                  tournaments, players, cur_date, with_milestones=True, with_city=True, top=25, tourney_check=lambda t: t.date <= cur_date, system=glicko)
+    export_rating('output/russian-top25-glicko.md',
+                  'Топ25 игроков России (Glicko)',
+                  tournaments,
+                  players,
+                  cur_date,
+                  with_milestones=True,
+                  with_city=True,
+                  top=25,
+                  tourney_check=lambda t: t.date <= cur_date,
+                  system=glicko)
 
-    export_rating('output/russian-full-glicko.md', 'Полный рейтинг игроков России (Glicko)',
-                  tournaments, players, cur_date, with_city=True, tourney_check=lambda t: t.date <= cur_date, system=glicko)
+    export_rating('output/russian-full-glicko.md',
+                  'Полный рейтинг игроков России (Glicko)',
+                  tournaments,
+                  players,
+                  cur_date,
+                  with_city=True,
+                  tourney_check=lambda t: t.date <= cur_date,
+                  system=glicko)
 
-    export_rating('output/moscow-top25-glicko.md', 'Топ25 игроков Москвы (Glicko)',
-                  tournaments, players, cur_date, with_milestones=True, top=25, player_check=lambda p: p.city == 'Msk', tourney_check=lambda t: t.date <= cur_date, system=glicko)
+    export_rating('output/moscow-top25-glicko.md',
+                  'Топ25 игроков Москвы (Glicko)',
+                  tournaments,
+                  players,
+                  cur_date,
+                  with_milestones=True,
+                  top=25,
+                  player_check=lambda p: p.city == 'Msk',
+                  tourney_check=lambda t: t.date <= cur_date,
+                  system=glicko)
 
-    export_rating('output/moscow-full-glicko.md', 'Полный рейтинг игроков Москвы (Glicko)',
-                  tournaments, players, cur_date, player_check=lambda p: p.city == 'Msk', tourney_check=lambda t: t.date <= cur_date, system=glicko)
+    export_rating('output/moscow-full-glicko.md',
+                  'Полный рейтинг игроков Москвы (Glicko)',
+                  tournaments,
+                  players,
+                  cur_date,
+                  player_check=lambda p: p.city == 'Msk',
+                  tourney_check=lambda t: t.date <= cur_date,
+                  system=glicko)
 
-    export_rating('output/spb-top25-glicko.md', 'Топ25 игроков Санкт-Петербурга (Glicko)',
-                  tournaments, players, cur_date, with_milestones=True, top=25, player_check=lambda p: p.city == 'SPb', tourney_check=lambda t: t.date <= cur_date, system=glicko)
+    export_rating('output/spb-top25-glicko.md',
+                  'Топ25 игроков Санкт-Петербурга (Glicko)',
+                  tournaments,
+                  players,
+                  cur_date,
+                  with_milestones=True,
+                  top=25,
+                  player_check=lambda p: p.city == 'SPb',
+                  tourney_check=lambda t: t.date <= cur_date,
+                  system=glicko)
 
-    export_rating('output/spb-full-glicko.md', 'Полный рейтинг игроков Санкт-Петербурга (Glicko)',
-                  tournaments, players, cur_date, player_check=lambda p: p.city == 'SPb', tourney_check=lambda t: t.date <= cur_date, system=glicko)
+    export_rating('output/spb-full-glicko.md',
+                  'Полный рейтинг игроков Санкт-Петербурга (Glicko)',
+                  tournaments,
+                  players,
+                  cur_date,
+                  player_check=lambda p: p.city == 'SPb',
+                  tourney_check=lambda t: t.date <= cur_date,
+                  system=glicko)
 
 
 if __name__ == '__main__':

@@ -20,7 +20,8 @@ class Player:
         return self.display
 
     def __repr__(self):
-        return 'Player({}, {}, {})'.format(repr(self.name), repr(self.city), repr(self.display))
+        return 'Player({}, {}, {})'.format(repr(self.name), repr(self.city),
+                                           repr(self.display))
 
     @staticmethod
     def create_players(*args):
@@ -100,6 +101,16 @@ class Tournament:
         else:
             self._matches[-1].append((p1, p2, False))
 
+    def check_players(self, players, player_check):
+        for p in self._players:
+            if self._players[p] == 'Proxy':
+                continue
+
+            if player_check(players[self._players[p]]):
+                return True
+
+        return False
+
     def update_ratings(self, ratings, system):
         for tour in self._matches:
             for p1, p2, drawn in tour:
@@ -110,8 +121,10 @@ class Tournament:
                 if p2 not in ratings:
                     ratings[p2] = system.Rating()
 
-                ratings[p1], ratings[p2] = system.rate_1vs1(
-                    ratings[p1], ratings[p2], drawn, date=self.date)
+                ratings[p1], ratings[p2] = system.rate_1vs1(ratings[p1],
+                                                            ratings[p2],
+                                                            drawn,
+                                                            date=self.date)
 
     def update_prob(self, ratings, prob, diff_step):
         for tour in self._matches:
@@ -172,7 +185,16 @@ class Tournaments(list):
         self.append(tourney)
         return tourney
 
-    def rate_players(self, cur_date, players, player_check=None, tourney_check=None, system=elo, sep=(), min_n=5, filter_date=None, max_rd_ratio=0.9):
+    def rate_players(self,
+                     cur_date,
+                     players,
+                     player_check=None,
+                     tourney_check=None,
+                     system=elo,
+                     sep=(),
+                     min_n=5,
+                     filter_date=None,
+                     max_rd_ratio=0.9):
         try:
             r = system.Rating()
             _ = r.rdSq
@@ -190,10 +212,16 @@ class Tournaments(list):
                 self.result.append([])
 
                 def check_rating(r):
-                    return r.getRdSq(date) < system.MAX_RD_SQ * max_rd_ratio * max_rd_ratio if with_rd else r.n >= min_n or filter_date is None or date <= filter_date
+                    return r.getRdSq(
+                        date
+                    ) < system.MAX_RD_SQ * max_rd_ratio * max_rd_ratio if with_rd else r.n >= min_n or filter_date is None or date <= filter_date
 
                 ids = {}
-                for p, r in sorted(self.ratings.items(), key=lambda pr: (-pr[1].mu if check_rating(pr[1]) else 0, players[pr[0]].display)):
+                for p, r in sorted(
+                        self.ratings.items(),
+                        key=lambda pr:
+                    (-pr[1].mu
+                     if check_rating(pr[1]) else 0, players[pr[0]].display)):
                     player = players[p]
                     if player_check is not None and not player_check(player):
                         continue
@@ -205,8 +233,8 @@ class Tournaments(list):
 
                     if self.result[-1]:
                         new = rating != self.result[-1][-1][2]
-                        position = len(
-                            self.result[-1]) + 1 if new else self.result[-1][-1][0]
+                        position = len(self.result[-1]
+                                       ) + 1 if new else self.result[-1][-1][0]
                     else:
                         new = True
                         position = 1
@@ -216,33 +244,43 @@ class Tournaments(list):
                     if player.name in self.prev_ids:
                         prev_i = self.prev_ids[player.name]
                         diff_p = self.result[-2][prev_i][0] - position
-                        if rating != None and self.result[-2][prev_i][2] != None:
+                        if rating != None and self.result[-2][prev_i][
+                                2] != None:
                             diff_r = rating - self.result[-2][prev_i][2]
 
                     ids[player.name] = len(self.result[-1])
-                    self.result[-1].append((position,
-                                            player, rating, r.getRdSq(date) ** 0.5 if with_rd else 0, diff_p, diff_r))
+                    self.result[-1].append(
+                        (position, player, rating,
+                         r.getRdSq(date)**0.5 if with_rd else 0, diff_p,
+                         diff_r))
 
                 self.prev_ids = ids
 
         state = State()
+        latest_date = None
         for tourney in sorted(self, key=lambda t: t.date):
             if tourney_check is not None and not tourney_check(tourney):
                 continue
 
             while sep and tourney.date >= sep[0]:
                 state.separate(sep[0])
+                latest_date = sep[0]
                 sep = sep[1:]
 
             tourney.update_ratings(state.ratings, system)
 
+            if player_check is None or tourney.check_players(
+                    players, player_check):
+                latest_date = tourney.date
+
         while sep:
             state.separate(sep[0])
+            latest_date = sep[0]
             sep = sep[1:]
 
-        state.separate(cur_date)
+        state.separate(cur_date if latest_date is None else latest_date)
 
-        return state.result
+        return state.result, cur_date if latest_date is None else latest_date
 
     def rate_prob(self, players, system=elo, diff_step=1):
         ratings = {}
@@ -266,10 +304,14 @@ class Tournaments(list):
             rdr = csv.reader(csvf)
             for i, l in enumerate(rdr):
                 if i == 0:
-                    tb_cols = [i for i in range(len(l)) if l[i] in [
-                        't', 'T', 'TB', 'Tb', 'tb']]
-                    vp_cols = [i for i in range(len(l)) if l[i] in [
-                        'v', 'V', 'VP', 'Vp', 'vp']]
+                    tb_cols = [
+                        i for i in range(len(l))
+                        if l[i] in ['t', 'T', 'TB', 'Tb', 'tb']
+                    ]
+                    vp_cols = [
+                        i for i in range(len(l))
+                        if l[i] in ['v', 'V', 'VP', 'Vp', 'vp']
+                    ]
                     tour_n = len(tb_cols)
                     if len(vp_cols) < tour_n or len(vp_cols) > (tour_n + 1):
                         raise RuntimeError(
@@ -295,8 +337,9 @@ class Tournaments(list):
             raise RuntimeError('Missing players: {}'.format(missing_players))
 
         gl = {}
-        exec('params = ({})'.format(
-            os.path.splitext(os.path.basename(fname))[0]), gl)
+        exec(
+            'params = ({})'.format(
+                os.path.splitext(os.path.basename(fname))[0]), gl)
         date, name, org, city, tt = gl['params']
         tourney = self.create(name, date, org, city, tt, tourney_players)
 
@@ -312,7 +355,8 @@ class Tournaments(list):
 
                 if len(table) > 2:
                     raise RuntimeError(
-                        'Too many players on the same table (tour {}, table {})'.format(tour, t))
+                        'Too many players on the same table (tour {}, table {})'
+                        .format(tour, t))
 
                 i1 = table[0][0]
                 i2 = table[1][0]
@@ -348,13 +392,16 @@ class Tournaments(list):
                                 'Missing players: {}'.format(missing_players))
 
                         gl = {}
-                        exec('params = ({})'.format(
-                            os.path.splitext(os.path.basename(fname))[0]), gl)
+                        exec(
+                            'params = ({})'.format(
+                                os.path.splitext(os.path.basename(fname))[0]),
+                            gl)
                         date, name, org, city = gl['params']
 
-                        tourney = self.create_league(
-                            name, date, org, city, tourney_players)
+                        tourney = self.create_league(name, date, org, city,
+                                                     tourney_players)
                 else:
                     p1, p2, year, month, day = l[:5]
-                    tourney.add_match(p1, p2, 1, datetime.date(
-                        int(year), int(month), int(day)))
+                    tourney.add_match(
+                        p1, p2, 1,
+                        datetime.date(int(year), int(month), int(day)))
