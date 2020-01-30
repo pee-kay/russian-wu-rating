@@ -10,6 +10,8 @@
 
 [Топ25 игроков по турнирам группы](https://pee-kay.github.io/russian-wu-rating/shade-city-top25.html) [Shade City](https://vk.com/shadespirerus)
 
+*Экспериментально:* [Совместный топ10 банд и топ25 игроков России](https://pee-kay.github.io/russian-wu-rating/combined-top25-top10.html)
+
 ---
 
 [все рейтинги](https://pee-kay.github.io/russian-wu-rating/all.html)

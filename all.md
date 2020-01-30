@@ -18,6 +18,10 @@
 
 [Полный рейтинг игроков по турнирам группы](https://pee-kay.github.io/russian-wu-rating/shade-city-full.html) [Shade City](https://vk.com/shadespirerus)
 
+*Экспериментально:* [Совместный топ10 банд и топ25 игроков России](https://pee-kay.github.io/russian-wu-rating/combined-top25-top10.html)
+
+*Экспериментально:* [Совместный рейтинг банд и игроков России](https://pee-kay.github.io/russian-wu-rating/combined-full.html)
+
 Вышеперечисленные рейтингы вычислены по системе Эло. Также есть экспериментальная версия рейтингов по системе [Glicko](https://pee-kay.github.io/russian-wu-rating/glicko.html)
 
 ---
