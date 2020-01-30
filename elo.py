@@ -14,7 +14,7 @@ def rate_1vs1(r1, r2, drawn=False, k=32, date=None):
     return (new_r1, new_r2)
 
 
-def rate_2vs2(r1, r2, p1, p2, drawn=False, k=32, date=None):
+def rate_2vs2(r1, r2, p1, p2, drawn=False, k=16, date=None):
     s = 0.5 if drawn else 1.0
     e = 1.0 / (1.0 + 10.0**((r2.mu + p2.mu - r1.mu - p1.mu) / 400.0))
 

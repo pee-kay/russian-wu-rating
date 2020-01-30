@@ -9,6 +9,8 @@ import git
 import elo
 import os
 
+NEW_DIFF_I = 1000000
+
 MILESTONES = (datetime.date(2019, 1, 1), datetime.date(2019, 4, 1),
               datetime.date(2019, 7,
                             1), datetime.date(2019, 10,
@@ -36,7 +38,9 @@ def format_player_info(p,
     if rd != None:
         res.append(str(round(rd, 2)).ljust(7))
     if diff_i != None:
-        if diff_i > 0:
+        if diff_i == NEW_DIFF_I:
+            res.append('----')
+        elif diff_i > 0:
             res.append(('+' + str(diff_i)).rjust(4))
         elif diff_i == 0:
             res.append('    ')
@@ -62,7 +66,9 @@ def format_faction_info(f, r, rd=None, i=None, diff_i=None, diff_r=None):
     if rd != None:
         res.append(str(round(rd, 2)).ljust(7))
     if diff_i != None:
-        if diff_i > 0:
+        if diff_i == NEW_DIFF_I:
+            res.append('----')
+        elif diff_i > 0:
             res.append(('+' + str(diff_i)).rjust(4))
         elif diff_i == 0:
             res.append('    ')
@@ -149,7 +155,7 @@ def export_rating(fname,
                     print(format_faction_info(
                         f, r, rd if with_rd else None,
                         pos if pos != prev_pos else '', None if first else
-                        (0 if diff_pos is None else diff_pos)),
+                        (NEW_DIFF_I if diff_pos is None else diff_pos)),
                           file=log)
                     prev_pos = pos
                     if r is None:
@@ -185,7 +191,7 @@ def export_rating(fname,
                                          rd if with_rd else None,
                                          pos if pos != prev_pos else '',
                                          None if first else
-                                         (0 if diff_pos is None else diff_pos),
+                                         (NEW_DIFF_I if diff_pos is None else diff_pos),
                                          with_city=with_city),
                       file=log)
                 prev_pos = pos

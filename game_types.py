@@ -205,8 +205,8 @@ class League(Tournament):
         super().end_current_tour()
         self._match_dates.append([])
 
-    def add_match(self, p1, p2, res=1, date=None):
-        super().add_match(p1, p2, res)
+    def add_match(self, p1, p2, res=1, date=None, f1=None, f2=None):
+        super().add_match(p1, p2, res, f1, f2)
 
         date = self._date if date is None else date
         self._match_dates[-1].append(date)
@@ -450,7 +450,8 @@ class Tournaments(list):
                               tourney_factions)
 
         if not tourney_factions:
-            print(name)
+            raise RuntimeError(
+                'Tournament ({}) without specified factions'.format(name))
 
         for tour in range(tour_n):
             for t in sorted(tables):
@@ -475,11 +476,15 @@ class Tournaments(list):
 
             tourney.end_current_tour()
 
-    def load_league(self, fname, players_fname='players.csv'):
+    def load_league(self,
+                    fname,
+                    players_fname='players.csv',
+                    factions_fname='factions.csv'):
         tourney = None
         tourney_players = {}
         missing_players = []
         existing_players = Player.load_players(players_fname)
+        factions = Faction.load_factions(factions_fname)
         with open(fname, 'r') as csvf:
             rdr = csv.reader(csvf)
             for i, l in enumerate(rdr):
@@ -510,7 +515,14 @@ class Tournaments(list):
                         tourney = self.create_league(name, date, org, city,
                                                      tourney_players)
                 else:
-                    p1, p2, year, month, day = l[:5]
+                    p1, p2, year, month, day, f1, f2 = l[:7]
+
+                    f1 = f1.strip().lower()
+                    f1 = factions[f1].name if f1 in factions else None
+
+                    f2 = f2.strip().lower()
+                    f2 = factions[f2].name if f2 in factions else None
+
                     tourney.add_match(
                         p1, p2, 1,
-                        datetime.date(int(year), int(month), int(day)))
+                        datetime.date(int(year), int(month), int(day)), f1, f2)
