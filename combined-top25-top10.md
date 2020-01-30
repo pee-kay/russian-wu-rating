@@ -52,11 +52,11 @@
 |  2|Thorns of the Briar Queen          |1575.91 |  +9|
 |  3|Lady Harrow's Mournflight          |1546.77 |  +3|
 |  4|Spiteclaw's Swarm                  |1544.04 | +15|
-|  5|Rippa's Snarlfangs                 |1539.63 |----|
+|  5|Rippa's Snarlfangs                 |1539.63 | ---|
 |  6|Godsworn Hunt                      |1535.19 |  -1|
 |  7|Zarbag's Gitz                      |1532.45 |  -4|
 |  8|Skaeth's Wild Hunt                 |1522.88 |  +1|
-|  9|The Grymwatch                      |1515.3  |----|
+|  9|The Grymwatch                      |1515.3  | ---|
 | 10|Garrek's Reavers                   |1503.65 |  -3|
 
 # Топ25 игроков 2019 #
@@ -83,7 +83,7 @@
 | 18|Dimon                              |SPb       |1571.21 |  -3|
 | 19|Vanya                              |SPb       |1570.63 |  -1|
 | 20|Анна Мельникова                    |Msk       |1567.28 | +22|
-| 21|LastbutOne                         |          |1552.76 |----|
+| 21|LastbutOne                         |          |1552.76 | ---|
 | 22|Федор Федоренко                    |Msk       |1551.66 |    |
 | 23|Марк Карк                          |Msk       |1549.41 |  +8|
 | 24|Святослав "Relaroh Sunora" Соколов |Msk       |1548.61 |  -4|
@@ -98,10 +98,10 @@
 |  3|Zarbag's Gitz                      |1545.05 |  +6|
 |  4|Sepulchral Guard                   |1535.9  |    |
 |  5|Godsworn Hunt                      |1521.02 |  +3|
-|  6|Lady Harrow's Mournflight          |1514.91 |----|
+|  6|Lady Harrow's Mournflight          |1514.91 | ---|
 |  7|Garrek's Reavers                   |1512.16 |  +8|
 |  8|Stormsire's Cursebreakers          |1511.46 |  +3|
-|  9|Skaeth's Wild Hunt                 |1511.11 |----|
+|  9|Skaeth's Wild Hunt                 |1511.11 | ---|
 | 10|Steelheart's Champions             |1510.48 |  -5|
 
 # Топ25 игроков Q3 2019 #
@@ -140,14 +140,14 @@
 |---|-----------------------------------|--------|----|
 |  1|Mollog's Mob                       |1579.03 |    |
 |  2|Thorns of the Briar Queen          |1564.07 |    |
-|  3|Ylthari's Guardians                |1559.84 |----|
+|  3|Ylthari's Guardians                |1559.84 | ---|
 |  4|Sepulchral Guard                   |1537.35 |  -1|
 |  5|Steelheart's Champions             |1520.78 |  +2|
 |  6|Magore's Fiends                    |1518.81 |    |
 |  7|The Chosen Axes                    |1506.9  |  +3|
 |  8|Godsworn Hunt                      |1503.6  |  -3|
 |  9|Zarbag's Gitz                      |1496.91 |    |
-| 10|Thundrik's Profiteers              |1488.33 |----|
+| 10|Thundrik's Profiteers              |1488.33 | ---|
 
 # Топ25 игроков Q2 2019 #
 
@@ -177,17 +177,17 @@
 | 22|Виктор "Sypher" Нелипович          |Msk       |1536.82 | +41|
 | 23|Марк Карк                          |Msk       |1535.43 | +12|
 | 24|Pawlove                            |SPb       |1535.0  |+115|
-| 25|Vanya                              |SPb       |1532.87 |----|
+| 25|Vanya                              |SPb       |1532.87 | ---|
 
 # Топ10 банд Q1 2019 #
 
 | # |Warband                            |Rating  | +/-|
 |---|-----------------------------------|--------|----|
-|  1|Mollog's Mob                       |1589.84 |----|
+|  1|Mollog's Mob                       |1589.84 | ---|
 |  2|Thorns of the Briar Queen          |1587.69 |    |
 |  3|Sepulchral Guard                   |1538.43 |  +3|
 |  4|Stormsire's Cursebreakers          |1531.3  |  +1|
-|  5|Godsworn Hunt                      |1524.47 |----|
+|  5|Godsworn Hunt                      |1524.47 | ---|
 |  6|Magore's Fiends                    |1523.68 |  -5|
 |  7|Steelheart's Champions             |1496.59 |    |
 |  8|The Farstriders                    |1486.23 |  -5|
@@ -216,7 +216,7 @@
 | 16|Федор Федоренко                    |Msk       |1551.66 |  -4|
 | 17|Voron                              |SPb       |1549.55 |  -2|
 | 18|Kifir                              |SPb       |1545.73 |  -2|
-| 19|Владимир Барсегов                  |Msk       |1532.09 |----|
+| 19|Владимир Барсегов                  |Msk       |1532.09 | ---|
 | 20|Oksana                             |SPb       |1531.49 |    |
 | 21|Soel                               |SPb       |1528.52 | +10|
 | 22|Святослав "Relaroh Sunora" Соколов |Msk       |1526.22 |  -8|
