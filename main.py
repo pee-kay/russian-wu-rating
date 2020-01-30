@@ -39,7 +39,7 @@ def format_player_info(p,
         res.append(str(round(rd, 2)).ljust(7))
     if diff_i != None:
         if diff_i == NEW_DIFF_I:
-            res.append('----')
+            res.append(' ---')
         elif diff_i > 0:
             res.append(('+' + str(diff_i)).rjust(4))
         elif diff_i == 0:
@@ -67,7 +67,7 @@ def format_faction_info(f, r, rd=None, i=None, diff_i=None, diff_r=None):
         res.append(str(round(rd, 2)).ljust(7))
     if diff_i != None:
         if diff_i == NEW_DIFF_I:
-            res.append('----')
+            res.append(' ---')
         elif diff_i > 0:
             res.append(('+' + str(diff_i)).rjust(4))
         elif diff_i == 0:
