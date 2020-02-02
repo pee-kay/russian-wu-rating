@@ -1,46 +1,46 @@
 [К основным рейтингам](https://pee-kay.github.io/russian-wu-rating)
-# Топ10 банд 30.01.2020 #
+# Топ10 банд 02.02.2020 #
 
 | # |Warband                            |Rating  | +/-|
 |---|-----------------------------------|--------|----|
-|  1|Rippa's Snarlfangs                 |1635.81 |  +4|
-|  2|Thorns of the Briar Queen          |1594.15 |    |
-|  3|Mollog's Mob                       |1583.41 |  -2|
-|  4|The Grymwatch                      |1549.25 |  +5|
-|  5|Lady Harrow's Mournflight          |1543.6  |  -2|
-|  6|Spiteclaw's Swarm                  |1522.29 |  -2|
-|  7|Godsworn Hunt                      |1521.37 |  -1|
-|  8|Zarbag's Gitz                      |1518.48 |  -1|
-|  9|Steelheart's Champions             |1501.3  |  +2|
-| 10|The Farstriders                    |1497.66 |  +2|
+|  1|Rippa's Snarlfangs                 |1592.42 |  +4|
+|  2|Thorns of the Briar Queen          |1581.01 |    |
+|  3|The Grymwatch                      |1580.43 |  +6|
+|  4|Lady Harrow's Mournflight          |1559.01 |  -1|
+|  5|Mollog's Mob                       |1548.52 |  -4|
+|  6|The Farstriders                    |1523.21 |  +6|
+|  7|Spiteclaw's Swarm                  |1522.29 |  -3|
+|  8|Zarbag's Gitz                      |1522.03 |  -1|
+|  9|Godsworn Hunt                      |1521.37 |  -3|
+| 10|Thundrik's Profiteers              |1518.43 |  +3|
 
-# Топ25 игроков 30.01.2020 #
+# Топ25 игроков 02.02.2020 #
 
 | # |Player                             |City      |Rating  | +/-|
 |---|-----------------------------------|----------|--------|----|
 |  1|Artur Diodand                      |SPb       |1717.04 |    |
 |  2|Ylia                               |SPb       |1706.0  |    |
 |  3|Lordik                             |SPb       |1692.24 |    |
-|  4|Dima                               |SPb       |1667.45 |    |
-|  5|Just                               |SPb       |1652.14 |    |
-|  6|Константин "Falk" Кручинин         |Msk       |1647.01 |    |
-|  7|Алексей "Ethical Engineer" Смышляев|Msk       |1638.86 | +10|
-|  8|Владимир Владимирович              |Msk       |1637.19 |  +7|
-|  9|Петр Федин                         |Msk       |1636.63 |    |
-| 10|Brin                               |SPb       |1632.57 |  -2|
-| 11|Oleg                               |SPb       |1625.72 |  -4|
+|  4|Константин "Falk" Кручинин         |Msk       |1671.11 |  +2|
+|  5|Dima                               |SPb       |1667.45 |  -1|
+|  6|Петр Федин                         |Msk       |1653.34 |  +3|
+|  7|Just                               |SPb       |1652.14 |  -2|
+|  8|Владимир Владимирович              |Msk       |1652.14 |  +7|
+|  9|Brin                               |SPb       |1632.57 |  -1|
+| 10|Oleg                               |SPb       |1625.72 |  -3|
+| 11|Дмитрий "Void Wanderer" Точенов    |Msk       |1619.91 |    |
 | 12|Anguis                             |SPb       |1619.89 |  -2|
-| 13|Дмитрий "Void Wanderer" Точенов    |Msk       |1617.96 |  -2|
-| 14|Роман "Yermack" Евсеев             |Msk       |1610.27 | +19|
-| 15|Анатолий "Joker" Коновалов         |Msk       |1607.72 | +21|
-| 16|Kamahl                             |SPb       |1602.18 |  -4|
-| 17|Sap                                |Voronezh  |1592.21 |  -3|
-| 18|Никита Чикулаев                    |Msk       |1588.43 |  -5|
+| 13|Анатолий "Joker" Коновалов         |Msk       |1607.91 | +23|
+| 14|Kamahl                             |SPb       |1602.18 |  -2|
+| 15|Никита Чикулаев                    |Msk       |1602.04 |  -2|
+| 16|Алексей "Ethical Engineer" Смышляев|Msk       |1601.28 |  +1|
+| 17|Роман "Yermack" Евсеев             |Msk       |1599.86 | +16|
+| 18|Sap                                |Voronezh  |1590.83 |  -4|
 | 19|Анна Мельникова                    |Msk       |1573.37 |  +1|
 | 20|Dimon                              |SPb       |1571.21 |  -2|
 | 21|Vanya                              |SPb       |1570.63 |  -2|
 | 22|Виктор "Sypher" Нелипович          |Msk       |1566.73 |  +6|
-| 23|Евгений "Murul" Сафронов           |Msk       |1565.45 | +24|
+| 23|Максим Федоров                     |Msk       |1560.52 | +23|
 | 24|Voron                              |SPb       |1556.88 |  -8|
 | 25|LastbutOne                         |          |1552.76 |  -4|
 
