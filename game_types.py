@@ -517,6 +517,9 @@ class Tournaments(list):
                 else:
                     p1, p2, year, month, day, f1, f2 = l[:7]
 
+                    if p1 is '' or p2 is '':
+                        continue
+
                     f1 = f1.strip().lower()
                     f1 = factions[f1].name if f1 in factions else None
 

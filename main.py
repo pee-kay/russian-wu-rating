@@ -248,8 +248,7 @@ def main():
                   top=25,
                   with_factions=True,
                   label_factions='Топ10 банд',
-                  top_factions=10,
-                  tourney_check=lambda t: t.date <= cur_date)
+                  top_factions=10)
 
     export_rating('output/combined-full.md',
                   'Текущий рейтинг игроков',
@@ -258,8 +257,7 @@ def main():
                   cur_date,
                   with_city=True,
                   with_factions=True,
-                  label_factions='Текущий рейтинг банд',
-                  tourney_check=lambda t: t.date <= cur_date)
+                  label_factions='Текущий рейтинг банд')
 
     export_rating('output/glass-tournaments-top25.md',
                   'Топ25 игроков России (по турнирам со стеклом)',
@@ -269,7 +267,7 @@ def main():
                   with_milestones=True,
                   with_city=True,
                   top=25,
-                  tourney_check=lambda t: t.with_glass and t.date <= cur_date,
+                  tourney_check=lambda t: t.with_glass,
                   min_n=3)
 
     export_rating('output/russian-top25.md',
@@ -279,16 +277,14 @@ def main():
                   cur_date,
                   with_milestones=True,
                   with_city=True,
-                  top=25,
-                  tourney_check=lambda t: t.date <= cur_date)
+                  top=25)
 
     export_rating('output/russian-full.md',
                   'Текущий рейтинг игроков России',
                   tournaments,
                   players,
                   cur_date,
-                  with_city=True,
-                  tourney_check=lambda t: t.date <= cur_date)
+                  with_city=True)
 
     export_rating('output/moscow-top25.md',
                   'Топ25 игроков Москвы',
@@ -297,16 +293,14 @@ def main():
                   cur_date,
                   with_milestones=True,
                   top=25,
-                  player_check=lambda p: p.city == 'Msk',
-                  tourney_check=lambda t: t.date <= cur_date)
+                  player_check=lambda p: p.city == 'Msk')
 
     export_rating('output/moscow-full.md',
                   'Текущий рейтинг игроков Москвы',
                   tournaments,
                   players,
                   cur_date,
-                  player_check=lambda p: p.city == 'Msk',
-                  tourney_check=lambda t: t.date <= cur_date)
+                  player_check=lambda p: p.city == 'Msk')
 
     export_rating('output/spb-top25.md',
                   'Топ25 игроков Санкт-Петербурга',
@@ -315,16 +309,14 @@ def main():
                   cur_date,
                   with_milestones=True,
                   top=25,
-                  player_check=lambda p: p.city == 'SPb',
-                  tourney_check=lambda t: t.date <= cur_date)
+                  player_check=lambda p: p.city == 'SPb')
 
     export_rating('output/spb-full.md',
                   'Текущий рейтинг игроков Санкт-Петербурга',
                   tournaments,
                   players,
                   cur_date,
-                  player_check=lambda p: p.city == 'SPb',
-                  tourney_check=lambda t: t.date <= cur_date)
+                  player_check=lambda p: p.city == 'SPb')
 
     export_rating('output/shade-city-top25.md',
                   'Топ25 игроков турниров Shade City',
@@ -334,8 +326,7 @@ def main():
                   with_milestones=True,
                   with_city=True,
                   top=25,
-                  tourney_check=lambda t: t.org == 'Святослав Соколов' and t.
-                  date <= cur_date,
+                  tourney_check=lambda t: t.org == 'Святослав Соколов',
                   min_n=3)
 
     export_rating('output/shade-city-full.md',
@@ -344,8 +335,7 @@ def main():
                   players,
                   cur_date,
                   with_city=True,
-                  tourney_check=lambda t: t.org == 'Святослав Соколов' and t.
-                  date <= cur_date,
+                  tourney_check=lambda t: t.org == 'Святослав Соколов',
                   min_n=3)
 
     export_rating('output/russian-top25-glicko.md',
@@ -356,7 +346,6 @@ def main():
                   with_milestones=True,
                   with_city=True,
                   top=25,
-                  tourney_check=lambda t: t.date <= cur_date,
                   system=glicko)
 
     export_rating('output/russian-full-glicko.md',
@@ -365,7 +354,6 @@ def main():
                   players,
                   cur_date,
                   with_city=True,
-                  tourney_check=lambda t: t.date <= cur_date,
                   system=glicko)
 
     export_rating('output/moscow-top25-glicko.md',
@@ -376,7 +364,6 @@ def main():
                   with_milestones=True,
                   top=25,
                   player_check=lambda p: p.city == 'Msk',
-                  tourney_check=lambda t: t.date <= cur_date,
                   system=glicko)
 
     export_rating('output/moscow-full-glicko.md',
@@ -385,7 +372,6 @@ def main():
                   players,
                   cur_date,
                   player_check=lambda p: p.city == 'Msk',
-                  tourney_check=lambda t: t.date <= cur_date,
                   system=glicko)
 
     export_rating('output/spb-top25-glicko.md',
@@ -396,7 +382,6 @@ def main():
                   with_milestones=True,
                   top=25,
                   player_check=lambda p: p.city == 'SPb',
-                  tourney_check=lambda t: t.date <= cur_date,
                   system=glicko)
 
     export_rating('output/spb-full-glicko.md',
@@ -405,7 +390,6 @@ def main():
                   players,
                   cur_date,
                   player_check=lambda p: p.city == 'SPb',
-                  tourney_check=lambda t: t.date <= cur_date,
                   system=glicko)
 
 
