@@ -8,9 +8,10 @@ RANKS = {'LG': 0, 'LT': 1, 'GT': 2, 'TC': 2, 'GC': 3, 'GM': 4}
 
 
 class Player:
-    def __init__(self, name, city='Msk', display=None):
+    def __init__(self, name, city='Msk', display=None, hidden=False):
         self.name = name
         self.city = city
+        self.hidden = hidden
         if display is None:
             self.display = name
         else:
@@ -46,7 +47,12 @@ class Player:
                 if l[0] in player_names:
                     raise RuntimeError('Player duplicate {}'.format(l))
 
-                players.append((l[0], l[1], l[0] if l[2] == '' else l[2]))
+                hidden = False
+                if l[2].startswith('NONE'):
+                    l[2] = l[2][4:]
+                    hidden = True
+
+                players.append((l[0], l[1], l[0] if l[2] == '' else l[2], hidden))
                 player_names = player_names.union(set(l[0]))
 
         return Player.create_players(*players)
@@ -309,7 +315,7 @@ class Tournaments(list):
                     if player_check is not None and not player_check(player):
                         continue
 
-                    if system is winrate and r.n < min_n:
+                    if player.hidden:
                         continue
 
                     rating = r.mu if check_rating(r) else None
@@ -517,7 +523,7 @@ class Tournaments(list):
                 else:
                     p1, p2, year, month, day, f1, f2 = l[:7]
 
-                    if p1 is '' or p2 is '':
+                    if p1 == '' or p2 == '':
                         continue
 
                     f1 = f1.strip().lower()
