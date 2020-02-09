@@ -1,21 +1,21 @@
-№,Nick,Faction,Tb,VP,GP,DIFF,Tb,VP,GP,DIFF,VP,GP,DIFF,SoS
-,Artur Diodand,Mollog's Mob,9,1,35,26,1,1,30,9,2,65,35,#N/A
-,Oleg,Thundrik's Profiteers,7,1,31,15,3,1,32,18,2,63,33,#N/A
-,Just,Skaeth’s Wild Hunt,4,1,33,18,2,1,27,11,60,29,#N/A
-,Brin,Stormsire’s Cursebreakers,6,1,48,12,4,1,34,11,82,23,#N/A
-,Kozulskis,Rippa's Snarlfangs,8,1,30,5,5,1,40,17,2,70,22,#N/A
-,Amarok,Rippa's Snarlfangs,10,1,31,23,1,0,21,-9,1,52,14,#N/A
-,Artur,Stormsire’s Cursebreakers,1,1,35,21,2,0,16,-11,1,51,10,#N/A
-,Tema,Mollog's Mob,5,0,24,-7,6,1,33,13,1,57,6,#N/A
-,Danil,The Grymwatch,6,0,36,-12,7,1,40,14,1,76,2,#N/A
-,Maks,Garrek’s Reavers,7,0,16,-15,8,1,41,16,1,57,1,#N/A
-,Boris,The Grymwatch,2,1,41,16,3,0,14,-18,1,55,-2,#N/A
-,Doctor,Ylthari's Guardians,3,1,28,9,4,0,23,-11,1,51,-2,#N/A
-,Nevar,Godsworn Hunt,5,1,31,7,5,0,23,-17,1,54,-10,#N/A
-,Imp,Stormsire’s Cursebreakers,9,0,9,-26,10,1,25,16,1,34,-10,#N/A
-,Voron,Zarbag's Gitz,1,0,14,-21,9,1,60,4,1,74,-17,#N/A
-,Seriy,Stormsire’s Cursebreakers,8,0,25,-5,6,0,20,-13,0,45,-18,#N/A
-,LastbutOne,Grashrak’s Despoilers,4,0,15,-18,9,0,56,-4,0,71,-22,#N/A
-,Lodin,Lady Harrow’s Mournflight,3,0,19,-9,7,0,26,-14,0,45,-23,#N/A
-,Sasha,Zarbag's Gitz,2,0,25,-16,8,0,25,-16,0,50,-32,#N/A
-,Timur,Rippa's Snarlfangs,10,0,8,-23,10,0,9,-16,0,17,-39,#N/A
+№,Nick,Faction,Tb,VP,GP,DIFF,Tb,VP,GP,DIFF,Tb,VP,GP,DIFF,Tb,VP,GP,DIFF,VP,GP,DIFF,SoS
+,Artur Diodand,Mollog's Mob,9,1,35,26,1,1,30,9,1,1,30,9,1,1,44,19,4,139,63,9
+,Oleg,Thundrik's Profiteers,7,1,31,15,3,1,32,18,1,0,21,-9,2,1,45,1,3,129,25,9
+,Just,Skaeth’s Wild Hunt,4,1,33,18,2,1,27,11,2,1,32,5,1,0,25,-19,3,117,15,7
+,Brin,Stormsire’s Cursebreakers,6,1,48,12,4,1,34,11,2,0,27,-5,3,1,30,9,3,139,27,6
+,Boris,The Grymwatch,2,1,41,16,3,0,14,-18,6,1,41,3,4,1,27,19,3,123,20,4
+,Amarok,Rippa's Snarlfangs,10,1,31,23,1,0,21,-9,3,1,35,32,2,0,44,-1,2,131,45,8
+,Artur,Stormsire’s Cursebreakers,1,1,35,21,2,0,16,-11,4,1,19,13,3,0,21,-9,2,91,14,6
+,Tema,Mollog's Mob,5,0,24,-7,6,1,33,13,4,0,6,-13,7,1,33,7,2,96,0,6
+,Danil,The Grymwatch,6,0,36,-12,7,1,40,14,5,1,37,6,4,0,8,-19,2,121,-11,6
+,Kozulskis,Rippa's Snarlfangs,8,1,30,5,5,1,40,17,3,0,3,-32,6,0,19,-10,2,92,-20,6
+,Seriy,Stormsire’s Cursebreakers,8,0,25,-5,6,0,20,-13,8,1,46,22,5,1,26,4,2,117,8,5
+,Maks,Garrek’s Reavers,7,0,16,-15,8,1,41,16,5,0,31,-6,6,1,29,10,2,117,5,5
+,LastbutOne,Grashrak’s Despoilers,4,0,15,-18,9,0,56,-4,9,1,33,11,8,1,36,4,2,140,-7,5
+,Nevar,Godsworn Hunt,5,1,31,7,5,0,23,-17,7,1,36,2,5,0,22,-4,2,112,-12,5
+,Timur,Rippa's Snarlfangs,10,0,8,-23,10,0,9,-16,10,1,40,15,9,1,45,24,2,102,0,3
+,Imp,Stormsire’s Cursebreakers,9,0,9,-26,10,1,25,16,7,0,34,-2,8,0,32,-4,1,100,-16,8
+,Doctor,Ylthari's Guardians,3,1,28,9,4,0,23,-11,6,0,38,-3,7,0,26,-7,1,115,-12,7
+,Voron,Zarbag's Gitz,1,0,14,-21,9,1,60,4,8,0,24,-22,9,0,21,-24,1,119,-63,6
+,Lodin,Lady Harrow’s Mournflight,3,0,19,-9,7,0,26,-14,9,0,22,-11,10,1,31,5,1,98,-29,5
+,Sasha,Zarbag's Gitz,2,0,25,-16,8,0,25,-16,10,0,25,-15,10,0,26,-5,0,101,-52,7
