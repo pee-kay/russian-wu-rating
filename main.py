@@ -12,11 +12,10 @@ import os
 NEW_DIFF_I = 1000000
 
 MILESTONES = (datetime.date(2019, 1, 1), datetime.date(2019, 4, 1),
-              datetime.date(2019, 7,
-                            1), datetime.date(2019, 10,
-                                              1), datetime.date(2020, 1, 1))
+              datetime.date(2019, 7, 1), datetime.date(2019, 10, 1),
+              datetime.date(2020, 1, 1), datetime.date(2020, 4, 1))
 
-MILESTONE_LABELS = ('2019', 'Q3 2019', 'Q2 2019', 'Q1 2019', '2018')
+MILESTONE_LABELS = ('Q1 2020', '2019', 'Q3 2019', 'Q2 2019', 'Q1 2019', '2018')
 
 
 def format_player_info(p,
@@ -156,7 +155,7 @@ def export_rating(fname,
                         f, r, rd if with_rd else None,
                         pos if pos != prev_pos else '', None if first else
                         (NEW_DIFF_I if diff_pos is None else diff_pos)),
-                          file=log)
+                        file=log)
                     prev_pos = pos
                     if r is None:
                         print_na_info = True
