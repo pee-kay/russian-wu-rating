@@ -1,178 +1,184 @@
 [К основным рейтингам](https://pee-kay.github.io/russian-wu-rating)
-# Текущий рейтинг банд 05.07.2020 #
+# Текущий рейтинг банд 29.08.2020 #
 
 | # |Warband                            |Rating  |
 |---|-----------------------------------|--------|
-|  1|The Grymwatch                      |1608.79 |
-|  2|Rippa's Snarlfangs                 |1591.37 |
-|  3|Thorns of the Briar Queen          |1571.81 |
-|  4|Mollog's Mob                       |1568.97 |
-|  5|Lady Harrow's Mournflight          |1540.63 |
-|  6|Hrothgorn's Mantrappers            |1529.77 |
-|  7|Stormsire's Cursebreakers          |1527.69 |
-|  8|Godsworn Hunt                      |1526.81 |
-|  9|The Farstriders                    |1522.78 |
-| 10|Spiteclaw's Swarm                  |1522.2  |
-| 11|Thundrik's Profiteers              |1510.2  |
-| 12|Steelheart's Champions             |1501.2  |
-| 13|The Wurmspat                       |1500.76 |
-| 14|Skaeth's Wild Hunt                 |1498.83 |
-| 15|Zarbag's Gitz                      |1475.73 |
-| 16|Garrek's Reavers                   |1473.95 |
-| 17|Sepulchral Guard                   |1471.09 |
-| 18|The Chosen Axes                    |1467.81 |
-| 19|Ylthari's Guardians                |1438.45 |
-| 20|Magore's Fiends                    |1433.79 |
-| 21|The Eyes of the Nine               |1429.25 |
-| 22|Grashrak's Despoilers              |1404.61 |
-| 23|Ironskull's Boyz                   |1383.51 |
+|  1|Thorns of the Briar Queen          |1587.53 |
+|  2|Lady Harrow's Mournflight          |1579.6  |
+|  3|Rippa's Snarlfangs                 |1569.85 |
+|  4|Mollog's Mob                       |1567.7  |
+|  5|The Grymwatch                      |1558.76 |
+|  6|The Farstriders                    |1548.09 |
+|  7|Stormsire's Cursebreakers          |1529.58 |
+|  8|Hrothgorn's Mantrappers            |1523.65 |
+|  9|Spiteclaw's Swarm                  |1522.36 |
+| 10|The Wurmspat                       |1514.58 |
+| 11|Thundrik's Profiteers              |1505.74 |
+| 12|Godsworn Hunt                      |1497.74 |
+| 13|Skaeth's Wild Hunt                 |1497.12 |
+| 14|The Chosen Axes                    |1493.85 |
+| 15|Steelheart's Champions             |1490.04 |
+| 16|Sepulchral Guard                   |1486.21 |
+| 17|Zarbag's Gitz                      |1481.39 |
+| 18|Garrek's Reavers                   |1473.25 |
+| 19|Ylthari's Guardians                |1461.38 |
+| 20|Magore's Fiends                    |1438.03 |
+| 21|The Eyes of the Nine               |1429.11 |
+| 22|Grashrak's Despoilers              |1384.16 |
+| 23|Ironskull's Boyz                   |1381.43 |
+| 24|Ironsoul's Condemnors              |   N/A  |
+|   |Morgwaeth's Blade-coven            |   N/A  |
 
-# Текущий рейтинг игроков 05.07.2020 #
+# Текущий рейтинг игроков 29.08.2020 #
 
 | # |Player                             |City      |Rating  |
 |---|-----------------------------------|----------|--------|
 |  1|Artur Diodand                      |SPb       |1736.45 |
-|  2|Ylia                               |SPb       |1705.44 |
-|  3|Владимир Владимирович              |Msk       |1695.97 |
-|  4|Lordik                             |SPb       |1692.5  |
-|  5|Константин "Falk" Кручинин         |Msk       |1671.12 |
-|  6|Петр Федин                         |Msk       |1669.59 |
-|  7|Dima                               |SPb       |1667.56 |
-|  8|Just                               |SPb       |1663.74 |
-|  9|Brin                               |SPb       |1647.96 |
-| 10|Анатолий "Joker" Коновалов         |Msk       |1623.59 |
-| 11|Anguis                             |SPb       |1619.9  |
-| 12|Никита Чикулаев                    |Msk       |1614.45 |
-| 13|Дмитрий "Void Wanderer" Точенов    |Msk       |1611.25 |
-| 14|Алексей "Ethical Engineer" Смышляев|Msk       |1610.63 |
-| 15|Kamahl                             |SPb       |1603.44 |
-| 16|Sap                                |Voronezh  |1590.76 |
-| 17|Максим Федоров                     |Msk       |1582.26 |
-| 18|Анна Мельникова                    |Msk       |1574.45 |
-| 19|Dimon                              |SPb       |1571.21 |
-| 20|Vanya                              |SPb       |1571.15 |
-| 21|Роман "Yermack" Евсеев             |Msk       |1566.39 |
-| 22|Евгений Овчинников                 |Msk       |1564.4  |
-| 23|LastbutOne                         |          |1562.21 |
-| 24|Виктор "Sypher" Нелипович          |Msk       |1558.27 |
-| 25|Федор Федоренко                    |Msk       |1551.66 |
-| 26|Verger                             |SPb       |1548.01 |
-| 27|Kifir                              |SPb       |1545.73 |
-| 28|Александр Иващенко                 |RnD       |1545.65 |
-| 29|Сергей Шевелев                     |Msk       |1545.59 |
-| 30|Святослав "Relaroh Sunora" Соколов |Msk       |1544.74 |
-| 31|Pawlove                            |SPb       |1540.14 |
-| 32|Arsanar                            |SPb       |1540.14 |
-| 33|Voron                              |SPb       |1536.4  |
-| 34|Евгений "Murul" Сафронов           |Msk       |1534.64 |
-| 35|Павел Кузнецов                     |Msk       |1534.45 |
-| 36|Владимир Барсегов                  |Msk       |1532.09 |
-| 37|Дмитрий Матвеев                    |Msk       |1530.38 |
-| 38|Александр Петрив                   |Msk       |1528.83 |
-| 39|Soel                               |SPb       |1528.66 |
-| 40|Georgiy                            |SPb       |1528.35 |
-| 41|Марк Карк                          |Msk       |1527.7  |
-| 42|Иван Дмитриев                      |Msk       |1527.7  |
-| 43|Artur                              |SPb       |1526.14 |
-| 44|Timur                              |SPb       |1525.98 |
-| 45|Tema                               |SPb       |1524.45 |
-| 46|Oksana                             |SPb       |1524.4  |
-| 47|Imp                                |SPb       |1523.63 |
-| 48|Priest                             |SPb       |1523.14 |
-| 49|Александр Старовойтов              |Msk       |1521.24 |
-| 50|Boris                              |SPb       |1520.24 |
-| 51|Михаил Ковальков                   |Msk       |1518.68 |
-| 52|Sli                                |SPb       |1515.87 |
-| 53|Григорий Фисаков                   |Msk       |1514.73 |
-| 54|Amarok                             |SPb       |1514.42 |
-| 55|Owl                                |SPb       |1512.39 |
-| 56|Doctor                             |SPb       |1510.85 |
-| 57|Богдан Елизаров                    |Msk       |1506.52 |
-| 58|Smog                               |SPb       |1506.34 |
-| 59|Nevar                              |SPb       |1505.25 |
-| 60|Fatherbox                          |SPb       |1504.79 |
-| 61|Bessmertniy                        |SPb       |1503.35 |
-| 62|Michail                            |SPb       |1500.96 |
-| 63|Seriy                              |SPb       |1500.67 |
-| 64|Dmitriy                            |          |1499.64 |
-| 65|Skiv                               |SPb       |1498.52 |
-| 66|Данила Антонов                     |Msk       |1496.42 |
-| 67|Егор Долженко                      |Msk       |1496.12 |
-| 68|Павел Аленчев                      |Msk       |1495.87 |
-| 69|Solano                             |SPb       |1493.91 |
-| 70|Денис Никишин                      |Msk       |1493.75 |
-| 71|Александр Каревский                |Msk       |1493.55 |
-| 72|Артем Анпилогов                    |Msk       |1493.04 |
-| 73|Александр Оводков                  |Msk       |1492.33 |
-| 74|Андрей Морозов                     |Msk       |1491.36 |
-| 75|Dominator 667                      |SPb       |1491.04 |
-| 76|Krioll                             |          |1490.12 |
-| 77|Senek                              |SPb       |1488.46 |
-| 78|Максим Оргиец                      |Msk       |1487.23 |
-| 79|Maks                               |SPb       |1486.95 |
-| 80|Darth Framas                       |SPb       |1486.75 |
-| 81|Ruker                              |SPb       |1486.21 |
-| 82|Homyak                             |SPb       |1485.57 |
-| 83|Viktor                             |SPb       |1484.28 |
-| 84|Ден Волк                           |Msk       |1483.33 |
-| 85|Monstr                             |          |1482.65 |
-| 86|Антон Коняхин                      |Msk       |1482.21 |
-| 87|Ilenkov                            |          |1482.02 |
-| 88|Vitaliy                            |SPb       |1481.76 |
-| 89|Виталий Тютюриков                  |Msk       |1481.27 |
-| 90|Алексей Купляков                   |Msk       |1481.18 |
-| 91|Roma                               |SPb       |1480.99 |
-| 92|Иван Марков                        |Msk       |1480.72 |
-| 93|Максим Каревский                   |Msk       |1480.67 |
-| 94|Roman Hobbit                       |          |1480.53 |
-| 95|Taranov                            |SPb       |1480.3  |
-| 96|CrazyMX                            |          |1479.53 |
-| 97|Solnce                             |SPb       |1478.55 |
-| 98|XuTu                               |SPb       |1478.03 |
-| 99|Rodion                             |SPb       |1477.59 |
-|100|Danil                              |SPb       |1477.27 |
-|101|Александр Лебедев                  |Msk       |1476.95 |
-|102|Excelsior                          |SPb       |1476.11 |
-|103|Kozulskis                          |SPb       |1475.58 |
-|104|Grib                               |SPb       |1474.04 |
-|105|Vlad                               |SPb       |1473.91 |
-|106|Barb                               |SPb       |1473.65 |
-|107|Алексей Гуляев                     |Msk       |1473.28 |
-|108|Василий Гущин                      |Msk       |1473.08 |
-|109|Sergey                             |SPb       |1469.76 |
-|110|Алексей Павлов                     |Msk       |1468.97 |
-|111|Sasha                              |SPb       |1468.44 |
-|112|Lodin                              |SPb       |1468.17 |
-|113|SashaPskov                         |SPb       |1467.8  |
-|114|Dominator 666                      |SPb       |1467.19 |
-|115|Антон Чичеткин                     |Msk       |1466.3  |
-|116|Krot                               |SPb       |1465.96 |
-|117|Белый Маг                          |Voronezh  |1465.65 |
-|118|Kirill                             |SPb       |1465.32 |
-|119|Egor                               |SPb       |1463.74 |
-|120|Kolya                              |SPb       |1463.19 |
-|121|Ivan                               |SPb       |1460.83 |
-|122|Дарион                             |Msk       |1458.51 |
-|123|Александр Алексеев                 |Msk       |1458.38 |
-|124|Денис Кубиков                      |Msk       |1458.15 |
-|125|Николай Шараев                     |Msk       |1457.93 |
-|126|Максим Халилулин                   |Msk       |1457.21 |
-|127|Максим Шамцян                      |Msk       |1450.75 |
-|128|Lover                              |SPb       |1446.07 |
-|129|Мирон Андреев                      |Msk       |1444.68 |
-|130|Maksim                             |SPb       |1442.93 |
-|131|Badya                              |SPb       |1441.04 |
-|132|Danyar                             |SPb       |1438.25 |
-|133|Макс Бар                           |Msk       |1432.28 |
-|134|Денис Ульмаев                      |Msk       |1431.45 |
-|135|Amgalan                            |SPb       |1430.26 |
-|136|Артем Баранов                      |Msk       |1425.95 |
-|137|Dants                              |SPb       |1424.14 |
-|138|Давид Афинский                     |Msk       |1418.82 |
-|139|Ася Шестова                        |Msk       |1405.2  |
-|140|Saervak                            |SPb       |1398.25 |
-|141|Udar                               |SPb       |1391.44 |
-|142|Ahti                               |SPb       |   N/A  |
+|  2|Ylia                               |SPb       |1705.59 |
+|  3|Владимир Владимирович              |Msk       |1693.71 |
+|  4|Lordik                             |SPb       |1692.47 |
+|  5|Петр Федин                         |Msk       |1683.88 |
+|  6|Константин "Falk" Кручинин         |Msk       |1671.85 |
+|  7|Dima                               |SPb       |1667.04 |
+|  8|Just                               |SPb       |1663.76 |
+|  9|Brin                               |SPb       |1649.36 |
+| 10|Анатолий "Joker" Коновалов         |Msk       |1623.6  |
+| 11|Anguis                             |SPb       |1620.25 |
+| 12|Никита Чикулаев                    |Msk       |1613.37 |
+| 13|Алексей "Ethical Engineer" Смышляев|Msk       |1610.58 |
+| 14|Дмитрий "Void Wanderer" Точенов    |Msk       |1609.38 |
+| 15|Sap                                |Voronezh  |1603.52 |
+| 16|Kamahl                             |SPb       |1603.19 |
+| 17|Verger                             |SPb       |1591.1  |
+| 18|Анна Мельникова                    |Msk       |1574.46 |
+| 19|Dimon                              |SPb       |1571.2  |
+| 20|Vanya                              |SPb       |1571.11 |
+| 21|Максим Федоров                     |Msk       |1569.63 |
+| 22|Роман "Yermack" Евсеев             |Msk       |1566.39 |
+| 23|Евгений Овчинников                 |Msk       |1564.39 |
+| 24|LastbutOne                         |          |1562.16 |
+| 25|Павел Кузнецов                     |Msk       |1560.62 |
+| 26|Святослав "Relaroh Sunora" Соколов |Msk       |1558.53 |
+| 27|Voron                              |SPb       |1557.79 |
+| 28|Александр Иващенко                 |RnD       |1557.69 |
+| 29|Виктор "Sypher" Нелипович          |Msk       |1557.12 |
+| 30|Pawlove                            |SPb       |1555.92 |
+| 31|Федор Федоренко                    |Msk       |1551.58 |
+| 32|Kifir                              |SPb       |1545.73 |
+| 33|Сергей Шевелев                     |Msk       |1545.55 |
+| 34|Timur                              |SPb       |1542.83 |
+| 35|Arsanar                            |SPb       |1540.15 |
+| 36|Владимир Барсегов                  |Msk       |1532.03 |
+| 37|Евгений "Murul" Сафронов           |Msk       |1531.67 |
+| 38|Дмитрий Матвеев                    |Msk       |1530.52 |
+| 39|Boris                              |SPb       |1529.53 |
+| 40|Александр Петрив                   |Msk       |1528.87 |
+| 41|Soel                               |SPb       |1528.74 |
+| 42|Tema                               |SPb       |1528.15 |
+| 43|Jora                               |SPb       |1527.13 |
+| 44|Georgiy                            |SPb       |1527.01 |
+| 45|Марк Карк                          |Msk       |1526.25 |
+| 46|Artur                              |SPb       |1526.14 |
+| 47|Иван Дмитриев                      |Msk       |1525.58 |
+| 48|Oksana                             |SPb       |1524.91 |
+| 49|Imp                                |SPb       |1523.61 |
+| 50|Seriy                              |SPb       |1523.25 |
+| 51|Priest                             |SPb       |1523.17 |
+| 52|Александр Старовойтов              |Msk       |1519.44 |
+| 53|Михаил Ковальков                   |Msk       |1518.65 |
+| 54|Batman                             |SPb       |1516.17 |
+| 55|Sli                                |SPb       |1515.87 |
+| 56|Amarok                             |SPb       |1514.44 |
+| 57|Owl                                |SPb       |1512.39 |
+| 58|Богдан Елизаров                    |Msk       |1506.49 |
+| 59|Smog                               |SPb       |1506.1  |
+| 60|Nevar                              |SPb       |1505.57 |
+| 61|Fatherbox                          |SPb       |1504.79 |
+| 62|Григорий Фисаков                   |Msk       |1504.26 |
+| 63|Bessmertniy                        |SPb       |1503.36 |
+| 64|Michail                            |SPb       |1500.96 |
+| 65|Maks                               |SPb       |1500.56 |
+| 66|Dmitriy                            |          |1499.6  |
+| 67|Skiv                               |SPb       |1498.5  |
+| 68|Егор Долженко                      |Msk       |1496.06 |
+| 69|Данила Антонов                     |Msk       |1495.96 |
+| 70|Павел Аленчев                      |Msk       |1495.9  |
+| 71|Solano                             |SPb       |1493.91 |
+| 72|Денис Никишин                      |Msk       |1493.59 |
+| 73|Александр Каревский                |Msk       |1493.56 |
+| 74|Артем Анпилогов                    |Msk       |1493.04 |
+| 75|Александр Оводков                  |Msk       |1492.32 |
+| 76|Андрей Морозов                     |Msk       |1491.34 |
+| 77|Максим Оргиец                      |Msk       |1491.18 |
+| 78|Dominator 667                      |SPb       |1491.04 |
+| 79|Krioll                             |          |1490.11 |
+| 80|Senek                              |SPb       |1488.76 |
+| 81|Darth Framas                       |SPb       |1486.75 |
+| 82|Ruker                              |SPb       |1486.2  |
+| 83|Homyak                             |SPb       |1485.57 |
+| 84|Viktor                             |SPb       |1484.25 |
+| 85|Ден Волк                           |Msk       |1483.29 |
+| 86|Monstr                             |          |1482.67 |
+| 87|Антон Коняхин                      |Msk       |1482.27 |
+| 88|Ilenkov                            |          |1482.03 |
+| 89|Vitaliy                            |SPb       |1481.73 |
+| 90|Kozulskis                          |SPb       |1481.73 |
+| 91|Виталий Тютюриков                  |Msk       |1481.17 |
+| 92|Алексей Купляков                   |Msk       |1481.15 |
+| 93|Roma                               |SPb       |1480.99 |
+| 94|Иван Марков                        |Msk       |1480.75 |
+| 95|Максим Каревский                   |Msk       |1480.7  |
+| 96|Roman Hobbit                       |          |1480.52 |
+| 97|Taranov                            |SPb       |1480.27 |
+| 98|Doctor                             |SPb       |1480.12 |
+| 99|Solnce                             |SPb       |1479.56 |
+|100|CrazyMX                            |          |1479.54 |
+|101|XuTu                               |SPb       |1477.92 |
+|102|Rodion                             |SPb       |1477.56 |
+|103|Александр Лебедев                  |Msk       |1476.94 |
+|104|Excelsior                          |SPb       |1476.07 |
+|105|Grib                               |SPb       |1473.98 |
+|106|Vlad                               |SPb       |1473.91 |
+|107|Barb                               |SPb       |1473.78 |
+|108|Алексей Гуляев                     |Msk       |1473.5  |
+|109|Василий Гущин                      |Msk       |1473.07 |
+|110|Антон Гаврилов                     |Voronezh  |1472.38 |
+|111|Sergey                             |SPb       |1469.77 |
+|112|Алексей Павлов                     |Msk       |1468.87 |
+|113|Денис Кубиков                      |Msk       |1468.19 |
+|114|Lodin                              |SPb       |1468.18 |
+|115|SashaPskov                         |SPb       |1468.03 |
+|116|Dominator 666                      |SPb       |1467.19 |
+|117|Антон Чичеткин                     |Msk       |1466.31 |
+|118|Krot                               |SPb       |1465.92 |
+|119|Белый Маг                          |Voronezh  |1465.68 |
+|120|Ivan                               |SPb       |1465.65 |
+|121|Pavel                              |SPb       |1465.53 |
+|122|Kirill                             |SPb       |1465.33 |
+|123|Egor                               |SPb       |1463.74 |
+|124|Kolya                              |SPb       |1463.19 |
+|125|Sasha                              |SPb       |1460.05 |
+|126|Николай Шараев                     |Msk       |1459.65 |
+|127|Дарион                             |Msk       |1458.47 |
+|128|Александр Алексеев                 |Msk       |1458.36 |
+|129|Максим Халилулин                   |Msk       |1457.21 |
+|130|Danil                              |SPb       |1455.87 |
+|131|Максим Шамцян                      |Msk       |1450.83 |
+|132|Lover                              |SPb       |1445.83 |
+|133|Мирон Андреев                      |Msk       |1445.16 |
+|134|Maksim                             |SPb       |1442.93 |
+|135|Badya                              |SPb       |1441.08 |
+|136|Danyar                             |SPb       |1438.26 |
+|137|Макс Бар                           |Msk       |1432.25 |
+|138|Денис Ульмаев                      |Msk       |1431.48 |
+|139|Артем Баранов                      |Msk       |1431.1  |
+|140|Amgalan                            |SPb       |1430.26 |
+|141|Dants                              |SPb       |1424.15 |
+|142|Давид Афинский                     |Msk       |1418.85 |
+|143|Ася Шестова                        |Msk       |1405.21 |
+|144|Saervak                            |SPb       |1398.29 |
+|145|Udar                               |SPb       |1387.57 |
+|146|Ahti                               |SPb       |   N/A  |
 |   |Aleksey Rassecheniy                |SPb       |   N/A  |
 |   |Andrey                             |SPb       |   N/A  |
 |   |Anna                               |SPb       |   N/A  |
@@ -181,12 +187,14 @@
 |   |Belenov                            |SPb       |   N/A  |
 |   |Berezko                            |          |   N/A  |
 |   |Bez                                |          |   N/A  |
+|   |Bogdan                             |SPb       |   N/A  |
 |   |Coach                              |SPb       |   N/A  |
 |   |DRPFDR                             |SPb       |   N/A  |
 |   |Denis                              |SPb       |   N/A  |
 |   |Dimka                              |SPb       |   N/A  |
 |   |Dredd                              |SPb       |   N/A  |
 |   |Faraicool                          |Msk       |   N/A  |
+|   |Graph                              |SPb       |   N/A  |
 |   |Gremlin                            |Msk       |   N/A  |
 |   |Hevka                              |SPb       |   N/A  |
 |   |Hity                               |SPb       |   N/A  |
@@ -195,6 +203,7 @@
 |   |KOT                                |SPb       |   N/A  |
 |   |Kainobor                           |SPb       |   N/A  |
 |   |Karina                             |SPb       |   N/A  |
+|   |Kasatka                            |SPb       |   N/A  |
 |   |Keboto                             |SPb       |   N/A  |
 |   |KhornoPes                          |          |   N/A  |
 |   |Kondor                             |SPb       |   N/A  |
@@ -210,11 +219,11 @@
 |   |Nikita                             |SPb       |   N/A  |
 |   |Nikita Argov                       |SPb       |   N/A  |
 |   |Oval                               |SPb       |   N/A  |
-|   |Pavel                              |SPb       |   N/A  |
 |   |Petr                               |SPb       |   N/A  |
 |   |Pornoork                           |SPb       |   N/A  |
 |   |Prokopov                           |SPb       |   N/A  |
 |   |Proletariy                         |SPb       |   N/A  |
+|   |Ptolib                             |SPb       |   N/A  |
 |   |Ramirti                            |Msk       |   N/A  |
 |   |Reka                               |SPb       |   N/A  |
 |   |Renor                              |SPb       |   N/A  |
@@ -232,6 +241,7 @@
 |   |Tegark                             |SPb       |   N/A  |
 |   |Tulin                              |SPb       |   N/A  |
 |   |Tupocowboy                         |SPb       |   N/A  |
+|   |Uzbek                              |SPb       |   N/A  |
 |   |Vanya Sabaka                       |SPb       |   N/A  |
 |   |Varren                             |          |   N/A  |
 |   |Vladimir                           |SPb       |   N/A  |
@@ -248,7 +258,6 @@
 |   |Алексей Меликянц                   |Msk       |   N/A  |
 |   |Андрей Оводков                     |Msk       |   N/A  |
 |   |Андрей Хряпин                      |Msk       |   N/A  |
-|   |Антон Гаврилов                     |Voronezh  |   N/A  |
 |   |Антон Корнаков                     |Msk       |   N/A  |
 |   |Артес Тория                        |Msk       |   N/A  |
 |   |Большой                            |RnD       |   N/A  |
@@ -257,9 +266,11 @@
 |   |Виктор Щеблыкин                    |Voronezh  |   N/A  |
 |   |Виталий Кривошеев                  |Msk       |   N/A  |
 |   |Владимир Басов                     |Msk       |   N/A  |
+|   |Владимир Коломейцев                |Msk       |   N/A  |
 |   |Владимир Осокин                    |Msk       |   N/A  |
 |   |Владислав Войнов                   |SPb       |   N/A  |
 |   |Глеб Гусев                         |Msk       |   N/A  |
+|   |Глеб Левченко                      |Msk       |   N/A  |
 |   |Григорий Архипов                   |Msk       |   N/A  |
 |   |Дарья Дерябина                     |Msk       |   N/A  |
 |   |Денис Ручков                       |Msk       |   N/A  |
@@ -268,6 +279,7 @@
 |   |Дмитрий Кузьмин                    |Msk       |   N/A  |
 |   |Евгений Крамеров                   |Msk       |   N/A  |
 |   |Евгений Тюляев                     |Msk       |   N/A  |
+|   |Иван Ананин                        |Msk       |   N/A  |
 |   |Иван Клочков                       |Msk       |   N/A  |
 |   |Илья Кордонец                      |Msk       |   N/A  |
 |   |Кирилл Бадягин                     |Msk       |   N/A  |
@@ -276,6 +288,7 @@
 |   |Кирилл Самойлов                    |Msk       |   N/A  |
 |   |Кронос                             |Msk       |   N/A  |
 |   |Леонид Овчинников                  |Msk       |   N/A  |
+|   |Леонид Щебелев                     |Msk       |   N/A  |
 |   |Максим Бурцев                      |Msk       |   N/A  |
 |   |Максим Демченко                    |Msk       |   N/A  |
 |   |Максим Чередников                  |Msk       |   N/A  |
