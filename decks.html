@@ -654,6 +654,14 @@
                         color: black;
                 }
 
+                .card-white {
+                        color: white;
+                }
+
+                .card-white a {
+                        color: white;
+                }
+
                 .card-invalid {
                         color: red;
                 }
@@ -681,11 +689,39 @@
                 .player-color-2 {
                         background: #ae163e;
                 }
+
+                .player-color-3 {
+                        background: #1eb410;
+                }
+
+                .player-color-4 {
+                        background: #d0d405;
+                }
+
+                .player-color-5 {
+                        background: #bb027d;
+                }
+
+                .player-color-6 {
+                        background: #21323a;
+                }
+
+                .player-color-7 {
+                        background: #10885a;
+                }
+
+                .player-color-8 {
+                        background: #ff4800;
+                }
+
+                .player-color-9 {
+                        background: #696945;
+                }
         </style>
 </head>
 
-<body>
-        <div id="MAIN" class="row" style="margin-left: 0; margin-right: 0;"></div>
+<body class="p-0">
+        <div id="MAIN" class="row jumbotron p-0 m-0"></div>
         <div id="DB" hidden>
                 <div id="card-line-1" obj-type="End" obj-score="1"><img class="whuicon" title="Core set" alt="Core set"
                                 src="./img/universal-icon.png"><img class="whuicon" title="Garrek's Reavers"
@@ -16817,6 +16853,32 @@
 
 
         <script>
+                function getCard(cardId) {
+                        if (cardId in db) {
+                                return db[cardId];
+                        }
+
+                        var card = {};
+                        card.line = db._div.find('#card-line-' + cardId);
+                        if (card.line.length < 1) {
+                                return null;
+                        }
+
+                        card.html = card.line.html();
+                        card.id = cardId;
+                        card.name = card.line.find('a').text().trim();
+                        card.type = card.line.get(0).children.item(2).getAttribute("title");
+                        card.is_objective = card.type == 'Objective';
+                        card.is_upgrade = card.type == 'Upgrade';
+                        card.is_gambit = !card.is_objective && !card.is_upgrade;
+                        if (card.is_objective) {
+                                card.obj_score = Number(card.line.attr('obj-score'));
+                                card.obj_type = card.line.attr('obj-type');
+                        }
+                        db[cardId] = card;
+                        return card;
+                }
+
                 function refreshDecklist(deckString) {
                         // replace original implementation of Leader cards with new data format
                         for (i = 438; i <= 497; i++) {
@@ -16829,7 +16891,7 @@
                         var deckStringSplit = deckString.split(',');
                         var deckObj = new Set();
                         var deckGam = new Set();
-                        var deckUpd = new Set();
+                        var deckUpg = new Set();
 
                         // update this list in deckstats.php and shared.php
                         for (i = 0; i < (deckStringSplit.length); i++) {
@@ -16847,16 +16909,16 @@
                                         || deckStringSplit[i].substring(0, 1) == "E" && deckStringSplit[i].substr(1) <= 60 // it's an Essential Card Pack card = legal
                                 ) {
                                         var cardId = deckStringSplit[i];
-                                        var cardLine = $('#card-line-' + cardId);
-                                        if (cardLine.length < 1) {
+                                        var card = getCard(cardId);
+                                        if (!card) {
                                                 continue;
                                         }
-                                        var cardType = cardLine.get(0).children.item(2).getAttribute("title");
-                                        if (cardType == "Objective") {
+
+                                        if (card.is_objective) {
                                                 deckObj.add(cardId);
                                         }
-                                        else if (cardType == "Upgrade") {
-                                                deckUpd.add(cardId);
+                                        else if (card.is_upgrade) {
+                                                deckUpg.add(cardId);
                                         }
                                         else {
                                                 deckGam.add(cardId);
@@ -16868,7 +16930,7 @@
                         let unique = [];
                         [...deckObj].sort().forEach(v => unique.push(v));
                         [...deckGam].sort().forEach(v => unique.push(v));
-                        [...deckUpd].sort().forEach(v => unique.push(v));
+                        [...deckUpg].sort().forEach(v => unique.push(v));
 
                         //set deckString to the string value of the unique array
                         return unique.join();
@@ -16892,8 +16954,16 @@
                                 return false;
                         }
                         var deckstring = refreshDecklist(deckparams.get("deck"));
-                        localStorage.setItem('playerDeck' + pid, deckstring);
+
+                        if (!deckstring)
+                        {
+                                deck.append('<div class="alert alert-danger" role="alert">Empty deck!</div>');
+                                localStorage.setItem('playerDeck' + pid, '');
+                                return false;
+                        }
+
                         var playerCount = localStorage.getItem('playerCount');
+                        localStorage.setItem('playerDeck' + pid, deckstring);
 
                         var repeats = {};
                         for (var i = 0; i < playerCount; ++i) {
@@ -16902,30 +16972,100 @@
                                         continue;
                                 }
 
-                                decki.split(',').forEach(element => {
-                                        if (element != 0) {
-                                                if (element in repeats) {
-                                                        repeats[element].push(i);
+                                decki.split(',').forEach(cardId => {
+                                        if (cardId != 0) {
+                                                var key = getCard(cardId).name;
+                                                if (key in repeats) {
+                                                        repeats[key].push(i);
                                                 }
                                                 else {
-                                                        repeats[element] = [i];
+                                                        repeats[key] = [i];
                                                 }
                                         }
                                 });
                         }
 
-                        var db = $('#DB');
+                        deck.append(`<div></div><div class="text-center card-white player-color-${pid}" width="100%"><a href="${$('#deck-url-' + pid).val()}" rel="noopener noreferrer" target="_blank">Click to open deck on UDB</a></div>`);
 
-                        deckstring.split(',').forEach(element => {
-                                if (element != 0) {
-                                        var cardClass = repeats[element].length == 1 ? 'card-valid' : 'card-invalid';
-                                        var cardLine = '<div class="' + cardClass + '">' + db.find('#card-line-' + element).html()
-                                        repeats[element].forEach(e =>{if (e != pid) {cardLine += '<div class="player-color player-color-' + e + '"></div>';}});
-                                        deck.append(cardLine + "</div>");
+                        var surgeCount = 0;
+                        var endCount = 0;
+                        var thirdCount = 0;
+                        var objCount = 0;
+                        var gamCount = 0;
+                        var upgCount = 0;
+                        var totalGlory = 0;
+                        deckstring.split(',').forEach(cardId => {
+                                if (cardId != 0) {
+                                        var card = getCard(cardId);
+                                        if (!card) {
+                                                return;
+                                        }
+
+                                        if (card.is_objective) {
+                                                ++objCount;
+                                                if (card.obj_type == 'Surge') {
+                                                        ++surgeCount;
+                                                } else {
+                                                        if (card.obj_type == 'End') {
+                                                                ++endCount;
+                                                        } else {
+                                                                if (card.obj_type == 'Third') {
+                                                                        ++thirdCount;
+                                                                }
+                                                        }
+                                                }
+
+                                                totalGlory += card.obj_score;
+                                        }
+
+                                        if (card.is_gambit) {
+                                                ++gamCount;
+                                        }
+
+                                        if (card.is_upgrade) {
+                                                ++upgCount;
+                                        }
+
+                                        var repeatLog = '';
+                                        var cardClass = repeats[card.name].length == 1 ? 'card-valid' : 'card-invalid';
+                                        repeats[card.name].forEach(pid_ => { if (pid_ != pid) { repeatLog += `<div class="player-color player-color-${pid_}"></div>`; } });
+                                        var cardLog = `<div class="${cardClass}">${card.html}${repeatLog}</div>`;
+                                        deck.append(cardLog);
                                 }
                         });
                         deck.find("img").each(function (index, value) { if (index % 3 != 2) { $(this).hide(); } });
                         deck.find("svg.fa-fire").hide();
+                        deck.children().first().html(`<div><h5 class="alert-heading text-center">Objectives <small>(${objCount})</small></h5><hr class="m-1"><p class="text-center small p-0 m-0">
+<b>Total glory</b> - ${totalGlory}<br>
+<b><i title="Surge" class="fas fa-bolt"></i></b> ${surgeCount} |
+<b><i title="An end phase" class="fas fa-clock"></i></b> ${endCount} |
+<b><i title="Third end phase" class="fas fa-hourglass-end"></i></b> ${thirdCount}<br>
+<!-- <span class="small"><i title="Dual" class="fas fa-link"></i> 0 | <i title="Hybrid" class="fas fa-exchange-alt"></i> 0</span> -->
+</p><hr class="m-1"><h5 class="alert-heading text-center">Gambits <small>(${gamCount})</small></h5><hr class="m-1"><h5 class="alert-heading text-center">Upgrades <small>(${upgCount})</small></h5></div>`);
+                }
+
+                function removePlayer()
+                {
+                        var playerCount = localStorage.getItem('playerCount');
+                        if (playerCount > 1)
+                        {
+                                --playerCount;
+                                localStorage.setItem('playerCount', playerCount);
+
+                                refreshPlayers();
+                        }
+                }
+
+                function addPlayer()
+                {
+                        var playerCount = localStorage.getItem('playerCount');
+                        if (playerCount < 10)
+                        {
+                                ++playerCount;
+                                localStorage.setItem('playerCount', playerCount);
+
+                                refreshPlayers();
+                        }
                 }
 
                 function refreshPlayers() {
@@ -16946,12 +17086,11 @@
                                         var deckUrl = '';
                                         localStorage.setItem('playerDeck' + i, deckUrl);
                                 }
-                                deckUrl = 'https://www.underworldsdb.com/shared.php?deck=0,' + deckUrl + '&format=championship';
-                                $("#MAIN").append('<div class="column"><form id="player-form-' + i + '" player-id="' + i + '"> <div class="form-group"><span><div class="player-color player-color-' + i + '"></div>\
-        <label for="deck-url-' + i + '">Deck ' + (i + 1) + '</label></span>\
-                    <div class="input-group mb-3">\
-  <input type="text" class="form-control" id="deck-url-' + i + '" aria-describedby="basic-addon3" value="' + deckUrl + '">\
-</div></div></form><div id="player-deck-' + i + '"></div></div>');
+                                deckUrl = `https://www.underworldsdb.com/shared.php?deck=0,${deckUrl}&format=championship`;
+                                $("#MAIN").append(`<div class="column" style="width: 300px; margin: 5px;">
+<form id="player-form-${i}" player-id="${i}"><div class="input-group input-group-sm mb-3">
+<input type="text" class="form-control" id="deck-url-${i}" aria-describedby="basic-addon3" value="${deckUrl}"><!-- <div class="player-color player-color-${i} m-2"></div> -->
+</div></form><div id="player-deck-${i}"></div></div>`);
                                 $("#player-form-" + i).submit(function () {
                                         var playerCount = localStorage.getItem('playerCount');
                                         var pid0 = this.getAttribute('player-id');
@@ -16965,12 +17104,16 @@
                                 });
                         }
 
+                        $("#MAIN").append('<div class="column"><div><a id="remove-player" style="width: 30px;" class="btn btn-danger btn-sm" title="Remove rightmost deck" tabindex="0" onclick="removePlayer()">-</a></div><div><a id="add-player" style="width: 30px;" class="btn btn-success btn-sm" title="Add deck" tabindex="0" onclick="addPlayer()">+</a></div></div>');
+
                         for (var i = 0; i < playerCount; ++i) {
                                 refreshPlayer(i);
                         }
                 }
 
                 $(window).on("load", function () {
+                        db = {};
+                        db._div = $('#DB');
                         refreshPlayers();
                 });
 
