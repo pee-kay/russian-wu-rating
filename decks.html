@@ -16879,7 +16879,30 @@
                         return card;
                 }
 
+                function toggleDeckContent(pid)
+                {
+                        var deckContent = $(`#deck-content-${pid}`);
+                        if (!deckContent)
+                        {
+                                return;
+                        }
+
+                        if (deckContent.is(":hidden"))
+                        {
+                                deckContent.show();
+                                $(`#short-deck-content-${pid}`).hide();
+                                $(`#deck-content-btn-${pid}`).html('<i class="fas fa-chevron-up"></i>');
+                        }
+                        else
+                        {
+                                deckContent.hide();
+                                $(`#short-deck-content-${pid}`).show();
+                                $(`#deck-content-btn-${pid}`).html('<i class="fas fa-chevron-down"></i>');
+                        }
+                }
+
                 function refreshDecklist(deckString) {
+                        deckString = deckString.toUpperCase();
                         // replace original implementation of Leader cards with new data format
                         for (i = 438; i <= 497; i++) {
                                 var res = deckString.replace("," + i, ",L" + (i - 497 + 60));
@@ -16974,7 +16997,13 @@
 
                                 decki.split(',').forEach(cardId => {
                                         if (cardId != 0) {
-                                                var key = getCard(cardId).name;
+                                                var card = getCard(cardId);
+                                                if (!card)
+                                                {
+                                                        return;
+                                                }
+
+                                                var key = card.name;
                                                 if (key in repeats) {
                                                         repeats[key].push(i);
                                                 }
@@ -16985,7 +17014,9 @@
                                 });
                         }
 
-                        deck.append(`<div></div><div class="text-center card-white player-color-${pid}" width="100%"><a href="${$('#deck-url-' + pid).val()}" rel="noopener noreferrer" target="_blank">Click to open deck on UDB</a></div>`);
+                        deck.append(`<div></div><div class="text-center card-white player-color-${pid}" width="100%"><a href="${$('#deck-url-' + pid).val()}" rel="noopener noreferrer" target="_blank">Click to open deck on UDB</a><a id="deck-content-btn-${pid}" style="width: 30px;" class="btn btn-sm" onclick="toggleDeckContent(${pid})"><i class="fas fa-chevron-up"></i></a></div><div id="short-deck-content-${pid}" class="row m-0 border"></div><div id="deck-content-${pid}"></div>`);
+
+                        var deckContent = deck.find(`#deck-content-${pid}`);
 
                         var surgeCount = 0;
                         var endCount = 0;
@@ -16994,6 +17025,12 @@
                         var gamCount = 0;
                         var upgCount = 0;
                         var totalGlory = 0;
+
+                        var repeatsWithPlayers = [];
+                        for (var i = 0; i < playerCount; ++i) {
+                                repeatsWithPlayers.push(0);
+                        }
+
                         deckstring.split(',').forEach(cardId => {
                                 if (cardId != 0) {
                                         var card = getCard(cardId);
@@ -17028,13 +17065,23 @@
 
                                         var repeatLog = '';
                                         var cardClass = repeats[card.name].length == 1 ? 'card-valid' : 'card-invalid';
-                                        repeats[card.name].forEach(pid_ => { if (pid_ != pid) { repeatLog += `<div class="player-color player-color-${pid_}"></div>`; } });
+                                        repeats[card.name].forEach(pid_ => { if (pid_ != pid) { repeatLog += `<div class="player-color player-color-${pid_}"></div>`; ++repeatsWithPlayers[pid_]; } });
                                         var cardLog = `<div class="${cardClass}">${card.html}${repeatLog}</div>`;
-                                        deck.append(cardLog);
+                                        deckContent.append(cardLog);
                                 }
                         });
                         deck.find("img").each(function (index, value) { if (index % 3 != 2) { $(this).hide(); } });
                         deck.find("svg.fa-fire").hide();
+
+                        deckContent = deck.find(`#short-deck-content-${pid}`);
+                        for (var i = 0; i < playerCount; ++i) {
+                                if (repeatsWithPlayers[i] > 0)
+                                {
+                                        deckContent.append(`<div class="player-color player-color-${i}" style="float: none;"></div><div style="padding-right: 10px;">${repeatsWithPlayers[i]}</div>`);
+                                }
+                        }
+                        deckContent.hide();
+
                         deck.children().first().html(`<div><h5 class="alert-heading text-center">Objectives <small>(${objCount})</small></h5><hr class="m-1"><p class="text-center small p-0 m-0">
 <b>Total glory</b> - ${totalGlory}<br>
 <b><i title="Surge" class="fas fa-bolt"></i></b> ${surgeCount} |
